@@ -5,7 +5,7 @@ import java.sql.Blob;
 
 public class Ristorante {
     private String nome;
-    private String città;
+    private String citta;
     private String tipologia;
     private String prezzo;
     private Integer valutazione;
@@ -14,9 +14,9 @@ public class Ristorante {
     private String numTelefono;
     private transient Blob immagine;
 
-    public Ristorante(String nome, String città, String tipologia, String prezzo, Integer valutazione, String tipo) {
+    public Ristorante(String nome, String citta, String tipologia, String prezzo, Integer valutazione, String tipo) {
         this.nome = nome;
-        this.città = città;
+        this.citta = citta;
         this.tipologia = tipologia;
         this.prezzo = prezzo;
         this.valutazione = valutazione;
@@ -43,12 +43,12 @@ public class Ristorante {
         this.tipologia = tipologia;
     }
 
-    public String getCittà() {
-        return città;
+    public String getCitta() {
+        return citta;
     }
 
-    public void setCittà(String città) {
-        this.città = città;
+    public void setCitta(String citta) {
+        this.citta = citta;
     }
 
     public String getPrezzo() {

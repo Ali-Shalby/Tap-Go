@@ -4,7 +4,7 @@ import java.sql.Blob;
 
 public class BeanRistorante {
     private String nome;
-    private String città;
+    private String citta;
     private String tipologia;
     private String prezzo;
     private Integer valutazione;

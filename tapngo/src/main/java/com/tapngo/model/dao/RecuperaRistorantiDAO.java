@@ -20,7 +20,7 @@ public class RecuperaRistorantiDAO {
             Connection conn = ConnectionFactory.getConnection();
             cs = conn.prepareCall("{call cerca_ristoranti(?, ?, ?, ?)}");
             cs.setString(1, ristorante.getNome());
-            cs.setString(2, ristorante.getCittà());
+            cs.setString(2, ristorante.getCitta());
             cs.setString(3, ristorante.getTipologia());
             cs.setString(4, ristorante.getPrezzo());
             cs.setInt(5, ristorante.getValutazione());
@@ -35,7 +35,7 @@ public class RecuperaRistorantiDAO {
                 // Itera attraverso il ResultSet e popola la lista di ricette
                 while (rs.next()) {
                     Ristorante restaurant = new Ristorante(rs.getString("nome"));
-                    restaurant.setCittà(rs.getString("città"));
+                    restaurant.setCitta(rs.getString("città"));
                     restaurant.setTipologia(rs.getString("tipologia"));
                     restaurant.setPrezzo(rs.getInt("prezzoMedio"));
                     restaurant.setIndirizzo(rs.getString("indirzzo"));

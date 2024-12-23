@@ -6,7 +6,7 @@ import java.util.List;
 public class BeanRistoranti {
 
     private String nome;
-    private String città;
+    private String citta;
     private String tipologia;
     private String prezzo;
     private Integer valutazione;
@@ -18,16 +18,16 @@ public class BeanRistoranti {
         this.listRistoranti = new ArrayList<>();
     }
 
-    public BeanRistoranti(String nome, String città, String tipologia, String prezzo, String valutazione, String tipo) {
+    public BeanRistoranti(String nome, String citta, String tipologia, String prezzo, String valutazione, String tipo) {
         this.nome = nome;
-        this.città = città;
+        this.citta = citta;
         this.tipologia = tipologia;
         this.prezzo = prezzo;
         this.valutazione = valutazione.length();
         this.tipo = tipo;
     }
-    public BeanRistoranti(String città, String tipologia, String prezzo, String tipo) {
-        this.città = città;
+    public BeanRistoranti(String citta, String tipologia, String prezzo, String tipo) {
+        this.citta = citta;
         this.tipologia = tipologia;
         this.prezzo = prezzo;
         this.tipo = tipo;
@@ -53,16 +53,16 @@ public class BeanRistoranti {
         return tipo;
     }
 
-    public String getCittà() {
-        return città;
+    public String getCitta() {
+        return citta;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void setCittà(String città) {
-        this.città = città;
+    public void setCitta(String citta) {
+        this.citta = citta;
     }
 
     public void setTipologia(String tipologia) {

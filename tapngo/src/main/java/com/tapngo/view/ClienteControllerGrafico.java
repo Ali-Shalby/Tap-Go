@@ -27,7 +27,7 @@ public class ClienteControllerGrafico {
     @FXML
     private TextField nomeRistorante;
     @FXML
-    private ComboBox cittàComboBox;
+    private ComboBox cittaComboBox;
     @FXML
     private ComboBox tipologiaComboBox;
     @FXML
@@ -35,6 +35,7 @@ public class ClienteControllerGrafico {
     @FXML
     private ComboBox valutazioneComboBox;
     private String cucina;
+    private String messaggio = "In costruzione";
     private EffettuaOrdineControllerApplicativo ordine;
 
 
@@ -116,10 +117,9 @@ public class ClienteControllerGrafico {
     }
     @FXML
     public void mostraRistoranti() throws DAOException, SQLException {
-        BeanRistoranti filtri =new BeanRistoranti (nomeRistorante.getText(), cittàComboBox.getValue().toString(),tipologiaComboBox.getValue().toString(),prezzoComboBox.getValue().toString(),valutazioneComboBox.getValue().toString(), cucina);
+        BeanRistoranti filtri =new BeanRistoranti (nomeRistorante.getText(), cittaComboBox.getValue().toString(),tipologiaComboBox.getValue().toString(),prezzoComboBox.getValue().toString(),valutazioneComboBox.getValue().toString(), cucina);
         ordine = new EffettuaOrdineControllerApplicativo();
         BeanRistoranti listaRistoranti = ordine.mostraRistoranti(filtri);
-
 
     }
 
@@ -132,13 +132,13 @@ public class ClienteControllerGrafico {
         filtriView();
     }
     public void preferitiView() {
-        Popup.mostraPopup("In costruzione", "Sezione non ancora implementata!", "construction");
+        Popup.mostraPopup(messaggio, "Sezione non ancora implementata!", "construction");
     }
     public void profiloView() {
-        Popup.mostraPopup("In costruzione", "Sezione non ancora implementata!", "construction");
+        Popup.mostraPopup(messaggio, "Sezione non ancora implementata!", "construction");
     }
     public void storicoOrdiniView() {
-        Popup.mostraPopup("In costruzione", "Sezione non ancora implementata!", "construction");
+        Popup.mostraPopup(messaggio, "Sezione non ancora implementata!", "construction");
     }
 
 }

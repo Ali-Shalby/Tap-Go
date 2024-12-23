@@ -15,16 +15,16 @@ public class EffettuaOrdineControllerApplicativo {
     public BeanRistoranti mostraRistoranti(BeanRistoranti filtri) throws DAOException, SQLException {
 
         String nomeRistorante = filtri.getNome();
-        String città = filtri.getCittà();
+        String citta = filtri.getCitta();
         String tipologia = filtri.getTipologia();
         String prezzo = filtri.getPrezzo();
         Integer valutazione = filtri.getValutazione();
         String tipo = filtri.getTipo();
 
-        Ristorante cercaRistorante = new Ristorante(nomeRistorante, città, tipologia,prezzo,valutazione,tipo);
+        Ristorante cercaRistorante = new Ristorante(nomeRistorante, citta, tipologia,prezzo,valutazione,tipo);
         RecuperaRistorantiDAO recuperaRistorantiDAO = new RecuperaRistorantiDAO();
         listRistoranti = recuperaRistorantiDAO.recuperaRistorantiExecute(cercaRistorante) ;
-        BeanRistoranti ristorantiBean = new BeanRistoranti (città, tipologia, prezzo, tipo);
+        BeanRistoranti ristorantiBean = new BeanRistoranti (citta, tipologia, prezzo, tipo);
 
         // Itero attraverso la lista di ristoranti e le aggiungo al BeanRistoranti
         for (Ristorante ristorante : listRistoranti.getListaRistoranti()) {
