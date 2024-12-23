@@ -1,6 +1,8 @@
 package com.tapngo.view;
 
+import com.tapngo.controller.EffettuaOrdineControllerApplicativo;
 import com.tapngo.exception.DAOException;
+import com.tapngo.model.bean.BeanRistoranti;
 import com.tapngo.model.dao.ConnectionFactory;
 import com.tapngo.model.domain.ApplicazioneStage;
 import com.tapngo.model.utility.Credentials;
@@ -10,17 +12,33 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
+
 public class ClienteControllerGrafico {
     @FXML
     private Label labelTitle;
-
+    @FXML
+    private TextField nomeRistorante;
+    @FXML
+    private ComboBox cittàComboBox;
+    @FXML
+    private ComboBox tipologiaComboBox;
+    @FXML
+    private ComboBox prezzoComboBox;
+    @FXML
+    private ComboBox valutazioneComboBox;
     private String cucina;
+    private EffettuaOrdineControllerApplicativo ordine;
+
+
+
 
 
     // Setta il titolo della categoria della barra di navigazione superiore
@@ -28,26 +46,6 @@ public class ClienteControllerGrafico {
         labelTitle.setText(title);
     }
 
-    public void initialize() throws DAOException, SQLException {
-
-        // Inizializza il titolo con il messaggio interattivo
-        setLabelTitle("                  Ciao " + Credentials.getNome() + ",\n    cosa vuoi mangiare oggi?");
-    }
-
-    public void filtriView() throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResourceAsStream("/com/tapngo/filtriRicercaView.fxml"));
-
-        // Ottieni lo stage attuale dalla classe ApplicazioneStage
-        Stage stage = ApplicazioneStage.getStage();
-
-        // Imposta la nuova scena con il layout caricato
-        Scene scene = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
-
-        // Cambia la scena dello stage
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void logout() throws IOException, SQLException {
         // Ottieni la scelta dell'utente al popup
@@ -79,6 +77,51 @@ public class ClienteControllerGrafico {
         }
 
     }
+    public void filtriView() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResourceAsStream("/com/tapngo/filtriRicercaView.fxml"));
+
+        // Ottieni lo stage attuale dalla classe ApplicazioneStage
+        Stage stage = ApplicazioneStage.getStage();
+
+        // Imposta la nuova scena con il layout caricato
+        Scene scene = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
+
+        // Cambia la scena dello stage
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void tornaIndietro() throws IOException{
+
+        Stage stageChangeView = ApplicazioneStage.getStage();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+
+
+        // Carica l'FXML
+        fxmlLoader.setLocation(getClass().getResource("/com/tapngo/clienteView.fxml"));
+        Parent rootNode = fxmlLoader.load();
+
+        // Ottieni il controller associato
+        Object controller = fxmlLoader.getController();
+
+        ((ClienteControllerGrafico)controller).setLabelTitle("                 Ciao " + Credentials.getNome() + ",\n    cosa vuoi mangiare oggi?");
+
+        // Imposta la scena
+        Scene scene = new Scene(rootNode, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
+        stageChangeView.setTitle("Tap&go");
+        stageChangeView.setScene(scene);
+        stageChangeView.centerOnScreen();
+        stageChangeView.show();
+    }
+    @FXML
+    public void mostraRistoranti() throws DAOException, SQLException {
+        BeanRistoranti filtri =new BeanRistoranti (nomeRistorante.getText(), cittàComboBox.getValue().toString(),tipologiaComboBox.getValue().toString(),prezzoComboBox.getValue().toString(),valutazioneComboBox.getValue().toString(), cucina);
+        ordine = new EffettuaOrdineControllerApplicativo();
+        BeanRistoranti listaRistoranti = ordine.mostraRistoranti(filtri);
+
+
+    }
 
     public void onClickedCucinaCasalinga() throws IOException {
         cucina = "casa";
@@ -97,4 +140,5 @@ public class ClienteControllerGrafico {
     public void storicoOrdiniView() {
         Popup.mostraPopup("In costruzione", "Sezione non ancora implementata!", "construction");
     }
+
 }

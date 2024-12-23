@@ -6,9 +6,74 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.collections.FXCollections?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.tapngo.view.ClienteControllerGrafico"
+            fx:controller="com.tapngo.view.ClienteControllerGrafico" style="-fx-background-color: white;"
             prefHeight="400.0" prefWidth="600.0">
 
+    <!-- Freccia indietro -->
+    <Button text="◀" layoutX="20.0" layoutY="20.0" onAction="#tornaIndietro" style="-fx-border-radius: 10;-fx-background-radius: 10; -fx-font-size: 14px;-fx-border-color: transparent; -fx-background-insets: 0;" />
+    <Label text="Filtri di ricerca" layoutX="65.0" layoutY="95.0" textFill="black" style="-fx-font-size: 30px; -fx-font-weight: bold;" />
+    <!-- Barra di ricerca -->
+    <TextField fx:id="nomeRistorante" layoutX="55.0" layoutY="190.0" prefWidth="220.0" prefHeight="30.0" promptText="Cerca per nome..."
+               style="-fx-background-radius: 15; -fx-padding: 5px;" />
+
+    <!-- ComboBox 1 -->
+    <ComboBox fx:id="cittàComboBox" promptText="Scegli la città da cui vuoi ordinare" layoutX="40.0" layoutY="250.0" prefWidth="250.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Bari"/>
+                <String fx:value="Bologna"/>
+                <String fx:value="Cagliari"/>
+                <String fx:value="Firenze"/>
+                <String fx:value="Genova"/>
+                <String fx:value="Milano"/>
+                <String fx:value="Napoli"/>
+                <String fx:value="Palermo"/>
+                <String fx:value="Roma"/>
+                <String fx:value="Torino"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <!-- ComboBox 2 -->
+    <ComboBox fx:id="tipologiaComboBox" promptText="Scegli la cucina che ti piace di più" layoutX="40.0" layoutY="300.0" prefWidth="250.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Americana"/>
+                <String fx:value="Cinese"/>
+                <String fx:value="Giapponese"/>
+                <String fx:value="Italiana"/>
+                <String fx:value="Araba"/>
+                <String fx:value="Messicana"/>
+                <String fx:value="Sudamericana"/>
+                <String fx:value="Indiana"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <!-- ComboBox 3 -->
+    <ComboBox fx:id="prezzoComboBox" promptText="Quanto sei disposto a spendere?" layoutX="40.0" layoutY="350.0" prefWidth="250.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Tanto (più di 40€)"/>
+                <String fx:value="Medio (tra 20€ e 40€)"/>
+                <String fx:value="Poco (meno di 20€)"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <!-- ComboBox 4 -->
+    <ComboBox fx:id="valutazioneComboBox" promptText="Quanta qualità vuoi?" layoutX="40.0" layoutY="400.0" prefWidth="250.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="⭐"/>
+                <String fx:value="⭐⭐"/>
+                <String fx:value="⭐⭐⭐"/>
+                <String fx:value="⭐⭐⭐⭐"/>
+                <String fx:value="⭐⭐⭐⭐⭐"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <!-- Bottone "Cerca" -->
+    <Button text="Cerca 🔍" layoutX="120.0" layoutY="500.0" prefWidth="100.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: black; -fx-background-insets: 0;"/>
 </AnchorPane>

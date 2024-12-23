@@ -81,6 +81,16 @@ public class LoginGrafico {
         fxmlLoader.setLocation(getClass().getResource(fxmlFile));
         Parent rootNode = fxmlLoader.load();
 
+        // Ottieni il controller associato
+        Object controller = fxmlLoader.getController();
+
+        // Esempio di aggiornamento di una Label (personalizza secondo la tua logica)
+        if (controller instanceof ClienteControllerGrafico clienteController) { // Se il controller è per il cliente
+            ((ClienteControllerGrafico) controller).setLabelTitle("                 Ciao " + Credentials.getNome() + ",\n    cosa vuoi mangiare oggi?");
+        } else if (controller instanceof RistoratoreControllerGrafico ristoratoreController) { // Se il controller è per il ristoratore
+            ristoratoreController.setLabelTitle("                  Ciao " + Credentials.getNome() + ",\n    cosa vuoi gestire oggi?");
+        }
+
         // Imposta la scena
         Scene scene = new Scene(rootNode, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
         stageChangeView.setTitle("Tap&go");

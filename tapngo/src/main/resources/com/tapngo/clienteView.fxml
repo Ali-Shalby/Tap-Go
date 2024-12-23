@@ -30,7 +30,7 @@
             <VBox spacing="20" alignment="CENTER">
                 <padding>
                     <!-- Ridotto il margine superiore per alzare il contenuto -->
-                    <Insets top="0.0" left="25.0" right="25.0" bottom="0.0"/>
+                    <Insets top="-60.0" left="25.0" right="25.0" bottom="0.0"/>
                 </padding>
 
                 <!-- Testo sopra le immagini -->
@@ -65,9 +65,9 @@
     <!-- Barra di navigazione inferiore -->
     <bottom>
         <HBox style="-fx-background-color: #E5E5E5;" alignment="CENTER" spacing="40.0" prefHeight="50.0">
-            <Button text="👤" onAction="#profiloView"/>
-            <Button text="⭐" onAction="#preferitiView"/>
-            <Button text="🧾" onAction="#storicoOrdiniView"/>
+            <Button text="👤" onAction="#profiloView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: black; -fx-background-insets: 0;"/>
+            <Button text="⭐" onAction="#preferitiView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: black; -fx-background-insets: 0;"/>
+            <Button text="🧾" onAction="#storicoOrdiniView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: black; -fx-background-insets: 0;"/>
         </HBox>
     </bottom>
 
