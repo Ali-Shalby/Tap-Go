@@ -20,9 +20,10 @@
                style="-fx-background-radius: 15; -fx-padding: 5px;" />
 
     <!-- ComboBox 1 -->
-    <ComboBox fx:id="cittàComboBox" promptText="Scegli la città da cui vuoi ordinare" layoutX="40.0" layoutY="250.0" prefWidth="250.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
+    <ComboBox fx:id="cittaComboBox" promptText="Scegli la città da cui vuoi ordinare" layoutX="40.0" layoutY="250.0" prefWidth="250.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
         <items>
             <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Qualsiasi"/>
                 <String fx:value="Bari"/>
                 <String fx:value="Bologna"/>
                 <String fx:value="Cagliari"/>
@@ -40,6 +41,7 @@
     <ComboBox fx:id="tipologiaComboBox" promptText="Scegli la cucina che ti piace di più" layoutX="40.0" layoutY="300.0" prefWidth="250.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
         <items>
             <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Qualsiasi"/>
                 <String fx:value="Americana"/>
                 <String fx:value="Cinese"/>
                 <String fx:value="Giapponese"/>
@@ -59,6 +61,7 @@
                 <String fx:value="Tanto (più di 40€)"/>
                 <String fx:value="Medio (tra 20€ e 40€)"/>
                 <String fx:value="Poco (meno di 20€)"/>
+                <String fx:value="Qualsiasi"/>
             </FXCollections>
         </items>
     </ComboBox>
@@ -71,6 +74,7 @@
                 <String fx:value="⭐⭐⭐"/>
                 <String fx:value="⭐⭐⭐⭐"/>
                 <String fx:value="⭐⭐⭐⭐⭐"/>
+                <String fx:value="Indifferente"/>
             </FXCollections>
         </items>
     </ComboBox>

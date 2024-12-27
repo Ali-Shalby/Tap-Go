@@ -18,12 +18,13 @@ public class RecuperaRistorantiDAO {
 
         try {
             Connection conn = ConnectionFactory.getConnection();
-            cs = conn.prepareCall("{call cerca_ristoranti(?, ?, ?, ?)}");
+            cs = conn.prepareCall("{call cerca_ristoranti(?, ?, ?, ?, ?, ?)}");
             cs.setString(1, ristorante.getNome());
             cs.setString(2, ristorante.getCitta());
             cs.setString(3, ristorante.getTipologia());
             cs.setString(4, ristorante.getPrezzo());
             cs.setInt(5, ristorante.getValutazione());
+            cs.setString(6,ristorante.getTipo());
 
             // Esegui la stored procedure
             boolean status = cs.execute();

@@ -22,8 +22,21 @@ public class BeanRistoranti {
         this.nome = nome;
         this.citta = citta;
         this.tipologia = tipologia;
-        this.prezzo = prezzo;
-        this.valutazione = valutazione.length();
+        if (prezzo.contains("Tanto")) {
+            this.prezzo = "tanto";
+        } else if (prezzo.contains("Medio")) {
+            this.prezzo = "medio";
+        } else if (prezzo.contains("Poco")) {
+            this.prezzo = "poco";
+        } else {
+            this.prezzo = prezzo;
+        }
+        if(valutazione == "Indifferente"){
+            this.valutazione = 0;
+        }
+        else{
+            this.valutazione = valutazione.length();
+        }
         this.tipo = tipo;
     }
     public BeanRistoranti(String citta, String tipologia, String prezzo, String tipo) {

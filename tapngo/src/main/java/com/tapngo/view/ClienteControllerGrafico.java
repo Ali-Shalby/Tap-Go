@@ -37,6 +37,7 @@ public class ClienteControllerGrafico {
     private String cucina;
     private String messaggio = "In costruzione";
     private EffettuaOrdineControllerApplicativo ordine;
+    private static final String NAMEAPP = "Tap&go";
 
 
 
@@ -110,17 +111,23 @@ public class ClienteControllerGrafico {
 
         // Imposta la scena
         Scene scene = new Scene(rootNode, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
-        stageChangeView.setTitle("Tap&go");
+        stageChangeView.setTitle(NAMEAPP);
         stageChangeView.setScene(scene);
         stageChangeView.centerOnScreen();
         stageChangeView.show();
+
     }
     @FXML
     public void mostraRistoranti() throws DAOException, SQLException {
-        BeanRistoranti filtri =new BeanRistoranti (nomeRistorante.getText(), cittaComboBox.getValue().toString(),tipologiaComboBox.getValue().toString(),prezzoComboBox.getValue().toString(),valutazioneComboBox.getValue().toString(), cucina);
-        ordine = new EffettuaOrdineControllerApplicativo();
-        BeanRistoranti listaRistoranti = ordine.mostraRistoranti(filtri);
 
+        if (cittaComboBox.getValue() == null || tipologiaComboBox.getValue() == null || prezzoComboBox.getValue() == null || valutazioneComboBox.getValue() == null){
+            Popup.mostraPopup("attenzione", "Si prega di selezionare tutte le opzioni prima di procedere!", "warning");
+        }
+        else {
+            BeanRistoranti filtri = new BeanRistoranti(nomeRistorante.getText(), cittaComboBox.getValue().toString(), tipologiaComboBox.getValue().toString(), prezzoComboBox.getValue().toString(), valutazioneComboBox.getValue().toString(), cucina);
+            ordine = new EffettuaOrdineControllerApplicativo();
+            BeanRistoranti listaRistoranti = ordine.mostraRistoranti(filtri);
+        }
     }
 
     public void onClickedCucinaCasalinga() throws IOException {
