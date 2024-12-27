@@ -31,7 +31,7 @@ public class BeanRistoranti {
         } else {
             this.prezzo = prezzo;
         }
-        if(valutazione == "Indifferente"){
+        if(valutazione.equals("Indifferente")){
             this.valutazione = 0;
         }
         else{
