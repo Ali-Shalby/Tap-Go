@@ -35,9 +35,11 @@ public class ClienteControllerGrafico {
     @FXML
     private ComboBox valutazioneComboBox;
     private String cucina;
-    private String messaggio = "In costruzione";
+    private static final String messaggio = "In costruzione";
     private EffettuaOrdineControllerApplicativo ordine;
     private static final String NAMEAPP = "Tap&go";
+    private static final String contenuto = "Sezione non ancora implementata!";
+    private static final String type = "construction";
 
 
 
@@ -139,13 +141,13 @@ public class ClienteControllerGrafico {
         filtriView();
     }
     public void preferitiView() {
-        Popup.mostraPopup(messaggio, "Sezione non ancora implementata!", "construction");
+        Popup.mostraPopup(messaggio, contenuto, type);
     }
     public void profiloView() {
-        Popup.mostraPopup(messaggio, "Sezione non ancora implementata!", "construction");
+        Popup.mostraPopup(messaggio, contenuto, type);
     }
     public void storicoOrdiniView() {
-        Popup.mostraPopup(messaggio, "Sezione non ancora implementata!", "construction");
+        Popup.mostraPopup(messaggio, contenuto, type);
     }
 
 }

@@ -10,10 +10,6 @@ import java.sql.SQLException;
 
 public class LoginController {
 
-    // Costruttore per inizializzare il DAO
-
-    public LoginController() {}
-
     // Metodo per effettuare il login
     public void start(CredentialsBean credB) throws DAOException, SQLException {
 
