@@ -17,18 +17,21 @@ public class EffettuaOrdineControllerApplicativo {
         String nomeRistorante = filtri.getNome();
         String citta = filtri.getCitta();
         String tipologia = filtri.getTipologia();
-        String prezzo = filtri.getPrezzo();
-        Integer valutazione = filtri.getValutazione();
+        Integer prezzo = filtri.getPrezzo();
+        Float valutazione = filtri.getValutazione();
         String tipo = filtri.getTipo();
 
         Ristorante cercaRistorante = new Ristorante(nomeRistorante, citta, tipologia,prezzo,valutazione,tipo);
         RecuperaRistorantiDAO recuperaRistorantiDAO = new RecuperaRistorantiDAO();
         listRistoranti = recuperaRistorantiDAO.recuperaRistorantiExecute(cercaRistorante) ;
-        BeanRistoranti ristorantiBean = new BeanRistoranti (citta, tipologia, prezzo, tipo);
+        BeanRistoranti ristorantiBean = new BeanRistoranti (tipo);
 
-        // Itero attraverso la lista di ristoranti e le aggiungo al BeanRistoranti
+        // Itero attraverso la lista di ristoranti e li aggiungo al BeanRistoranti
         for (Ristorante ristorante : listRistoranti.getListaRistoranti()) {
             BeanRistorante beanRistorante = new BeanRistorante(ristorante.getNome(),
+                    ristorante.getCitta(),
+                    ristorante.getTipologia(),
+                    ristorante.getPrezzo(),
                     ristorante.getIndirizzo(),
                     ristorante.getImmagine(),
                     ristorante.getValutazione()

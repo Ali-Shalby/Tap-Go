@@ -15,6 +15,8 @@ module com.tapngo.tapngo {
     exports com.tapngo.model.utility;
     opens com.tapngo.model.bean to javafx.fxml;
     exports com.tapngo.model.bean;
+    opens com.tapngo.exception to javafx.fxml;
+    exports com.tapngo.exception;
 
 
 

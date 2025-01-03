@@ -7,14 +7,14 @@ public class Ristorante {
     private String nome;
     private String citta;
     private String tipologia;
-    private String prezzo;
-    private Integer valutazione;
+    private Integer prezzo;
+    private Float valutazione;
     private String tipo;
     private String indirizzo;
     private String numTelefono;
     private transient Blob immagine;
 
-    public Ristorante(String nome, String citta, String tipologia, String prezzo, Integer valutazione, String tipo) {
+    public Ristorante(String nome, String citta, String tipologia, Integer prezzo, Float valutazione, String tipo) {
         this.nome = nome;
         this.citta = citta;
         this.tipologia = tipologia;
@@ -51,27 +51,19 @@ public class Ristorante {
         this.citta = citta;
     }
 
-    public String getPrezzo() {
+    public Integer getPrezzo() {
         return prezzo;
     }
 
     public void setPrezzo(Integer prezzo) {
-        if(prezzo < 20) {
-            this.prezzo = "Basso";
-        }
-        else if((prezzo>=20) && (prezzo <40 )){
-            this.prezzo = "Medio";
-        }
-        else{
-            this.prezzo = "Alto";
-        }
+        this.prezzo = prezzo;
     }
 
-    public Integer getValutazione() {
+    public Float getValutazione() {
         return valutazione;
     }
 
-    public void setValutazione(Integer valutazione) {
+    public void setValutazione(Float valutazione) {
         this.valutazione = valutazione;
     }
 

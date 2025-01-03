@@ -57,7 +57,7 @@ public class LoginGrafico {
             } catch (LoadException e) {
                 Popup.mostraPopup("Caricamento non riuscito", "Impossibile caricamento della pagina!", ERROR_POPUP_TYPE);
                 loginView();
-            } catch (DAOException | SQLException e/*| IOException e*/) {
+            } catch (DAOException | SQLException | IOException e) {
                 Popup.mostraPopup("Errore", "Hai sbagliato username o password, per favore ricontrolla!", ERROR_POPUP_TYPE);
                 loginView();
             }

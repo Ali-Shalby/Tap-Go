@@ -22,8 +22,8 @@ public class RecuperaRistorantiDAO {
             cs.setString(1, ristorante.getNome());
             cs.setString(2, ristorante.getCitta());
             cs.setString(3, ristorante.getTipologia());
-            cs.setString(4, ristorante.getPrezzo());
-            cs.setInt(5, ristorante.getValutazione());
+            cs.setInt(4, ristorante.getPrezzo());
+            cs.setFloat(5, ristorante.getValutazione());
             cs.setString(6,ristorante.getTipo());
 
             // Esegui la stored procedure
@@ -35,12 +35,12 @@ public class RecuperaRistorantiDAO {
 
                 // Itera attraverso il ResultSet e popola la lista di ricette
                 while (rs.next()) {
-                    Ristorante restaurant = new Ristorante(rs.getString("nome"));
+                    Ristorante restaurant = new Ristorante(rs.getString("nomeRistorante"));
                     restaurant.setCitta(rs.getString("città"));
                     restaurant.setTipologia(rs.getString("tipologia"));
                     restaurant.setPrezzo(rs.getInt("prezzoMedio"));
-                    restaurant.setIndirizzo(rs.getString("indirzzo"));
-                    restaurant.setValutazione(rs.getInt("valutazione"));
+                    restaurant.setIndirizzo(rs.getString("indirizzo"));
+                    restaurant.setValutazione(rs.getFloat("valutazione"));
                     restaurant.setImmagine(rs.getBlob("immagine"));
                     restaurant.setNumTelefono(rs.getString("numTelefono"));
                     restaurant.setTipo(rs.getString("tipo"));

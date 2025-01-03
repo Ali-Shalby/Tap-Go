@@ -43,13 +43,13 @@
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="Qualsiasi"/>
                 <String fx:value="Americana"/>
+                <String fx:value="Araba"/>
                 <String fx:value="Cinese"/>
                 <String fx:value="Giapponese"/>
+                <String fx:value="Indiana"/>
                 <String fx:value="Italiana"/>
-                <String fx:value="Araba"/>
                 <String fx:value="Messicana"/>
                 <String fx:value="Sudamericana"/>
-                <String fx:value="Indiana"/>
             </FXCollections>
         </items>
     </ComboBox>

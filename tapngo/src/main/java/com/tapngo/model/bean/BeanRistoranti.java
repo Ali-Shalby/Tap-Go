@@ -8,8 +8,8 @@ public class BeanRistoranti {
     private String nome;
     private String citta;
     private String tipologia;
-    private String prezzo;
-    private Integer valutazione;
+    private Integer prezzo;
+    private Float valutazione;
     private String tipo;
     private List<BeanRistorante> listRistoranti;
 
@@ -23,26 +23,24 @@ public class BeanRistoranti {
         this.citta = citta;
         this.tipologia = tipologia;
         if (prezzo.contains("Tanto")) {
-            this.prezzo = "tanto";
+            this.prezzo = 40;
         } else if (prezzo.contains("Medio")) {
-            this.prezzo = "medio";
+            this.prezzo = 20;
         } else if (prezzo.contains("Poco")) {
-            this.prezzo = "poco";
+            this.prezzo = 10;
         } else {
-            this.prezzo = prezzo;
+            this.prezzo = 0;
         }
         if(valutazione.equals("Indifferente")){
-            this.valutazione = 0;
+            this.valutazione = (float) 0;
         }
         else{
-            this.valutazione = valutazione.length();
+            this.valutazione = (float) valutazione.length();
         }
         this.tipo = tipo;
     }
-    public BeanRistoranti(String citta, String tipologia, String prezzo, String tipo) {
-        this.citta = citta;
-        this.tipologia = tipologia;
-        this.prezzo = prezzo;
+    public BeanRistoranti(String tipo) {
+        this.listRistoranti = new ArrayList<>();
         this.tipo = tipo;
     }
 
@@ -54,11 +52,11 @@ public class BeanRistoranti {
         return tipologia;
     }
 
-    public String getPrezzo() {
+    public Integer getPrezzo() {
         return prezzo;
     }
 
-    public Integer getValutazione() {
+    public Float getValutazione() {
         return valutazione;
     }
 
@@ -82,11 +80,11 @@ public class BeanRistoranti {
         this.tipologia = tipologia;
     }
 
-    public void setPrezzo(String prezzo) {
+    public void setPrezzo(Integer prezzo) {
         this.prezzo = prezzo;
     }
 
-    public void setValutazione(Integer valutazione) {
+    public void setValutazione(Float valutazione) {
         this.valutazione = valutazione;
     }
 
