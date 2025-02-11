@@ -2,8 +2,7 @@ package com.tapngo.view;
 
 import com.tapngo.controller.EffettuaOrdineControllerApplicativo;
 import com.tapngo.exception.DAOException;
-import com.tapngo.model.bean.BeanRistorante;
-import com.tapngo.model.bean.BeanRistoranti;
+import com.tapngo.model.bean.*;
 import com.tapngo.model.dao.ConnectionFactory;
 import com.tapngo.model.domain.ApplicazioneStage;
 import com.tapngo.model.utility.Credentials;
@@ -268,12 +267,48 @@ public class ClienteControllerGrafico {
         card.setPadding(new Insets(10));
         card.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;");
 
-        card.setOnMouseClicked(event -> mostraMenu(ristoranteBean));
+        card.setOnMouseClicked(event -> {
+            try {
+                mostraMenu(ristoranteBean);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         return card;
     }
     
-    private void mostraMenu(BeanRistorante ristoranteBean){
+    private void mostraMenu(BeanRistorante ristoranteBean) throws IOException{
+        try {
+            BeanPiatti piatti = ordine.mostraPiatti(ristoranteBean);
+            BeanBevande bevande = ordine.mostraBevande(ristoranteBean);
+            if (piatti.getPiatti().isEmpty() && bevande.getBevande().isEmpty()){
+                Popup.mostraPopup("attenzione","non è stato possibile leggere il menù della ristorazione scelta","warning");
+            }else{
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                Stage stage = ApplicazioneStage.getStage();
+                Scene scene;
+                String fxmlFile = "/com/tapngo/menùRistoranteView.fxml";
+                Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
+                ClienteControllerGrafico controller = fxmlLoader.getController();
+
+                for (BeanPiatto beanPiatto : piatti.getPiatti()) {
+                    BorderPane piatto = cardPiatto(beanPiatto);
+                    controller.cardContainer.getChildren().add(piatto);
+                }
+                for (BeanBevanda beanBevanda : bevande.getBevande()) {
+                    BorderPane bevanda = cardBevanda(beanBevanda);
+                    controller.cardContainer.getChildren().add(bevanda);
+                }
+
+                scene = new Scene(rootNode, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
+                stage.setTitle(NAMEAPP);
+                stage.setScene(scene);
+                stage.show();
+            }
+        }catch (DAOException | SQLException e) {
+            Popup.mostraPopup("errore", "Si è verificato un errore durante durante il caricamento dei ristoranti.", "error");
+        }
 
     }
     public void onClickedCucinaCasalinga() throws IOException {

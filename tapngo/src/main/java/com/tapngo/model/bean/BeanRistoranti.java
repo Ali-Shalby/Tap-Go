@@ -91,12 +91,12 @@ public class BeanRistoranti {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    // Metodo per la restituzione della lista di ricette
+    // Metodo per la restituzione della lista di ristoranti
     public List<BeanRistorante> getListRistoranti() {
         return listRistoranti;
     }
 
-    // Metodo per l'aggiunta di una ricetta alla lista di ricette
+    // Metodo per l'aggiunta di un ristorante alla lista di ristoranti
     public void addRistorante(BeanRistorante beanRistorante){
         listRistoranti.add(beanRistorante);
     }
