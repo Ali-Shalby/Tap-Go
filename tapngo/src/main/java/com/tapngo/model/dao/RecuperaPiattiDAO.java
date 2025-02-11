@@ -28,10 +28,10 @@ public class RecuperaPiattiDAO {
             // Controllo esecuzione
             if(status) {
                 ResultSet rs = cs.getResultSet();
-
+                FactoryPiatto factoryPiatto = new FactoryPiatto();
                 // Itera attraverso il ResultSet e popola la lista di ricette
                 while (rs.next()) {
-                    Piatto piatto = FactoryPiatto.createPiatto(rs.getString("tipo"));
+                    Piatto piatto = factoryPiatto.createPiatto(rs.getString("tipo"));
                     piatto.setNome(rs.getString("nomeAlimento"));
                     piatto.setPrezzo(rs.getFloat("prezzoAlimento"));
                     piatto.setDescrizione(rs.getString("descrizione"));

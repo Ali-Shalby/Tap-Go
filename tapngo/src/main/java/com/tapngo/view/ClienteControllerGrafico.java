@@ -58,6 +58,10 @@ public class ClienteControllerGrafico {
     private static final String NAMEAPP = "Tap&go";
     private static final String CONTENUTO = "Sezione non ancora implementata!";
     private static final String TYPE = "construction";
+    private static final String WARNING_MESSAGE_TITLE = "Attenzione";
+    private static final String WARNING_POPUP_TYPE = "warning";
+    private static final String ERROR_MESSAGE_TITLE = "Errore";
+    private static final String ERROR_POPUP_TYPE = "error";
 
 
 
@@ -142,7 +146,7 @@ public class ClienteControllerGrafico {
 
 
         if (cittaComboBox.getValue() == null || tipologiaComboBox.getValue() == null || prezzoComboBox.getValue() == null || valutazioneComboBox.getValue() == null){
-            Popup.mostraPopup("attenzione", "Si prega di selezionare tutte le opzioni prima di procedere!", "warning");
+            Popup.mostraPopup(WARNING_MESSAGE_TITLE, "Si prega di selezionare tutte le opzioni prima di procedere!", WARNING_POPUP_TYPE);
         }
         else {
             try {
@@ -150,7 +154,7 @@ public class ClienteControllerGrafico {
                 ordine = new EffettuaOrdineControllerApplicativo();
                 BeanRistoranti listaRistoranti = ordine.mostraRistoranti(filtri);
                 if (listaRistoranti.getListRistoranti().isEmpty()){
-                    Popup.mostraPopup("attenzione","non ci sono attività ristorative che ripsecchiano i filtri scelti","warning");
+                    Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non ci sono attività ristorative che ripsecchiano i filtri scelti",WARNING_POPUP_TYPE);
                 }else{
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     Stage stage = ApplicazioneStage.getStage();
@@ -170,7 +174,7 @@ public class ClienteControllerGrafico {
                     stage.show();
                 }
             }catch (DAOException | SQLException e) {
-                Popup.mostraPopup("errore", "Si è verificato un errore durante durante il caricamento dei ristoranti.", "error");
+                Popup.mostraPopup( ERROR_MESSAGE_TITLE, "Si è verificato un errore durante durante il caricamento dei ristoranti.", ERROR_POPUP_TYPE);
             }
         }
     }
@@ -283,7 +287,7 @@ public class ClienteControllerGrafico {
             BeanPiatti piatti = ordine.mostraPiatti(ristoranteBean);
             BeanBevande bevande = ordine.mostraBevande(ristoranteBean);
             if (piatti.getPiatti().isEmpty() && bevande.getBevande().isEmpty()){
-                Popup.mostraPopup("attenzione","non è stato possibile leggere il menù della ristorazione scelta","warning");
+                Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non è stato possibile leggere il menù della ristorazione scelta",WARNING_POPUP_TYPE);
             }else{
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 Stage stage = ApplicazioneStage.getStage();
@@ -307,7 +311,7 @@ public class ClienteControllerGrafico {
                 stage.show();
             }
         }catch (DAOException | SQLException e) {
-            Popup.mostraPopup("errore", "Si è verificato un errore durante durante il caricamento dei ristoranti.", "error");
+            Popup.mostraPopup( ERROR_MESSAGE_TITLE, "Si è verificato un errore durante durante il caricamento dei ristoranti.", ERROR_POPUP_TYPE);
         }
 
     }

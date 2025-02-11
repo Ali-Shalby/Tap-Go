@@ -1,7 +1,7 @@
 package com.tapngo.model.domain;
 
 public class FactoryPiatto {
-    public static Piatto createPiatto(String categoria) {
+    public Piatto createPiatto(String categoria) {
         switch (categoria.toLowerCase()) {
             case "primo":
                 return new PrimoPiatto();
@@ -17,4 +17,5 @@ public class FactoryPiatto {
                 throw new IllegalArgumentException("Categoria non valida: " + categoria);
         }
     }
+
 }
