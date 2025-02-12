@@ -17,7 +17,7 @@ public class RecuperaBevandeDAO {
 
         try {
             Connection conn = ConnectionFactory.getConnection();
-            cs = conn.prepareCall("{call cerca_bevande(?)}");
+            cs = conn.prepareCall("{call cerca_bevanda(?)}");
             cs.setString(1, ristorante.getNome());
 
             // Esegui la stored procedure

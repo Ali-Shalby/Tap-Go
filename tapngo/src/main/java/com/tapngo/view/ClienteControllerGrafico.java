@@ -281,7 +281,167 @@ public class ClienteControllerGrafico {
 
         return card;
     }
-    
+
+    private BorderPane cardPiatto(BeanPiatto piattoBean){
+        BorderPane card = new BorderPane();
+
+
+        HBox imgBox;
+        ImageView imageView;
+        Image image;
+        try {
+            if (piattoBean.getImmagine() != null && piattoBean.getImmagine().getBinaryStream() != null) {
+                InputStream inputStream = piattoBean.getImmagine().getBinaryStream();
+                image = new Image(inputStream, 100, 100, true, true); // Imposta dimensioni fisse e preserva il rapporto
+            } else {
+                image = new Image("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png");
+            }
+        } catch (SQLException e) {
+            image = new Image("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png");
+        }
+
+        imageView = new ImageView(image);
+        imageView.setFitHeight(70);
+        imageView.setFitWidth(65);
+        Rectangle clip = new Rectangle(65, 70);
+        clip.setArcWidth(15);
+        clip.setArcHeight(15);
+        imageView.setClip(clip);
+        imgBox = new HBox(imageView);
+        card.setLeft(imgBox);
+
+        // Creazione del nome del piatto
+        Label titleLabel = new Label(piattoBean.getNome());
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+
+        // Creazione dell'icona per la valutazione
+        ImageView diminuisciIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/meno_icon.png");
+        diminuisciIcon.setFitHeight(14);
+        diminuisciIcon.setFitWidth(14);
+        ImageView aumentaIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/piu_icon.png");
+        aumentaIcon.setFitHeight(14);
+        aumentaIcon.setFitWidth(14);
+        Label quantitaLabel;
+        quantitaLabel = new Label(piattoBean.getQuantita().toString());
+        quantitaLabel.setStyle("-fx-font-size: 12px;");
+
+        // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
+        Region spacer = new Region();
+        spacer.setMinWidth(30);
+
+        // Creazione della label oer il prezzo
+        Label prezzoLabel = new Label(piattoBean.getPrezzo() + "€");
+        prezzoLabel.setStyle("-fx-font-size: 12.1px;");
+
+        // Parte bottom per info valutazione e prezzo
+        HBox infoBox = new HBox(prezzoLabel, spacer, diminuisciIcon, quantitaLabel, aumentaIcon);
+        infoBox.setSpacing(5);
+
+        // Creazione della struttura principale
+        VBox titleAndDetailsBox = new VBox(titleLabel, infoBox);
+        titleAndDetailsBox.setSpacing(5);
+        titleAndDetailsBox.setAlignment(Pos.CENTER_LEFT);
+
+        // Creazione della struttura principale
+        HBox mainContent = new HBox(imgBox, titleAndDetailsBox);
+        mainContent.setSpacing(10);
+        mainContent.setAlignment(Pos.CENTER_LEFT);
+
+        // Creazione dell'icona delle info
+        ImageView infoIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/info_icon.png");
+        infoIcon.setFitHeight(24);
+        infoIcon.setFitWidth(24);
+
+        infoIcon.setOnMouseClicked(event -> {mostraDettagliPiatto(piattoBean);});
+
+        // Impostazione dell'elemento grafico
+        card.setCenter(mainContent);
+        card.setPadding(new Insets(10));
+        card.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;");
+
+
+        return card;
+    }
+    private BorderPane cardBevanda(BeanBevanda bevandaBean){
+        BorderPane card = new BorderPane();
+
+
+        HBox imgBox;
+        ImageView imageView;
+        Image image;
+        try {
+            if (bevandaBean.getImmagine() != null && bevandaBean.getImmagine().getBinaryStream() != null) {
+                InputStream inputStream = bevandaBean.getImmagine().getBinaryStream();
+                image = new Image(inputStream, 100, 100, true, true); // Imposta dimensioni fisse e preserva il rapporto
+            } else {
+                image = new Image("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png");
+            }
+        } catch (SQLException e) {
+            image = new Image("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png");
+        }
+
+        imageView = new ImageView(image);
+        imageView.setFitHeight(70);
+        imageView.setFitWidth(65);
+        Rectangle clip = new Rectangle(65, 70);
+        clip.setArcWidth(15);
+        clip.setArcHeight(15);
+        imageView.setClip(clip);
+        imgBox = new HBox(imageView);
+        card.setLeft(imgBox);
+
+        // Creazione del nome del piatto
+        Label titleLabel = new Label(bevandaBean.getNome());
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+
+        // Creazione dell'icona per la valutazione
+        ImageView diminuisciIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/meno_icon.png");
+        diminuisciIcon.setFitHeight(14);
+        diminuisciIcon.setFitWidth(14);
+        ImageView aumentaIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/piu_icon.png");
+        aumentaIcon.setFitHeight(14);
+        aumentaIcon.setFitWidth(14);
+        Label quantitaLabel;
+        quantitaLabel = new Label(bevandaBean.getQuantita().toString());
+        quantitaLabel.setStyle("-fx-font-size: 12px;");
+
+        // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
+        Region spacer = new Region();
+        spacer.setMinWidth(30);
+
+        // Creazione della label oer il prezzo
+        Label prezzoLabel = new Label(bevandaBean.getPrezzo() + "€");
+        prezzoLabel.setStyle("-fx-font-size: 12.1px;");
+
+        // Parte bottom per info valutazione e prezzo
+        HBox infoBox = new HBox(prezzoLabel, spacer, diminuisciIcon, quantitaLabel, aumentaIcon);
+        infoBox.setSpacing(5);
+
+        // Creazione della struttura principale
+        VBox titleAndDetailsBox = new VBox(titleLabel, infoBox);
+        titleAndDetailsBox.setSpacing(5);
+        titleAndDetailsBox.setAlignment(Pos.CENTER_LEFT);
+
+        // Creazione della struttura principale
+        HBox mainContent = new HBox(imgBox, titleAndDetailsBox);
+        mainContent.setSpacing(10);
+        mainContent.setAlignment(Pos.CENTER_LEFT);
+
+        // Creazione dell'icona delle info
+        ImageView infoIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/info_icon.png");
+        infoIcon.setFitHeight(24);
+        infoIcon.setFitWidth(24);
+
+        infoIcon.setOnMouseClicked(event -> {mostraDettagliBevanda(bevandaBean);});
+
+        // Impostazione dell'elemento grafico
+        card.setCenter(mainContent);
+        card.setPadding(new Insets(10));
+        card.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;");
+
+
+        return card;
+    }
     private void mostraMenu(BeanRistorante ristoranteBean) throws IOException{
         try {
             BeanPiatti piatti = ordine.mostraPiatti(ristoranteBean);
@@ -296,13 +456,13 @@ public class ClienteControllerGrafico {
                 Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
                 ClienteControllerGrafico controller = fxmlLoader.getController();
 
-                for (BeanPiatto beanPiatto : piatti.getPiatti()) {
-                    BorderPane piatto = cardPiatto(beanPiatto);
-                    controller.cardContainer.getChildren().add(piatto);
-                }
                 for (BeanBevanda beanBevanda : bevande.getBevande()) {
                     BorderPane bevanda = cardBevanda(beanBevanda);
                     controller.cardContainer.getChildren().add(bevanda);
+                }
+                for (BeanPiatto beanPiatto : piatti.getPiatti()) {
+                    BorderPane piatto = cardPiatto(beanPiatto);
+                    controller.cardContainer.getChildren().add(piatto);
                 }
 
                 scene = new Scene(rootNode, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
@@ -311,7 +471,7 @@ public class ClienteControllerGrafico {
                 stage.show();
             }
         }catch (DAOException | SQLException e) {
-            Popup.mostraPopup( ERROR_MESSAGE_TITLE, "Si è verificato un errore durante durante il caricamento dei ristoranti.", ERROR_POPUP_TYPE);
+            Popup.mostraPopup( ERROR_MESSAGE_TITLE, "Si è verificato un errore durante il caricamento del menù.", ERROR_POPUP_TYPE);
         }
 
     }

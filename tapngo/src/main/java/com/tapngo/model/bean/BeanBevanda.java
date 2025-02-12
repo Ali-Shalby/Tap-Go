@@ -8,6 +8,7 @@ public class BeanBevanda {
     private String descrizione;
     private Boolean alcolico;
     private Blob immagine;
+    private Integer quantita = 0;
 
     public BeanBevanda(String nome, Float prezzo, String descrizione, Boolean alcolico, Blob immagine) {
         this.nome = nome;
@@ -15,5 +16,53 @@ public class BeanBevanda {
         this.descrizione = descrizione;
         this.alcolico = alcolico;
         this.immagine = immagine;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Float getPrezzo() {
+        return prezzo;
+    }
+
+    public void setPrezzo(Float prezzo) {
+        this.prezzo = prezzo;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public Boolean getAlcolico() {
+        return alcolico;
+    }
+
+    public void setAlcolico(Boolean alcolico) {
+        this.alcolico = alcolico;
+    }
+
+    public Blob getImmagine() {
+        return immagine;
+    }
+
+    public void setImmagine(Blob immagine) {
+        this.immagine = immagine;
+    }
+
+    public Integer getQuantita() {
+        return quantita;
+    }
+
+    public void setQuantita(Integer quantita) {
+        this.quantita = quantita;
     }
 }
