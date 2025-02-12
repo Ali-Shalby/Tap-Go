@@ -6,7 +6,7 @@ public class BeanBevanda {
     private String nome;
     private Float prezzo;
     private String descrizione;
-    private Boolean alcolico;
+    private String alcolico;
     private Blob immagine;
     private Integer quantita = 0;
 
@@ -14,7 +14,9 @@ public class BeanBevanda {
         this.nome = nome;
         this.prezzo = prezzo;
         this.descrizione = descrizione;
-        this.alcolico = alcolico;
+        if(alcolico){
+            this.alcolico = "alcolico";
+        }else{this.alcolico = "non alcolico";}
         this.immagine = immagine;
     }
 
@@ -42,11 +44,11 @@ public class BeanBevanda {
         this.descrizione = descrizione;
     }
 
-    public Boolean getAlcolico() {
+    public String getAlcolico() {
         return alcolico;
     }
 
-    public void setAlcolico(Boolean alcolico) {
+    public void setAlcolico(String alcolico) {
         this.alcolico = alcolico;
     }
 

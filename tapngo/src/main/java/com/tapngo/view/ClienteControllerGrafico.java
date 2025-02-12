@@ -8,22 +8,20 @@ import com.tapngo.model.domain.ApplicazioneStage;
 import com.tapngo.model.utility.Credentials;
 import com.tapngo.model.utility.Popup;
 import com.tapngo.model.utility.ScreenSize;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -31,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Objects;
+
+import static com.tapngo.ApplicationStart.getHostServicesInstance;
 
 
 public class ClienteControllerGrafico {
@@ -51,7 +51,7 @@ public class ClienteControllerGrafico {
     @FXML
     private ScrollPane scrollPane;
     private String cucina;
-    private static final String DEFAULT_IMAGE = "/default_image.png";
+    private static final String DEFAULT_IMAGE = "C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png";
 
     private static final String MESSAGGIO = "In costruzione";
     private EffettuaOrdineControllerApplicativo ordine;
@@ -191,10 +191,10 @@ public class ClienteControllerGrafico {
                 InputStream inputStream = ristoranteBean.getImmagine().getBinaryStream();
                 image = new Image(inputStream, 100, 100, true, true); // Imposta dimensioni fisse e preserva il rapporto
             } else {
-                image = new Image("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png");
+                image = new Image(DEFAULT_IMAGE);
             }
         } catch (SQLException e) {
-            image = new Image("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png");
+            image = new Image(DEFAULT_IMAGE);
         }
 
         imageView = new ImageView(image);
@@ -294,10 +294,10 @@ public class ClienteControllerGrafico {
                 InputStream inputStream = piattoBean.getImmagine().getBinaryStream();
                 image = new Image(inputStream, 100, 100, true, true); // Imposta dimensioni fisse e preserva il rapporto
             } else {
-                image = new Image("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png");
+                image = new Image(DEFAULT_IMAGE);
             }
         } catch (SQLException e) {
-            image = new Image("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png");
+            image = new Image(DEFAULT_IMAGE);
         }
 
         imageView = new ImageView(image);
@@ -351,17 +351,21 @@ public class ClienteControllerGrafico {
         ImageView infoIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/info_icon.png");
         infoIcon.setFitHeight(24);
         infoIcon.setFitWidth(24);
+        StackPane infoPane = new StackPane(infoIcon);
+        StackPane.setAlignment(infoIcon,Pos.TOP_RIGHT);
 
         infoIcon.setOnMouseClicked(event -> {mostraDettagliPiatto(piattoBean);});
 
         // Impostazione dell'elemento grafico
         card.setCenter(mainContent);
+        card.setRight(infoPane);
         card.setPadding(new Insets(10));
         card.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;");
 
 
         return card;
     }
+
     private BorderPane cardBevanda(BeanBevanda bevandaBean){
         BorderPane card = new BorderPane();
 
@@ -434,14 +438,249 @@ public class ClienteControllerGrafico {
 
         infoIcon.setOnMouseClicked(event -> {mostraDettagliBevanda(bevandaBean);});
 
+        StackPane infoPane = new StackPane(infoIcon);
+        StackPane.setAlignment(infoIcon,Pos.TOP_RIGHT);
+
         // Impostazione dell'elemento grafico
         card.setCenter(mainContent);
+        card.setRight(infoPane);
         card.setPadding(new Insets(10));
         card.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;");
 
 
         return card;
     }
+
+    // Metodo per mostrare la pagina dei dettagli del piatto scelto
+    private void mostraDettagliPiatto(BeanPiatto piattoBean) {
+
+        // Crea un nuovo Stage per il popup
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Dettagli piatto");
+
+        // Crea il contenuto del popup
+        VBox popupContent = new VBox();
+        popupContent.setSpacing(10);
+        popupContent.setPadding(new Insets(20));
+        popupContent.setStyle("-fx-background-color: #FFFFFF;");
+        popupContent.setAlignment(Pos.CENTER);
+
+        try{
+            // Creazione grafica di titolo, prezzo, immagine piatto e descrizione
+            VBox popupInitialContent = createInitialContent(piattoBean);
+
+
+            // Creazione grafica delle sezioni dedicate a ingredienti e link del video
+            VBox popupOtherContent = createFinalContent(piattoBean);
+
+            // Aggiungi tutti i contenuti creati al layout principale
+            popupContent.getChildren().addAll(popupInitialContent, popupOtherContent);
+
+            // Inserisci il contenuto nel ScrollPane
+            ScrollPane localScrollPane = new ScrollPane(popupContent);
+            localScrollPane.setFitToWidth(true);
+
+            // Imposta la visualizzazione all'inizio
+            localScrollPane.setVvalue(0);
+
+            // Imposta il layout come scena del popup
+            Scene popupScene = new Scene(localScrollPane, 310, 550);
+            popupStage.setScene(popupScene);
+            // Esecuzione codice passato per forzare lo scroll all'inizio dopo il rendering della GUI
+            popupStage.show();
+            Platform.runLater(() -> localScrollPane.setVvalue(0));
+            // Mostra il popup
+            popupStage.show();
+        } catch (DAOException | SQLException e) {
+            Popup.mostraPopup(ERROR_MESSAGE_TITLE, "Errore nel caricamento dei dettagli del piatto.", ERROR_POPUP_TYPE);
+        }
+    }
+
+    // Creazione grafica di titolo, dettagli, immagine e descrizione per il popup "mostraDettagliPiatto"
+    private VBox createInitialContent(BeanPiatto piattoBean) throws SQLException {
+
+        // Crea VBox per il titolo e dettagli
+        VBox popupInitialContent = new VBox();
+        popupInitialContent.setAlignment(Pos.CENTER);
+        popupInitialContent.setSpacing(5);
+
+        // Titolo del piatto
+        Label titolo = new Label(piattoBean.getNome());
+        titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 22px;");
+        titolo.setAlignment(Pos.CENTER);
+
+        // Dettaglio prezzo sopra l'immagine
+        Label prezzo = new Label(piattoBean.getPrezzo() + "€");
+        prezzo.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
+        prezzo.setAlignment(Pos.CENTER);
+
+        // Gestione grafica dell'immagine del piatto
+        ImageView immaginePiatto;
+        if (piattoBean.getImmagine() != null && piattoBean.getImmagine().getBinaryStream() != null) {
+            immaginePiatto = new ImageView(new Image(piattoBean.getImmagine().getBinaryStream()));
+            immaginePiatto.setFitWidth(250);
+            immaginePiatto.setFitHeight(150);
+        } else {
+            immaginePiatto = new ImageView(DEFAULT_IMAGE);
+            immaginePiatto.setFitWidth(140);
+            immaginePiatto.setFitHeight(140);
+        }
+        immaginePiatto.setPreserveRatio(true);
+        Rectangle clip = new Rectangle(immaginePiatto.getFitWidth(), immaginePiatto.getFitHeight());
+        clip.setArcWidth(30);
+        clip.setArcHeight(30);
+        immaginePiatto.setClip(clip);
+
+        // Descrizione del piatto
+        Label descrizione = new Label(piattoBean.getDescrizione());
+        descrizione.setStyle("-fx-font-size: 13px; -fx-text-fill: #666666; -fx-text-alignment: justify;");
+        descrizione.setWrapText(true);
+
+        // Aggiungi gli elementi iniziali al VBox
+        popupInitialContent.getChildren().addAll(titolo, prezzo, immaginePiatto, descrizione);
+
+        // Restituisci il contenuto delle informazioni iniziali
+        return popupInitialContent;
+    }
+
+    // Creazione grafica delle sezioni dedicate a ingredienti e link del video per il popup "mostraDettagliPiatto"
+    private VBox createFinalContent(BeanPiatto beanPiatto) throws DAOException {
+
+        // Crea VBox per le altre informazioni
+        VBox popupFinalContent = new VBox();
+        popupFinalContent.setAlignment(Pos.CENTER_LEFT);
+        popupFinalContent.setSpacing(10);
+
+        // Ingredienti del piatto
+        Label ingredientiLabel = new Label("Ingredienti");
+        ingredientiLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13.9px;");
+        VBox.setMargin(ingredientiLabel, new Insets(10, 0, 0, 0));
+        VBox ingredientiBox = new VBox(10);
+        String ingredienti = beanPiatto.getIngredienti();
+        if (ingredienti == null || ingredienti.isEmpty()) {
+            Label ingredientiMessage = new Label("Non sono stati specificati gli ingredienti");
+            ingredientiBox.getChildren().add(ingredientiMessage);
+        } else {
+            Label ingredients = new Label(beanPiatto.getIngredienti());
+            ingredientiBox.getChildren().add(ingredients);
+        }
+
+        // Video URL
+        Label videoLabel = new Label("Video Tutorial");
+        videoLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13.8px;");
+        VBox.setMargin(videoLabel, new Insets(10, 0, 0, 0));
+        VBox linkVideoBox = new VBox(10);
+        String linkVideo = beanPiatto.getUrlVideo();
+        if (linkVideo == null || linkVideo.isEmpty()) {
+            Label linkVideoMessage = new Label("Non è presente il link per il video");
+            linkVideoBox.getChildren().add(linkVideoMessage);
+        } else {
+            Hyperlink videoLink = new Hyperlink(beanPiatto.getUrlVideo());
+            videoLink.setStyle("-fx-font-size: 14px;");
+            videoLink.setOnAction(e -> getHostServicesInstance().showDocument(beanPiatto.getUrlVideo()));
+            linkVideoBox.getChildren().add(videoLink);
+        }
+        VBox.setMargin(linkVideoBox, new Insets(0, 0, 20, 0));
+
+        // Aggiungi le altre informazioni al VBox
+        popupFinalContent.getChildren().addAll(ingredientiLabel, ingredientiBox, videoLabel, linkVideoBox);
+
+        // Restituisci le informazioni aggiuntive
+        return popupFinalContent;
+    }
+
+    // Metodo per mostrare la pagina dei dettagli della beavnda scelta
+    private void mostraDettagliBevanda(BeanBevanda bevandaBean) {
+
+        // Crea un nuovo Stage per il popup
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Dettagli piatto");
+
+        // Crea il contenuto del popup
+        VBox popupContent = new VBox();
+        popupContent.setSpacing(10);
+        popupContent.setPadding(new Insets(20));
+        popupContent.setStyle("-fx-background-color: #FFFFFF;");
+        popupContent.setAlignment(Pos.CENTER);
+
+        try{
+            // Creazione grafica di titolo, prezzo, immagine piatto e descrizione
+            VBox popupInitialContent = createInitialContent1(bevandaBean);
+
+
+            // Aggiungi tutti i contenuti creati al layout principale
+            popupContent.getChildren().addAll(popupInitialContent);
+
+            // Inserisci il contenuto nel ScrollPane
+            ScrollPane localScrollPane = new ScrollPane(popupContent);
+            localScrollPane.setFitToWidth(true);
+
+            // Imposta la visualizzazione all'inizio
+            localScrollPane.setVvalue(0);
+
+            // Imposta il layout come scena del popup
+            Scene popupScene = new Scene(localScrollPane, 310, 550);
+            popupStage.setScene(popupScene);
+            // Esecuzione codice passato per forzare lo scroll all'inizio dopo il rendering della GUI
+            popupStage.show();
+            Platform.runLater(() -> localScrollPane.setVvalue(0));
+            // Mostra il popup
+            popupStage.show();
+        } catch (SQLException e) {
+            Popup.mostraPopup(ERROR_MESSAGE_TITLE, "Errore nel caricamento dei dettagli del piatto.", ERROR_POPUP_TYPE);
+        }
+    }
+
+    // Creazione grafica di titolo, dettagli, immagine e descrizione per il popup "mostraDettagliBevanda"
+    private VBox createInitialContent1(BeanBevanda bevandaBean) throws SQLException {
+
+        // Crea VBox per il titolo e dettagli
+        VBox popupInitialContent = new VBox();
+        popupInitialContent.setAlignment(Pos.CENTER);
+        popupInitialContent.setSpacing(5);
+
+        // Titolo del piatto
+        Label titolo = new Label(bevandaBean.getNome());
+        titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 22px;");
+        titolo.setAlignment(Pos.CENTER);
+
+        // Dettaglio prezzo e alcolico sopra l'immagine
+        Label prezzo = new Label(bevandaBean.getPrezzo() + "€"+ " • " + bevandaBean.getAlcolico());
+        prezzo.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
+        prezzo.setAlignment(Pos.CENTER);
+
+        // Gestione grafica dell'immagine del piatto
+        ImageView immaginePiatto;
+        if (bevandaBean.getImmagine() != null && bevandaBean.getImmagine().getBinaryStream() != null) {
+            immaginePiatto = new ImageView(new Image(bevandaBean.getImmagine().getBinaryStream()));
+            immaginePiatto.setFitWidth(250);
+            immaginePiatto.setFitHeight(150);
+        } else {
+            immaginePiatto = new ImageView(DEFAULT_IMAGE);
+            immaginePiatto.setFitWidth(140);
+            immaginePiatto.setFitHeight(140);
+        }
+        immaginePiatto.setPreserveRatio(true);
+        Rectangle clip = new Rectangle(immaginePiatto.getFitWidth(), immaginePiatto.getFitHeight());
+        clip.setArcWidth(30);
+        clip.setArcHeight(30);
+        immaginePiatto.setClip(clip);
+
+        // Descrizione della bevanda
+        Label descrizione = new Label(bevandaBean.getDescrizione());
+        descrizione.setStyle("-fx-font-size: 13px; -fx-text-fill: #666666; -fx-text-alignment: justify;");
+        descrizione.setWrapText(true);
+
+
+
+        // Aggiungi gli elementi iniziali al VBox
+        popupInitialContent.getChildren().addAll(titolo, prezzo, immaginePiatto, descrizione);
+
+        // Restituisci il contenuto delle informazioni iniziali
+        return popupInitialContent;
+    }
+
+
     private void mostraMenu(BeanRistorante ristoranteBean) throws IOException{
         try {
             BeanPiatti piatti = ordine.mostraPiatti(ristoranteBean);
