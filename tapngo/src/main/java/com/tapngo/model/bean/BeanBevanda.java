@@ -14,7 +14,7 @@ public class BeanBevanda {
         this.nome = nome;
         this.prezzo = prezzo;
         this.descrizione = descrizione;
-        if(alcolico){
+        if(Boolean.TRUE.equals(alcolico)){
             this.alcolico = "alcolico";
         }else{this.alcolico = "non alcolico";}
         this.immagine = immagine;

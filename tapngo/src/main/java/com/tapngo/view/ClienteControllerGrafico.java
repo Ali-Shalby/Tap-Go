@@ -62,8 +62,9 @@ public class ClienteControllerGrafico {
     private static final String WARNING_POPUP_TYPE = "warning";
     private static final String ERROR_MESSAGE_TITLE = "Errore";
     private static final String ERROR_POPUP_TYPE = "error";
-
-
+    private static final String TITLE_TEXT_STYLE = "-fx-font-weight: bold; -fx-font-size: 15px;";
+    private static final String LABEL_TEXT_STYLE = "-fx-font-size: 12px;";
+    private static final String CARD_STYLE = "-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;";
 
     // Setta il titolo della categoria della barra di navigazione superiore
     public void setLabelTitle(String title) {
@@ -209,7 +210,7 @@ public class ClienteControllerGrafico {
 
         // Creazione del nome del ristorante
         Label titleLabel = new Label(ristoranteBean.getNome());
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        titleLabel.setStyle(TITLE_TEXT_STYLE);
 
         // Creazione della locazione del ristorante
         ImageView indicazioneIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/indicazione_icon.png");
@@ -235,7 +236,7 @@ public class ClienteControllerGrafico {
         valutazioneIcon.setFitWidth(14);
         Label valutazioneLabel;
         valutazioneLabel = new Label(ristoranteBean.getValutazione() + "/5");
-        valutazioneLabel.setStyle("-fx-font-size: 12px;");
+        valutazioneLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
         Region spacer = new Region();
@@ -246,7 +247,7 @@ public class ClienteControllerGrafico {
         prezzoIcon.setFitHeight(14);
         prezzoIcon.setFitWidth(14);
         Label prezzoLabel = new Label(ristoranteBean.getPrezzo() + "€");
-        prezzoLabel.setStyle("-fx-font-size: 12.1px;");
+        prezzoLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Parte bottom per info valutazione e prezzo
         HBox infoBox = new HBox(valutazioneIcon, valutazioneLabel, spacer, prezzoIcon, prezzoLabel);
@@ -269,7 +270,7 @@ public class ClienteControllerGrafico {
         // Impostazione dell'elemento grafico
         card.setCenter(mainContent);
         card.setPadding(new Insets(10));
-        card.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;");
+        card.setStyle(CARD_STYLE);
 
         card.setOnMouseClicked(event -> {
             try {
@@ -312,7 +313,7 @@ public class ClienteControllerGrafico {
 
         // Creazione del nome del piatto
         Label titleLabel = new Label(piattoBean.getNome());
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        titleLabel.setStyle(TITLE_TEXT_STYLE);
 
         // Creazione dell'icona per la valutazione
         ImageView diminuisciIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/meno_icon.png");
@@ -323,7 +324,7 @@ public class ClienteControllerGrafico {
         aumentaIcon.setFitWidth(14);
         Label quantitaLabel;
         quantitaLabel = new Label(piattoBean.getQuantita().toString());
-        quantitaLabel.setStyle("-fx-font-size: 12px;");
+        quantitaLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
         Region spacer = new Region();
@@ -331,7 +332,7 @@ public class ClienteControllerGrafico {
 
         // Creazione della label oer il prezzo
         Label prezzoLabel = new Label(piattoBean.getPrezzo() + "€");
-        prezzoLabel.setStyle("-fx-font-size: 12.1px;");
+        prezzoLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Parte bottom per info valutazione e prezzo
         HBox infoBox = new HBox(prezzoLabel, spacer, diminuisciIcon, quantitaLabel, aumentaIcon);
@@ -360,7 +361,7 @@ public class ClienteControllerGrafico {
         card.setCenter(mainContent);
         card.setRight(infoPane);
         card.setPadding(new Insets(10));
-        card.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;");
+        card.setStyle(CARD_STYLE);
 
 
         return card;
@@ -378,10 +379,10 @@ public class ClienteControllerGrafico {
                 InputStream inputStream = bevandaBean.getImmagine().getBinaryStream();
                 image = new Image(inputStream, 100, 100, true, true); // Imposta dimensioni fisse e preserva il rapporto
             } else {
-                image = new Image("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png");
+                image = new Image(DEFAULT_IMAGE);
             }
         } catch (SQLException e) {
-            image = new Image("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png");
+            image = new Image(DEFAULT_IMAGE);
         }
 
         imageView = new ImageView(image);
@@ -396,7 +397,7 @@ public class ClienteControllerGrafico {
 
         // Creazione del nome del piatto
         Label titleLabel = new Label(bevandaBean.getNome());
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        titleLabel.setStyle(TITLE_TEXT_STYLE);
 
         // Creazione dell'icona per la valutazione
         ImageView diminuisciIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/meno_icon.png");
@@ -407,7 +408,7 @@ public class ClienteControllerGrafico {
         aumentaIcon.setFitWidth(14);
         Label quantitaLabel;
         quantitaLabel = new Label(bevandaBean.getQuantita().toString());
-        quantitaLabel.setStyle("-fx-font-size: 12px;");
+        quantitaLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
         Region spacer = new Region();
@@ -415,9 +416,9 @@ public class ClienteControllerGrafico {
 
         // Creazione della label oer il prezzo
         Label prezzoLabel = new Label(bevandaBean.getPrezzo() + "€");
-        prezzoLabel.setStyle("-fx-font-size: 12.1px;");
+        prezzoLabel.setStyle(LABEL_TEXT_STYLE);
 
-        // Parte bottom per info valutazione e prezzo
+        // Parte bottom per info quantita e prezzo
         HBox infoBox = new HBox(prezzoLabel, spacer, diminuisciIcon, quantitaLabel, aumentaIcon);
         infoBox.setSpacing(5);
 
@@ -445,7 +446,7 @@ public class ClienteControllerGrafico {
         card.setCenter(mainContent);
         card.setRight(infoPane);
         card.setPadding(new Insets(10));
-        card.setStyle("-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;");
+        card.setStyle(CARD_STYLE);
 
 
         return card;
