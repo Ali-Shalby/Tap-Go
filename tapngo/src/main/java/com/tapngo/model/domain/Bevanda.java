@@ -2,7 +2,7 @@ package com.tapngo.model.domain;
 
 import java.sql.Blob;
 
-public class Bevanda {
+public class Bevanda implements ItemCarrello{
     private String nome;
     private Float prezzo;
     private String descrizione;
@@ -22,7 +22,7 @@ public class Bevanda {
         this.nome = nome;
     }
 
-    public Float getPrezzo() {
+    public float getPrezzo() {
         return prezzo;
     }
 

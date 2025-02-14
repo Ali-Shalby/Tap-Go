@@ -5,6 +5,7 @@ import com.tapngo.exception.DAOException;
 import com.tapngo.model.bean.*;
 import com.tapngo.model.dao.ConnectionFactory;
 import com.tapngo.model.domain.ApplicazioneStage;
+import com.tapngo.model.domain.ItemCarrello;
 import com.tapngo.model.utility.Credentials;
 import com.tapngo.model.utility.Popup;
 import com.tapngo.model.utility.ScreenSize;
@@ -51,6 +52,7 @@ public class ClienteControllerGrafico {
     @FXML
     private ScrollPane scrollPane;
     private String cucina;
+    private BeanCarrello carrelloBean;
     private static final String DEFAULT_IMAGE = "C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png";
 
     private static final String MESSAGGIO = "In costruzione";
@@ -330,6 +332,9 @@ public class ClienteControllerGrafico {
         Region spacer = new Region();
         spacer.setMinWidth(30);
 
+        aumentaIcon.setOnMouseClicked(event -> {aggiungiAlCarrello(piattoBean, quantitaLabel);});
+        diminuisciIcon.setOnMouseClicked(event -> {rimuoviDalCarrello(piattoBean, quantitaLabel);});
+
         // Creazione della label oer il prezzo
         Label prezzoLabel = new Label(piattoBean.getPrezzo() + "€");
         prezzoLabel.setStyle(LABEL_TEXT_STYLE);
@@ -410,6 +415,9 @@ public class ClienteControllerGrafico {
         quantitaLabel = new Label(bevandaBean.getQuantita().toString());
         quantitaLabel.setStyle(LABEL_TEXT_STYLE);
 
+        aumentaIcon.setOnMouseClicked(event -> {aggiungiAlCarrello(bevandaBean, quantitaLabel);});
+        diminuisciIcon.setOnMouseClicked(event -> {rimuoviDalCarrello(bevandaBean, quantitaLabel);});
+
         // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
         Region spacer = new Region();
         spacer.setMinWidth(30);
@@ -451,7 +459,17 @@ public class ClienteControllerGrafico {
 
         return card;
     }
+    private void aggiungiAlCarrello(BeanItemCarrello item, Label quantitaLabel){
+        ordine.aggiungiAlCarrello(item, carrelloBean);
+        Platform.runLater(() -> quantitaLabel.setText(String.valueOf(item.getQuantita())));
+    }
 
+    private void rimuoviDalCarrello(BeanItemCarrello item, Label quantitaLabel){
+        if(item.getQuantita()==0){
+            Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non puoi togliere qualcosa che non c'è",WARNING_POPUP_TYPE);
+        }else{ordine.rimuoviDalCarrello(item, carrelloBean);
+            Platform.runLater(() -> quantitaLabel.setText(String.valueOf(item.getQuantita())));}
+    }
     // Metodo per mostrare la pagina dei dettagli del piatto scelto
     private void mostraDettagliPiatto(BeanPiatto piattoBean) {
 
@@ -686,16 +704,17 @@ public class ClienteControllerGrafico {
         try {
             BeanPiatti piatti = ordine.mostraPiatti(ristoranteBean);
             BeanBevande bevande = ordine.mostraBevande(ristoranteBean);
+            carrelloBean = ordine.creaCarrello(ristoranteBean);
             if (piatti.getPiatti().isEmpty() && bevande.getBevande().isEmpty()){
                 Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non è stato possibile leggere il menù della ristorazione scelta",WARNING_POPUP_TYPE);
             }else{
+
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 Stage stage = ApplicazioneStage.getStage();
                 Scene scene;
                 String fxmlFile = "/com/tapngo/menùRistoranteView.fxml";
                 Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
                 ClienteControllerGrafico controller = fxmlLoader.getController();
-
                 for (BeanBevanda beanBevanda : bevande.getBevande()) {
                     BorderPane bevanda = cardBevanda(beanBevanda);
                     controller.cardContainer.getChildren().add(bevanda);
@@ -710,9 +729,14 @@ public class ClienteControllerGrafico {
                 stage.setScene(scene);
                 stage.show();
             }
+
         }catch (DAOException | SQLException e) {
             Popup.mostraPopup( ERROR_MESSAGE_TITLE, "Si è verificato un errore durante il caricamento del menù.", ERROR_POPUP_TYPE);
         }
+
+    }
+
+    public void anteprimaOrdine(){
 
     }
     public void onClickedCucinaCasalinga() throws IOException {

@@ -8,6 +8,9 @@ import com.tapngo.model.dao.RecuperaRistorantiDAO;
 import com.tapngo.model.domain.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 public class EffettuaOrdineControllerApplicativo {
@@ -15,6 +18,7 @@ public class EffettuaOrdineControllerApplicativo {
     ListRistoranti listRistoranti;
     ListPiatti piatti;
     ListBevande bevande;
+    Carrello carrello;
     public BeanRistoranti mostraRistoranti(BeanRistoranti filtri) throws DAOException, SQLException {
 
         String nomeRistorante = filtri.getNome();
@@ -96,5 +100,60 @@ public class EffettuaOrdineControllerApplicativo {
             bevandeBean.addBevanda(beanBevanda);
         }
         return  bevandeBean;
+    }
+    public BeanCarrello creaCarrello(BeanRistorante ristoranteBean){
+        String nomeRistorante = ristoranteBean.getNome();
+        for(Ristorante ristorante: listRistoranti.getListaRistoranti()){
+            if(Objects.equals(ristorante.getNome(), nomeRistorante)){
+
+                carrello = new Carrello(ristorante);
+            }
+        }
+        BeanCarrello beanCarrello = new BeanCarrello(ristoranteBean);
+        return beanCarrello;
+    }
+    public void aggiungiAlCarrello(BeanItemCarrello itemBean, BeanCarrello carrelloBean) {
+
+        String nomeItem = itemBean.getNome();
+        for (ItemCarrello itemScelto : piatti.getListaPiatti()) {
+            if (Objects.equals(itemScelto.getNome(), nomeItem)) {
+                carrello.add(itemScelto);
+                itemBean.setQuantita(itemBean.getQuantita() + 1);
+            }
+        }
+        for (ItemCarrello itemScelto : bevande.getListaBevande()) {
+            if (Objects.equals(itemScelto.getNome(), nomeItem)) {
+                carrello.add(itemScelto);
+                itemBean.setQuantita(itemBean.getQuantita() + 1);
+            }
+        }
+        if (itemBean.getQuantita() == 0) {
+            carrelloBean.add(itemBean);
+            carrelloBean.setNumElementi(carrello.getNumElementi());
+            carrelloBean.setTotalPrice(carrello.getTotalPrice());
+
+        }
+    }
+
+    public void rimuoviDalCarrello(BeanItemCarrello itemBean, BeanCarrello carrelloBean) {
+        String nomeItem = itemBean.getNome();
+
+        // Crea una copia della lista per l'iterazione
+        List<ItemCarrello> copiaLista = new ArrayList<>(carrello.getListaItems());
+
+        for (ItemCarrello itemScelto : copiaLista) {
+            if (Objects.equals(itemScelto.getNome(), nomeItem)) {
+                carrello.remove(itemScelto); // Modifica la lista originale
+                itemBean.setQuantita(itemBean.getQuantita() - 1);
+                break;
+            }
+        }
+
+        if (itemBean.getQuantita() == 0) {
+            carrelloBean.remove(itemBean);
+        }
+
+        carrelloBean.setNumElementi(carrello.getNumElementi());
+        carrelloBean.setTotalPrice(carrello.getTotalPrice());
     }
 }

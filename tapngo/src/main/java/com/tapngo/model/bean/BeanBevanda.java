@@ -2,7 +2,7 @@ package com.tapngo.model.bean;
 
 import java.sql.Blob;
 
-public class BeanBevanda {
+public class BeanBevanda implements BeanItemCarrello{
     private String nome;
     private Float prezzo;
     private String descrizione;
@@ -28,7 +28,7 @@ public class BeanBevanda {
         this.nome = nome;
     }
 
-    public Float getPrezzo() {
+    public float getPrezzo() {
         return prezzo;
     }
 

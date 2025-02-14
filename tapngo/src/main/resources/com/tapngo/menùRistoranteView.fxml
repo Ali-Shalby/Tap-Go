@@ -33,6 +33,10 @@
         </VBox>
     </center>
 
+    <bottom>
+        <Button text="ordina" onAction="#anteprimaOrdine" styleClass="login-button" style="-fx-translate-y: -15px;"/>
+    </bottom>
+
 
 
 </BorderPane>

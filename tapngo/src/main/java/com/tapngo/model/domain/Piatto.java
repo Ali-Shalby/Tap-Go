@@ -3,7 +3,7 @@ package com.tapngo.model.domain;
 import java.io.Serializable;
 import java.sql.Blob;
 
-public abstract class Piatto implements Serializable {
+public abstract class Piatto implements Serializable,ItemCarrello{
 
     protected String nomeRistorante;
     protected Float prezzo;
@@ -29,7 +29,7 @@ public abstract class Piatto implements Serializable {
         this.nomeRistorante = nomeRistorante;
     }
 
-    public Float getPrezzo() {
+    public float getPrezzo() {
         return prezzo;
     }
 

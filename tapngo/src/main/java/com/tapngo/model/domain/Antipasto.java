@@ -1,6 +1,6 @@
 package com.tapngo.model.domain;
 
-public class Antipasto extends Piatto{
+public class Antipasto extends Piatto {
     // Attributi
     private String tipoAntipasto;              // Esempio: "tagliere", "fritti"
     private String tipoAccompagnamento;     // Esempio: "pane", "focaccia", "salsa"
@@ -10,9 +10,11 @@ public class Antipasto extends Piatto{
     public String getTipoAntipasto() {
         return tipoAntipasto;
     }
+
     public String getTipoAccompagnamento() {
         return tipoAccompagnamento;
     }
+
     public String getLivelloSpezie() {
         return livelloSpezie;
     }
@@ -21,9 +23,11 @@ public class Antipasto extends Piatto{
     public void setTipoAntipasto(String tipoAntipasto) {
         this.tipoAntipasto = tipoAntipasto;
     }
+
     public void setTipoAccompagnamento(String tipoAccompagnamento) {
         this.tipoAccompagnamento = tipoAccompagnamento;
     }
+
     public void setLivelloSpezie(String livelloSpezie) {
         this.livelloSpezie = livelloSpezie;
     }
@@ -32,4 +36,5 @@ public class Antipasto extends Piatto{
     public String getCategoria() {
         return "Pasto veloce";
     }
+
 }

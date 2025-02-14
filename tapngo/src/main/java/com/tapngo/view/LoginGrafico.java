@@ -84,7 +84,7 @@ public class LoginGrafico {
         // Ottieni il controller associato
         Object controller = fxmlLoader.getController();
 
-        // Esempio di aggiornamento di una Label (personalizza secondo la tua logica)
+        // Esempio di aggiornamento di una Label
         if (controller instanceof ClienteControllerGrafico clienteController) { // Se il controller è per il cliente
             ((ClienteControllerGrafico) controller).setLabelTitle("                 Ciao " + Credentials.getNome() + ",\n    cosa vuoi mangiare oggi?");
         } else if (controller instanceof RistoratoreControllerGrafico ristoratoreController) { // Se il controller è per il ristoratore
