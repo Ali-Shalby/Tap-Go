@@ -8,13 +8,13 @@ public class Ristorante {
     private String citta;
     private String tipologia;
     private Integer prezzo;
-    private Float valutazione;
+    private double valutazione;
     private String tipo;
     private String indirizzo;
     private String numTelefono;
     private transient Blob immagine;
 
-    public Ristorante(String nome, String citta, String tipologia, Integer prezzo, Float valutazione, String tipo) {
+    public Ristorante(String nome, String citta, String tipologia, Integer prezzo, double valutazione, String tipo) {
         this.nome = nome;
         this.citta = citta;
         this.tipologia = tipologia;
@@ -59,11 +59,11 @@ public class Ristorante {
         this.prezzo = prezzo;
     }
 
-    public Float getValutazione() {
+    public double getValutazione() {
         return valutazione;
     }
 
-    public void setValutazione(Float valutazione) {
+    public void setValutazione(double valutazione) {
         this.valutazione = valutazione;
     }
 

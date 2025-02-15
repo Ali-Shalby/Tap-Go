@@ -4,7 +4,7 @@ import java.sql.Blob;
 
 public class Bevanda implements ItemCarrello{
     private String nome;
-    private Float prezzo;
+    private double prezzo;
     private String descrizione;
     private Boolean alcolico;
     private Blob immagine;
@@ -22,11 +22,11 @@ public class Bevanda implements ItemCarrello{
         this.nome = nome;
     }
 
-    public float getPrezzo() {
+    public double getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(Float prezzo) {
+    public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
 

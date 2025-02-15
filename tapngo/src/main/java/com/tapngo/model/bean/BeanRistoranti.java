@@ -9,7 +9,7 @@ public class BeanRistoranti {
     private String citta;
     private String tipologia;
     private Integer prezzo;
-    private Float valutazione;
+    private double valutazione;
     private String tipo;
     private List<BeanRistorante> listRistoranti;
 
@@ -32,10 +32,10 @@ public class BeanRistoranti {
             this.prezzo = 0;
         }
         if(valutazione.equals("Indifferente")){
-            this.valutazione = (float) 0;
+            this.valutazione = (double) 0;
         }
         else{
-            this.valutazione = (float) valutazione.length();
+            this.valutazione = (double) valutazione.length();
         }
         this.tipo = tipo;
     }
@@ -56,7 +56,7 @@ public class BeanRistoranti {
         return prezzo;
     }
 
-    public Float getValutazione() {
+    public double getValutazione() {
         return valutazione;
     }
 
@@ -84,7 +84,7 @@ public class BeanRistoranti {
         this.prezzo = prezzo;
     }
 
-    public void setValutazione(Float valutazione) {
+    public void setValutazione(double valutazione) {
         this.valutazione = valutazione;
     }
 

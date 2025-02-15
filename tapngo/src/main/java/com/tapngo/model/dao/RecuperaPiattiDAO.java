@@ -33,7 +33,7 @@ public class RecuperaPiattiDAO {
                 while (rs.next()) {
                     Piatto piatto = factoryPiatto.createPiatto(rs.getString("tipo"));
                     piatto.setNome(rs.getString("nomeAlimento"));
-                    piatto.setPrezzo(rs.getFloat("prezzoAlimento"));
+                    piatto.setPrezzo(rs.getDouble("prezzoAlimento"));
                     piatto.setDescrizione(rs.getString("descrizione"));
                     piatto.setIngredienti(rs.getString("ingredienti"));
                     piatto.setUrlVideo(rs.getString("urlVideo"));

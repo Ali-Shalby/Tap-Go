@@ -6,12 +6,14 @@ import java.util.List;
 public class Carrello {
 
     private final String ristorante;
+    private final String username;
     private List<ItemCarrello> items;
     private Integer numElementi = 0;
 
-    public Carrello(Ristorante ristorante){
+    public Carrello(Ristorante ristorante, String username){
         items = new ArrayList<>();
         this.ristorante = ristorante.getNome();
+        this.username = username;
     }
 
     public void remove(ItemCarrello item){
@@ -24,12 +26,15 @@ public class Carrello {
         numElementi++;
     }
 
-    public float getTotalPrice(){
-        float totalPrice = 0;
+    public double getTotalPrice(){
+        double totalPrice = 0;
         for(ItemCarrello item : items){
             totalPrice += item.getPrezzo();
         }
-        return totalPrice;
+        return Math.round(totalPrice*100.0)/100.0;
+    }
+    public String getUsername(){
+        return username;
     }
 
     public Integer getNumElementi() {
@@ -37,5 +42,9 @@ public class Carrello {
     }
     public List<ItemCarrello> getListaItems(){
         return items;
+    }
+
+    public String getRistorante() {
+        return ristorante;
     }
 }

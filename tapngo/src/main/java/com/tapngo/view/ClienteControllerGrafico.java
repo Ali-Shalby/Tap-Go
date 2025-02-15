@@ -38,6 +38,17 @@ public class ClienteControllerGrafico {
     @FXML
     private Label labelTitle;
     @FXML
+    private TextField cardNumberField; // Riferimento al campo "Numero Carta"
+
+    @FXML
+    private TextField expiryDateField; // Riferimento al campo "Data di Scadenza"
+
+    @FXML
+    private TextField cvcField; // Riferimento al campo "CVC"
+
+    @FXML
+    private Label totalLabel;
+    @FXML
     private TextField nomeRistorante;
     @FXML
     private ComboBox cittaComboBox;
@@ -49,14 +60,14 @@ public class ClienteControllerGrafico {
     private ComboBox valutazioneComboBox;
     @FXML
     private VBox cardContainer;
-    @FXML
-    private ScrollPane scrollPane;
     private String cucina;
-    private BeanCarrello carrelloBean;
+    private String username;
+
     private static final String DEFAULT_IMAGE = "C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png";
 
     private static final String MESSAGGIO = "In costruzione";
     private EffettuaOrdineControllerApplicativo ordine;
+    private BeanCarrello carrelloBean;
     private static final String NAMEAPP = "Tap&go";
     private static final String CONTENUTO = "Sezione non ancora implementata!";
     private static final String TYPE = "construction";
@@ -72,8 +83,15 @@ public class ClienteControllerGrafico {
     public void setLabelTitle(String title) {
         labelTitle.setText(title);
     }
+    public void setTotalLabel(double t){totalLabel.setText("Totale: "+t+"€");}
+
 
     public void setCucina(String cucina) { this.cucina = cucina; }
+    public void setUsername(String username){this.username = username;}
+
+    public void inizializzaOrdine(EffettuaOrdineControllerApplicativo ordine){
+        this.ordine = ordine;
+    }
 
     public void logout() throws IOException, SQLException {
         // Ottieni la scelta dell'utente al popup
@@ -113,6 +131,7 @@ public class ClienteControllerGrafico {
         Stage stage = ApplicazioneStage.getStage();
         ClienteControllerGrafico controller = fxmlLoader.getController();
         controller.setCucina(cucina);
+        controller.setUsername(username);
         // Imposta la nuova scena con il layout caricato
         Scene scene = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
 
@@ -144,6 +163,7 @@ public class ClienteControllerGrafico {
         stageChangeView.show();
 
     }
+
     @FXML
     public void mostraRistoranti() throws IOException {
 
@@ -173,7 +193,10 @@ public class ClienteControllerGrafico {
 
                     scene = new Scene(rootNode, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
                     stage.setTitle(NAMEAPP);
+                    controller.setUsername(username);
                     stage.setScene(scene);
+
+
                     stage.show();
                 }
             }catch (DAOException | SQLException e) {
@@ -460,14 +483,14 @@ public class ClienteControllerGrafico {
         return card;
     }
     private void aggiungiAlCarrello(BeanItemCarrello item, Label quantitaLabel){
-        ordine.aggiungiAlCarrello(item, carrelloBean);
+        ordine.aggiungiAlCarrello(item);
         Platform.runLater(() -> quantitaLabel.setText(String.valueOf(item.getQuantita())));
     }
 
     private void rimuoviDalCarrello(BeanItemCarrello item, Label quantitaLabel){
         if(item.getQuantita()==0){
             Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non puoi togliere qualcosa che non c'è",WARNING_POPUP_TYPE);
-        }else{ordine.rimuoviDalCarrello(item, carrelloBean);
+        }else{ordine.rimuoviDalCarrello(item);
             Platform.runLater(() -> quantitaLabel.setText(String.valueOf(item.getQuantita())));}
     }
     // Metodo per mostrare la pagina dei dettagli del piatto scelto
@@ -608,47 +631,7 @@ public class ClienteControllerGrafico {
         return popupFinalContent;
     }
 
-    // Metodo per mostrare la pagina dei dettagli della beavnda scelta
-    private void mostraDettagliBevanda(BeanBevanda bevandaBean) {
 
-        // Crea un nuovo Stage per il popup
-        Stage popupStage = new Stage();
-        popupStage.setTitle("Dettagli piatto");
-
-        // Crea il contenuto del popup
-        VBox popupContent = new VBox();
-        popupContent.setSpacing(10);
-        popupContent.setPadding(new Insets(20));
-        popupContent.setStyle("-fx-background-color: #FFFFFF;");
-        popupContent.setAlignment(Pos.CENTER);
-
-        try{
-            // Creazione grafica di titolo, prezzo, immagine piatto e descrizione
-            VBox popupInitialContent = createInitialContent1(bevandaBean);
-
-
-            // Aggiungi tutti i contenuti creati al layout principale
-            popupContent.getChildren().addAll(popupInitialContent);
-
-            // Inserisci il contenuto nel ScrollPane
-            ScrollPane localScrollPane = new ScrollPane(popupContent);
-            localScrollPane.setFitToWidth(true);
-
-            // Imposta la visualizzazione all'inizio
-            localScrollPane.setVvalue(0);
-
-            // Imposta il layout come scena del popup
-            Scene popupScene = new Scene(localScrollPane, 310, 550);
-            popupStage.setScene(popupScene);
-            // Esecuzione codice passato per forzare lo scroll all'inizio dopo il rendering della GUI
-            popupStage.show();
-            Platform.runLater(() -> localScrollPane.setVvalue(0));
-            // Mostra il popup
-            popupStage.show();
-        } catch (SQLException e) {
-            Popup.mostraPopup(ERROR_MESSAGE_TITLE, "Errore nel caricamento dei dettagli del piatto.", ERROR_POPUP_TYPE);
-        }
-    }
 
     // Creazione grafica di titolo, dettagli, immagine e descrizione per il popup "mostraDettagliBevanda"
     private VBox createInitialContent1(BeanBevanda bevandaBean) throws SQLException {
@@ -704,7 +687,7 @@ public class ClienteControllerGrafico {
         try {
             BeanPiatti piatti = ordine.mostraPiatti(ristoranteBean);
             BeanBevande bevande = ordine.mostraBevande(ristoranteBean);
-            carrelloBean = ordine.creaCarrello(ristoranteBean);
+            ordine.creaCarrello(ristoranteBean, username);
             if (piatti.getPiatti().isEmpty() && bevande.getBevande().isEmpty()){
                 Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non è stato possibile leggere il menù della ristorazione scelta",WARNING_POPUP_TYPE);
             }else{
@@ -726,6 +709,7 @@ public class ClienteControllerGrafico {
 
                 scene = new Scene(rootNode, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
                 stage.setTitle(NAMEAPP);
+                controller.inizializzaOrdine(ordine);
                 stage.setScene(scene);
                 stage.show();
             }
@@ -735,9 +719,227 @@ public class ClienteControllerGrafico {
         }
 
     }
+    // Metodo per mostrare la pagina dei dettagli della beavnda scelta
+    private void mostraDettagliBevanda(BeanBevanda bevandaBean) {
 
+        // Crea un nuovo Stage per il popup
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Dettagli piatto");
+
+        // Crea il contenuto del popup
+        VBox popupContent = new VBox();
+        popupContent.setSpacing(10);
+        popupContent.setPadding(new Insets(20));
+        popupContent.setStyle("-fx-background-color: #FFFFFF;");
+        popupContent.setAlignment(Pos.CENTER);
+
+        try{
+            // Creazione grafica di titolo, prezzo, immagine piatto e descrizione
+            VBox popupInitialContent = createInitialContent1(bevandaBean);
+
+
+            // Aggiungi tutti i contenuti creati al layout principale
+            popupContent.getChildren().addAll(popupInitialContent);
+
+            // Inserisci il contenuto nel ScrollPane
+            ScrollPane localScrollPane = new ScrollPane(popupContent);
+            localScrollPane.setFitToWidth(true);
+
+            // Imposta la visualizzazione all'inizio
+            localScrollPane.setVvalue(0);
+
+            // Imposta il layout come scena del popup
+            Scene popupScene = new Scene(localScrollPane, 310, 550);
+            popupStage.setScene(popupScene);
+            // Esecuzione codice passato per forzare lo scroll all'inizio dopo il rendering della GUI
+            popupStage.show();
+            Platform.runLater(() -> localScrollPane.setVvalue(0));
+            // Mostra il popup
+            popupStage.show();
+        } catch (SQLException e) {
+            Popup.mostraPopup(ERROR_MESSAGE_TITLE, "Errore nel caricamento dei dettagli del piatto.", ERROR_POPUP_TYPE);
+        }
+    }
     public void anteprimaOrdine(){
 
+        carrelloBean = this.ordine.mostraCarrello();
+        if(carrelloBean.getListaItems().isEmpty()){
+            Popup.mostraPopup(WARNING_MESSAGE_TITLE, "selezionare qualcosa dal menù prima di proseguire con l'ordine ", WARNING_POPUP_TYPE);
+        }else {
+
+            // Crea un nuovo Stage per il popup
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Dettagli ordine");
+            // Crea il contenuto del popup
+            VBox popupContent = new VBox();
+            popupContent.setSpacing(10);
+            popupContent.setPadding(new Insets(20));
+            popupContent.setStyle("-fx-background-color: #FFFFFF;");
+            popupContent.setAlignment(Pos.CENTER);
+            try {
+
+                for (BeanItemCarrello item : carrelloBean.getListaItems()) {
+
+                    HBox popupOrdineContent = createContentOrdine(item);
+                    popupContent.getChildren().add(popupOrdineContent);
+
+                }
+
+                // Pulsante per confermare l'ordine
+                Button confirmButton = new Button("Conferma ordine");
+
+
+                EventHandler<ActionEvent> confirmHandler = (confirmEvent) ->{
+                    try {
+                        metodoPagamentoView();
+                        popupStage.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                };
+                confirmButton.setOnAction(confirmHandler);
+
+                // Allineamento bottone "Conferma ordine"
+                HBox buttonBox = new HBox(10);
+                buttonBox.setAlignment(Pos.CENTER);
+                buttonBox.getChildren().add(confirmButton);
+
+                popupContent.getChildren().add(confirmButton);
+
+                // Inserisci il contenuto nel ScrollPane
+                ScrollPane localScrollPane = new ScrollPane(popupContent);
+                localScrollPane.setFitToWidth(true);
+
+                // Imposta la visualizzazione all'inizio
+                localScrollPane.setVvalue(0);
+
+                // Imposta il layout come scena del popup
+                Scene popupScene = new Scene(localScrollPane, 310, 550);
+                popupStage.setScene(popupScene);
+                // Esecuzione codice passato per forzare lo scroll all'inizio dopo il rendering della GUI
+                popupStage.show();
+                Platform.runLater(() -> localScrollPane.setVvalue(0));
+                // Mostra il popup
+                popupStage.show();
+
+            } catch (SQLException e) {
+                Popup.mostraPopup(ERROR_MESSAGE_TITLE, "Errore nel caricamento dei dettagli dell'ordine.", ERROR_POPUP_TYPE);
+            }
+        }
+
+    }
+
+    public void metodoPagamentoView() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResourceAsStream("/com/tapngo/metodoPagamentoView.fxml"));
+
+        // Ottieni lo stage attuale dalla classe ApplicazioneStage
+        Stage stage = ApplicazioneStage.getStage();
+        ClienteControllerGrafico controller = fxmlLoader.getController();
+
+        // Imposta la nuova scena con il layout caricato
+        Scene scene = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
+        controller.inizializzaOrdine(ordine);
+        controller.inizializzaCarrello(carrelloBean);
+
+        // Cambia la scena dello stage
+        stage.setScene(scene);
+        stage.show();
+
+    }
+    public void cartaDiCreditoView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResourceAsStream("/com/tapngo/cartaDiCreditoView.fxml"));
+
+        // Ottieni lo stage attuale dalla classe ApplicazioneStage
+        Stage stage = ApplicazioneStage.getStage();
+        ClienteControllerGrafico controller = fxmlLoader.getController();
+
+        // Imposta la nuova scena con il layout caricato
+        Scene scene = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
+        controller.inizializzaOrdine(ordine);
+        controller.inizializzaCarrello(carrelloBean);
+        controller.setTotalLabel(carrelloBean.getTotalPrice());
+        // Cambia la scena dello stage
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void inizializzaCarrello(BeanCarrello carrelloBean) {
+        this.carrelloBean = carrelloBean;
+    }
+
+    @FXML
+    private void paga() throws IOException {
+        String cardNumber = cardNumberField.getText();
+        String scadenza = expiryDateField.getText();
+        String cvc = cvcField.getText();
+        if(cardNumber.isEmpty() || scadenza.isEmpty() || cvc.isEmpty()){
+            Popup.mostraPopup(WARNING_MESSAGE_TITLE, "Si prega di selezionare tutte le opzioni prima di procedere!", WARNING_POPUP_TYPE);
+            return;
+        }
+        try {
+            BeanCreditCard creditCard = new BeanCreditCard(cardNumber, scadenza, cvc);
+            ordine.effettuaOrdine(creditCard,carrelloBean);
+            Popup.mostraPopup("Successo", "ordine inviato", "success");
+            tornaIndietro();
+        }catch (Exception e ) {
+            Popup.mostraPopup("Errore carta di credito", e.getMessage(), ERROR_POPUP_TYPE);
+            cartaDiCreditoView();
+        }
+
+    }
+    private void terminaOrdine() throws IOException {
+        Popup.mostraPopup("Successo", "ordine inviato", "success");
+        tornaIndietro();
+    }
+
+    public HBox createContentOrdine(BeanItemCarrello item) throws SQLException {
+        // Crea VBox per il titolo e dettagli
+        HBox popupInitialContent = new HBox();
+        popupInitialContent.setAlignment(Pos.CENTER_LEFT);
+        popupInitialContent.setSpacing(5);
+
+        // Titolo del piatto
+        Label titolo = new Label(item.getNome());
+        titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 22px;");
+        titolo.setAlignment(Pos.CENTER_LEFT);
+
+        // Dettaglio quantità
+        Label quantita = new Label("x"+item.getQuantita());
+        quantita.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
+        quantita.setAlignment(Pos.CENTER_LEFT);
+
+        Label prezzo = new Label(item.getPrezzo()*item.getQuantita()+"€");
+        prezzo.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
+        prezzo.setAlignment(Pos.CENTER_LEFT);
+
+        // Gestione grafica dell'immagine del piatto
+        ImageView immagineItem;
+        if (item.getImmagine() != null && item.getImmagine().getBinaryStream() != null) {
+            immagineItem = new ImageView(new Image(item.getImmagine().getBinaryStream()));
+            immagineItem.setFitWidth(70);
+            immagineItem.setFitHeight(65);
+        } else {
+            immagineItem = new ImageView(DEFAULT_IMAGE);
+            immagineItem.setFitWidth(70);
+            immagineItem.setFitHeight(65);
+        }
+        immagineItem.setPreserveRatio(true);
+        Rectangle clip = new Rectangle(immagineItem.getFitWidth(), immagineItem.getFitHeight());
+        clip.setArcWidth(30);
+        clip.setArcHeight(30);
+        immagineItem.setClip(clip);
+
+
+
+
+        // Aggiungi gli elementi iniziali al VBox
+        popupInitialContent.getChildren().addAll(immagineItem, titolo, quantita, prezzo);
+
+        // Restituisci il contenuto delle informazioni iniziali
+        return popupInitialContent;
     }
     public void onClickedCucinaCasalinga() throws IOException {
         cucina = "casa";

@@ -23,7 +23,7 @@ public class RecuperaRistorantiDAO {
             cs.setString(2, ristorante.getCitta());
             cs.setString(3, ristorante.getTipologia());
             cs.setInt(4, ristorante.getPrezzo());
-            cs.setFloat(5, ristorante.getValutazione());
+            cs.setDouble(5, ristorante.getValutazione());
             cs.setString(6,ristorante.getTipo());
 
             // Esegui la stored procedure
@@ -40,7 +40,7 @@ public class RecuperaRistorantiDAO {
                     restaurant.setTipologia(rs.getString("tipologia"));
                     restaurant.setPrezzo(rs.getInt("prezzoMedio"));
                     restaurant.setIndirizzo(rs.getString("indirizzo"));
-                    restaurant.setValutazione(rs.getFloat("valutazione"));
+                    restaurant.setValutazione(rs.getDouble("valutazione"));
                     restaurant.setImmagine(rs.getBlob("immagine"));
                     restaurant.setNumTelefono(rs.getString("numTelefono"));
                     restaurant.setTipo(rs.getString("tipo"));

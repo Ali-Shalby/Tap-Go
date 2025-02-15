@@ -7,11 +7,11 @@ public class BeanRistorante {
     private String citta;
     private String tipologia;
     private Integer prezzo;
-    private Float valutazione;
+    private double valutazione;
     private Blob immagine;
     private String indirizzo;
 
-    public BeanRistorante(String nome, String citta, String tipologia, Integer prezzo, String indirizzo, Blob immagine, Float valutazione) {
+    public BeanRistorante(String nome, String citta, String tipologia, Integer prezzo, String indirizzo, Blob immagine, double valutazione) {
         this.nome = nome;
         this.citta = citta;
         this.tipologia = tipologia;
@@ -53,11 +53,11 @@ public class BeanRistorante {
         this.citta = citta;
     }
 
-    public Float getValutazione() {
+    public double getValutazione() {
         return valutazione;
     }
 
-    public void setValutazione(Float valutazione) {
+    public void setValutazione(double valutazione) {
         this.valutazione = valutazione;
     }
 

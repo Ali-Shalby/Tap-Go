@@ -1,7 +1,11 @@
 package com.tapngo.model.domain;
 
+import java.sql.Blob;
+
 public interface ItemCarrello {
-    public float getPrezzo();
+    public double getPrezzo();
     public String getNome();
+
+    public Blob getImmagine();
 
 }

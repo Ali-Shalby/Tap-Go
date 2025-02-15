@@ -31,7 +31,7 @@ public class RecuperaBevandeDAO {
                 while (rs.next()) {
                     Bevanda bevanda = new Bevanda(rs.getBoolean("alcolico"));
                     bevanda.setNome(rs.getString("nomeAlimento"));
-                    bevanda.setPrezzo(rs.getFloat("prezzoAlimento"));
+                    bevanda.setPrezzo(rs.getDouble("prezzoAlimento"));
                     bevanda.setDescrizione(rs.getString("descrizione"));
                     bevanda.setImmagine(rs.getBlob("immagine"));
 

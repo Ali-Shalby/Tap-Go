@@ -7,27 +7,26 @@ import java.util.List;
 
 public class BeanCarrello {
 
-    private final String ristorante;
+    private String ristorante;
     private List<BeanItemCarrello> items;
     private Integer numElementi;
 
-    private float totalPrice;
+    private double totalPrice;
 
 
-    public BeanCarrello(BeanRistorante beanRistorante){
+    public BeanCarrello(){
             items = new ArrayList<>();
-            this.ristorante = beanRistorante.getNome();
         }
 
     public void setNumElementi(Integer numElementi) {
         this.numElementi = numElementi;
     }
 
-    public float getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(float totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -42,5 +41,11 @@ public class BeanCarrello {
     public Integer getNumElementi(){
         return numElementi;
     }
+    public List<BeanItemCarrello> getListaItems(){
+        return items;
+    }
 
+    public void setRistorante(String ristorante) {
+        this.ristorante = ristorante;
+    }
 }

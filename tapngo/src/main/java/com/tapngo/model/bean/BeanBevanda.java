@@ -4,13 +4,13 @@ import java.sql.Blob;
 
 public class BeanBevanda implements BeanItemCarrello{
     private String nome;
-    private Float prezzo;
+    private double prezzo;
     private String descrizione;
     private String alcolico;
     private Blob immagine;
     private Integer quantita = 0;
 
-    public BeanBevanda(String nome, Float prezzo, String descrizione, Boolean alcolico, Blob immagine) {
+    public BeanBevanda(String nome, double prezzo, String descrizione, Boolean alcolico, Blob immagine) {
         this.nome = nome;
         this.prezzo = prezzo;
         this.descrizione = descrizione;
@@ -18,6 +18,10 @@ public class BeanBevanda implements BeanItemCarrello{
             this.alcolico = "alcolico";
         }else{this.alcolico = "non alcolico";}
         this.immagine = immagine;
+    }
+
+    public BeanBevanda(String nome) {
+        this.nome = nome;
     }
 
     public String getNome() {
@@ -28,11 +32,11 @@ public class BeanBevanda implements BeanItemCarrello{
         this.nome = nome;
     }
 
-    public float getPrezzo() {
+    public double getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(Float prezzo) {
+    public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
 

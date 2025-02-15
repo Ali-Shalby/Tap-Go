@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.tapngo.view.ClienteControllerGrafico"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <!-- Logout in alto a sinistra -->
+    <top>
+        <HBox alignment="TOP_LEFT" spacing="10">
+            <padding>
+                <Insets top="20.0" left="15.0"/>
+            </padding>
+            <ImageView fitWidth="35" fitHeight="35" onMouseClicked="#logout">
+                <Image url="@/logout.png" />
+            </ImageView>
+        </HBox>
+    </top>
+
+    <!-- Contenitore principale -->
+    <center>
+        <StackPane>
+            <VBox spacing="20" alignment="CENTER">
+                <padding>
+                    <!-- Ridotto il margine superiore per alzare il contenuto -->
+                    <Insets top="-60.0" left="25.0" right="25.0" bottom="0.0"/>
+                </padding>
+
+                <!-- Testo sopra le immagini -->
+                <Label fx:id="labelTitle" style="-fx-text-fill: black;">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                </Label>
+
+                <!-- Contenitore per le immagini -->
+                <HBox spacing="40" alignment="CENTER">
+                    <!-- Contenitore per 'Ristorante' -->
+                    <VBox spacing="10" alignment="CENTER">
+                        <ImageView fitWidth="100" fitHeight="100" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" >
+                            <Image url="@/ristorante.png" />
+                        </ImageView>
+                        <Text text="Pagamento in contante" style="-fx-font-size: 12px; -fx-font-weight: bold;" />
+                    </VBox>
+
+                    <!-- Contenitore per 'Cucina Casalinga' -->
+                    <VBox spacing="10" alignment="CENTER">
+                        <ImageView fitWidth="100" fitHeight="100" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" >
+                            <Image url="@/cucina.png" />
+                        </ImageView>
+                        <Text text="Pagamento da asporto" style="-fx-font-size: 12px; -fx-font-weight: bold;" />
+                    </VBox>
+                </HBox>
+                <VBox alignment="CENTER">
+                    <ImageView fitWidth="100" fitHeight="100" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#cartaDiCreditoView">
+                        <Image url="@/cucina.png" />
+                    </ImageView>
+                    <Text text="Pagamento online" style="-fx-font-size: 12px; -fx-font-weight: bold;" />
+                </VBox>
+            </VBox>
+        </StackPane>
+    </center>
+
+</BorderPane>

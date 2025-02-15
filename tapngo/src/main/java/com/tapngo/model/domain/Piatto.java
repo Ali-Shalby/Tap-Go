@@ -6,7 +6,7 @@ import java.sql.Blob;
 public abstract class Piatto implements Serializable,ItemCarrello{
 
     protected String nomeRistorante;
-    protected Float prezzo;
+    protected double prezzo;
     protected String ingredienti;
     protected String descrizione;
     protected String urlVideo;
@@ -29,11 +29,11 @@ public abstract class Piatto implements Serializable,ItemCarrello{
         this.nomeRistorante = nomeRistorante;
     }
 
-    public float getPrezzo() {
+    public double getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(Float prezzo) {
+    public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
 
