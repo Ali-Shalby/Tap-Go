@@ -1,6 +1,5 @@
 package com.tapngo.model.bean;
 
-import com.tapngo.model.domain.ItemCarrello;
 
 import java.util.ArrayList;
 import java.util.List;

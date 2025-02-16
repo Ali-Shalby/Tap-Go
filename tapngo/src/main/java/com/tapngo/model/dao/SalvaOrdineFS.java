@@ -6,12 +6,16 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class SalvaOrdineFS {
 
+    private static final Logger logger = Logger.getLogger(SalvaOrdineFS.class.getName());
 
-    public void salvaOrdineSuFile(Carrello carrello){
+
+    public void salvaOrdineSuFile(Carrello carrello) throws IOException {
         String nomeUtente = carrello.getUsername();
         String nomeFile = costruisciNomeFile(nomeUtente);
         gestisciCreazioneFile(nomeFile);
@@ -47,8 +51,11 @@ public class SalvaOrdineFS {
     }
     private void creaFile(File file) throws IOException {
         boolean fileCreato = file.createNewFile();
+        if (fileCreato) {
+            logger.log(Level.INFO, "File creato con successo!");
+        }
     }
-    private void salvaOrdine(String nomeFile, String ristorante, Integer elementi, double prezzo) {
+    private void salvaOrdine(String nomeFile, String ristorante, Integer elementi, double prezzo) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeFile))) {
             // Crea una stringa con tutti i dati concatenati
             String ordine = "Ristorante: " + ristorante + ", Elementi: " + elementi + ", Prezzo: " + prezzo;
@@ -58,7 +65,7 @@ public class SalvaOrdineFS {
 
 
         } catch (IOException e) {
-            throw new RuntimeException("Errore durante il salvataggio dell'ordine", e);
+            throw new IOException("Errore durante il salvataggio dell'ordine", e);
         }
     }
 }

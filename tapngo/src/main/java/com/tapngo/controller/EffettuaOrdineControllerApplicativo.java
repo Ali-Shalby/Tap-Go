@@ -6,6 +6,7 @@ import com.tapngo.model.dao.*;
 import com.tapngo.model.domain.*;
 import com.tapngo.view.BancaControllerGrafico;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -191,7 +192,7 @@ public class EffettuaOrdineControllerApplicativo {
         return carrelloBean;
     }
 
-    public void effettuaOrdine(BeanCreditCard carta, BeanCarrello carrelloBean) throws Exception {
+    public void effettuaOrdine(BeanCreditCard carta, BeanCarrello carrelloBean) throws IOException, DAOException, SQLException {
 
 
         String data = carta.getScadenza();
@@ -205,15 +206,15 @@ public class EffettuaOrdineControllerApplicativo {
             BeanCreditCard datiBanca = new BeanCreditCard(carta.getCardNumber(), carta.getScadenza(), carta.getCvc());
             BancaControllerGrafico banca = new BancaControllerGrafico();
             String stato = banca.mandaPagamento(datiBanca, importo);
-            if(stato != "accettato"){
-                throw new Exception("ci sono stati errori di comunicazione con la banca");
+            if(!Objects.equals(stato, "accettato")){
+                throw new IOException("ci sono stati errori di comunicazione con la banca");
             }
             salvaOrdine();
 
         }
 
     }
-    public void salvaOrdine() throws DAOException, SQLException {
+    public void salvaOrdine() throws DAOException, SQLException, IOException {
         SalvaOrdineDAO salvaOrdineDAO = new SalvaOrdineDAO();
         salvaOrdineDAO.salvaOrdineExecute(carrello);
         SalvaOrdineFS salvaOrdineFS = new SalvaOrdineFS();

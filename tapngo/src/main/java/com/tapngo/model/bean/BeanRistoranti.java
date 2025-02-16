@@ -32,10 +32,10 @@ public class BeanRistoranti {
             this.prezzo = 0;
         }
         if(valutazione.equals("Indifferente")){
-            this.valutazione = (double) 0;
+            this.valutazione =  0;
         }
         else{
-            this.valutazione = (double) valutazione.length();
+            this.valutazione =  valutazione.length();
         }
         this.tipo = tipo;
     }

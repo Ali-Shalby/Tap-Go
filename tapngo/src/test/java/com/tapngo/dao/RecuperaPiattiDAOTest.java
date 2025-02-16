@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class RecuperaPiattiDAOTest {
+class RecuperaPiattiDAOTest {
     @Test
     void recuperaPiattiSuccessfull(){
         Ristorante filtro = new Ristorante("taverna flavia");

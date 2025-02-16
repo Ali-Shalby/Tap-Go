@@ -2,7 +2,6 @@ package com.tapngo.model.dao;
 
 import com.tapngo.exception.DAOException;
 import com.tapngo.model.domain.Carrello;
-import com.tapngo.model.utility.Credentials;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;

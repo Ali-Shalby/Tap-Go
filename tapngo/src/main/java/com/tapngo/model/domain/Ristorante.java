@@ -12,7 +12,7 @@ public class Ristorante {
     private String tipo;
     private String indirizzo;
     private String numTelefono;
-    private transient Blob immagine;
+    private Blob immagine;
 
     public Ristorante(String nome, String citta, String tipologia, Integer prezzo, double valutazione, String tipo) {
         this.nome = nome;

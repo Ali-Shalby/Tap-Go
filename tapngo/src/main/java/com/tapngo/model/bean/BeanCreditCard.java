@@ -29,7 +29,7 @@ public class BeanCreditCard {
 
     // Metodo per validare la data di scadenza (formato MM/YY)
     private boolean isValidExpiryDate(String expiryDate) {
-        return expiryDate != null && expiryDate.matches("(0[1-9]|1[0-2])/[0-9]{2}");
+        return expiryDate != null && expiryDate.matches("(0[1-9]|1[0-2])/\\d{2}");
     }
 
     // Metodo per validare il CVC (3 cifre)

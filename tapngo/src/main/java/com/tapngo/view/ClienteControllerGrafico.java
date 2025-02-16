@@ -68,6 +68,8 @@ public class ClienteControllerGrafico {
     private static final String MESSAGGIO = "In costruzione";
     private EffettuaOrdineControllerApplicativo ordine;
     private BeanCarrello carrelloBean;
+    private static final String BACKGROUND_COLOR ="-fx-background-color: #FFFFFF;";
+    private static final String SUB_LABEL_STYLE ="-fx-font-size: 15px; -fx-text-fill: #666666;";
     private static final String NAMEAPP = "Tap&go";
     private static final String CONTENUTO = "Sezione non ancora implementata!";
     private static final String TYPE = "construction";
@@ -504,7 +506,7 @@ public class ClienteControllerGrafico {
         VBox popupContent = new VBox();
         popupContent.setSpacing(10);
         popupContent.setPadding(new Insets(20));
-        popupContent.setStyle("-fx-background-color: #FFFFFF;");
+        popupContent.setStyle(BACKGROUND_COLOR);
         popupContent.setAlignment(Pos.CENTER);
 
         try{
@@ -553,7 +555,7 @@ public class ClienteControllerGrafico {
 
         // Dettaglio prezzo sopra l'immagine
         Label prezzo = new Label(piattoBean.getPrezzo() + "€");
-        prezzo.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
+        prezzo.setStyle(SUB_LABEL_STYLE);
         prezzo.setAlignment(Pos.CENTER);
 
         // Gestione grafica dell'immagine del piatto
@@ -648,7 +650,7 @@ public class ClienteControllerGrafico {
 
         // Dettaglio prezzo e alcolico sopra l'immagine
         Label prezzo = new Label(bevandaBean.getPrezzo() + "€"+ " • " + bevandaBean.getAlcolico());
-        prezzo.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
+        prezzo.setStyle(SUB_LABEL_STYLE);
         prezzo.setAlignment(Pos.CENTER);
 
         // Gestione grafica dell'immagine del piatto
@@ -731,7 +733,7 @@ public class ClienteControllerGrafico {
         VBox popupContent = new VBox();
         popupContent.setSpacing(10);
         popupContent.setPadding(new Insets(20));
-        popupContent.setStyle("-fx-background-color: #FFFFFF;");
+        popupContent.setStyle(BACKGROUND_COLOR);
         popupContent.setAlignment(Pos.CENTER);
 
         try{
@@ -772,7 +774,7 @@ public class ClienteControllerGrafico {
 
             // Crea il contenuto del popup
             BorderPane popupContent = new BorderPane();
-            popupContent.setStyle("-fx-background-color: #FFFFFF;");
+            popupContent.setStyle(BACKGROUND_COLOR);
 
             try {
                 // Crea un VBox per il titolo
@@ -967,7 +969,7 @@ public class ClienteControllerGrafico {
 
         // Titolo del piatto (nome)
         Label titolo = new Label(item.getNome());
-        titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+        titolo.setStyle(TITLE_TEXT_STYLE);
 
         // Crea un HBox per quantità e prezzo
         HBox detailsBox = new HBox();
@@ -976,11 +978,11 @@ public class ClienteControllerGrafico {
 
         // Dettaglio quantità
         Label quantita = new Label("x" + item.getQuantita());
-        quantita.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
+        quantita.setStyle(SUB_LABEL_STYLE);
 
         // Prezzo
         Label prezzo = new Label(String.format("%.2f€", item.getPrezzo() * item.getQuantita()));
-        prezzo.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
+        prezzo.setStyle(SUB_LABEL_STYLE);
 
         // Aumenta il margine sinistro per spostare ulteriormente il prezzo a destra
         HBox.setMargin(prezzo, new Insets(0, 0, 0, 40)); // Margine sinistro di 40px
