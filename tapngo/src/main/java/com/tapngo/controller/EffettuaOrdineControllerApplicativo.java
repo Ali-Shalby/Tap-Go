@@ -101,7 +101,7 @@ public class EffettuaOrdineControllerApplicativo {
         }
         return  bevandeBean;
     }
-    public void creaCarrello(BeanRistorante ristoranteBean, String username){
+    public BeanCarrello creaCarrello(BeanRistorante ristoranteBean, String username){
         String nomeRistorante = ristoranteBean.getNome();
         for(Ristorante ristorante: listRistoranti.getListaRistoranti()){
             if(Objects.equals(ristorante.getNome(), nomeRistorante)){
@@ -109,6 +109,9 @@ public class EffettuaOrdineControllerApplicativo {
                 carrello = new Carrello(ristorante, username);
             }
         }
+        BeanCarrello carrelloBean = new BeanCarrello();
+        carrelloBean.setRistorante(nomeRistorante);
+        return carrelloBean;
     }
     public void aggiungiAlCarrello(BeanItemCarrello itemBean) {
 
@@ -205,16 +208,17 @@ public class EffettuaOrdineControllerApplicativo {
             if(stato != "accettato"){
                 throw new Exception("ci sono stati errori di comunicazione con la banca");
             }
-            SalvaOrdineDAO salvaOrdineDAO = new SalvaOrdineDAO();
-            salvaOrdineDAO.salvaOrdineExecute(carrello);
-            SalvaOrdineFS salvaOrdineFS = new SalvaOrdineFS();
-            salvaOrdineFS.salvaOrdineSuFile(carrello);
+            salvaOrdine();
 
         }
 
-
-
-
     }
+    public void salvaOrdine() throws DAOException, SQLException {
+        SalvaOrdineDAO salvaOrdineDAO = new SalvaOrdineDAO();
+        salvaOrdineDAO.salvaOrdineExecute(carrello);
+        SalvaOrdineFS salvaOrdineFS = new SalvaOrdineFS();
+        salvaOrdineFS.salvaOrdineSuFile(carrello);
+    }
+
 
 }

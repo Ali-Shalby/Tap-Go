@@ -8,7 +8,7 @@ public class BeanCreditCard {
     // Costruttore con controlli di validità
     public BeanCreditCard(String cardNumber, String scadenza, String cvc) throws IllegalArgumentException {
         if (!isValidCardNumber(cardNumber)) {
-            throw new IllegalArgumentException("Il numero della carta deve contenere esattamente 12 cifre.");
+            throw new IllegalArgumentException("Il numero della carta deve contenere esattamente 16 cifre.");
         }
         if (!isValidExpiryDate(scadenza)) {
             throw new IllegalArgumentException("La data di scadenza deve essere nel formato MM/YY.");
@@ -24,7 +24,7 @@ public class BeanCreditCard {
 
     // Metodo per validare il numero della carta (12 cifre)
     private boolean isValidCardNumber(String cardNumber) {
-        return cardNumber != null && cardNumber.matches("\\d{12}");
+        return cardNumber != null && cardNumber.matches("\\d{16}");
     }
 
     // Metodo per validare la data di scadenza (formato MM/YY)

@@ -177,7 +177,7 @@ public class ClienteControllerGrafico {
                 ordine = new EffettuaOrdineControllerApplicativo();
                 BeanRistoranti listaRistoranti = ordine.mostraRistoranti(filtri);
                 if (listaRistoranti.getListRistoranti().isEmpty()){
-                    Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non ci sono attività ristorative che ripsecchiano i filtri scelti",WARNING_POPUP_TYPE);
+                    Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non ci sono attività ristorative che rispecchiano i filtri scelti",WARNING_POPUP_TYPE);
                 }else{
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     Stage stage = ApplicazioneStage.getStage();
@@ -353,7 +353,7 @@ public class ClienteControllerGrafico {
 
         // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
         Region spacer = new Region();
-        spacer.setMinWidth(30);
+        spacer.setMinWidth(50);
 
         aumentaIcon.setOnMouseClicked(event -> {aggiungiAlCarrello(piattoBean, quantitaLabel);});
         diminuisciIcon.setOnMouseClicked(event -> {rimuoviDalCarrello(piattoBean, quantitaLabel);});
@@ -368,7 +368,7 @@ public class ClienteControllerGrafico {
 
         // Creazione della struttura principale
         VBox titleAndDetailsBox = new VBox(titleLabel, infoBox);
-        titleAndDetailsBox.setSpacing(5);
+        titleAndDetailsBox.setSpacing(10);
         titleAndDetailsBox.setAlignment(Pos.CENTER_LEFT);
 
         // Creazione della struttura principale
@@ -443,10 +443,10 @@ public class ClienteControllerGrafico {
 
         // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
         Region spacer = new Region();
-        spacer.setMinWidth(30);
+        spacer.setMinWidth(50);
 
         // Creazione della label oer il prezzo
-        Label prezzoLabel = new Label(bevandaBean.getPrezzo() + "€");
+        Label prezzoLabel = new Label("   "+bevandaBean.getPrezzo() + "€");
         prezzoLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Parte bottom per info quantita e prezzo
@@ -482,7 +482,7 @@ public class ClienteControllerGrafico {
 
         return card;
     }
-    private void aggiungiAlCarrello(BeanItemCarrello item, Label quantitaLabel){
+    private void aggiungiAlCarrello(BeanItemCarrello item, Label quantitaLabel ){
         ordine.aggiungiAlCarrello(item);
         Platform.runLater(() -> quantitaLabel.setText(String.valueOf(item.getQuantita())));
     }
@@ -608,7 +608,7 @@ public class ClienteControllerGrafico {
         }
 
         // Video URL
-        Label videoLabel = new Label("Video Tutorial");
+        Label videoLabel = new Label("Video Preparazione");
         videoLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13.8px;");
         VBox.setMargin(videoLabel, new Insets(10, 0, 0, 0));
         VBox linkVideoBox = new VBox(10);
@@ -687,7 +687,7 @@ public class ClienteControllerGrafico {
         try {
             BeanPiatti piatti = ordine.mostraPiatti(ristoranteBean);
             BeanBevande bevande = ordine.mostraBevande(ristoranteBean);
-            ordine.creaCarrello(ristoranteBean, username);
+            carrelloBean = ordine.creaCarrello(ristoranteBean, username);
             if (piatti.getPiatti().isEmpty() && bevande.getBevande().isEmpty()){
                 Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non è stato possibile leggere il menù della ristorazione scelta",WARNING_POPUP_TYPE);
             }else{
@@ -710,6 +710,7 @@ public class ClienteControllerGrafico {
                 scene = new Scene(rootNode, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
                 stage.setTitle(NAMEAPP);
                 controller.inizializzaOrdine(ordine);
+                inizializzaCarrello(carrelloBean);
                 stage.setScene(scene);
                 stage.show();
             }
@@ -760,36 +761,62 @@ public class ClienteControllerGrafico {
             Popup.mostraPopup(ERROR_MESSAGE_TITLE, "Errore nel caricamento dei dettagli del piatto.", ERROR_POPUP_TYPE);
         }
     }
-    public void anteprimaOrdine(){
-
+    public void anteprimaOrdine() {
         carrelloBean = this.ordine.mostraCarrello();
-        if(carrelloBean.getListaItems().isEmpty()){
-            Popup.mostraPopup(WARNING_MESSAGE_TITLE, "selezionare qualcosa dal menù prima di proseguire con l'ordine ", WARNING_POPUP_TYPE);
-        }else {
-
+        if (carrelloBean.getListaItems().isEmpty()) {
+            Popup.mostraPopup(WARNING_MESSAGE_TITLE, "Selezionare qualcosa dal menù prima di proseguire con l'ordine", WARNING_POPUP_TYPE);
+        } else {
             // Crea un nuovo Stage per il popup
             Stage popupStage = new Stage();
             popupStage.setTitle("Dettagli ordine");
+
             // Crea il contenuto del popup
-            VBox popupContent = new VBox();
-            popupContent.setSpacing(10);
-            popupContent.setPadding(new Insets(20));
+            BorderPane popupContent = new BorderPane();
             popupContent.setStyle("-fx-background-color: #FFFFFF;");
-            popupContent.setAlignment(Pos.CENTER);
+
             try {
+                // Crea un VBox per il titolo
+                VBox titoloBox = new VBox();
+                titoloBox.setPadding(new Insets(20, 20, 10, 20)); // Padding per il titolo
 
+                // Aggiungi un titolo sopra la lista degli elementi
+                Label titoloLista = new Label("Elementi nel Carrello");
+                titoloLista.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+                titoloLista.setAlignment(Pos.CENTER); // Centra il testo nel Label
+                titoloLista.setMaxWidth(Double.MAX_VALUE); // Occupa tutta la larghezza disponibile
+                titoloBox.getChildren().add(titoloLista);
+
+                // Aggiungi il titoloBox nella parte superiore del BorderPane
+                popupContent.setTop(titoloBox);
+
+                // Crea un VBox per gli elementi del carrello
+                VBox itemsBox = new VBox();
+                itemsBox.setSpacing(20); // Aumenta la spaziatura tra gli elementi
+                itemsBox.setPadding(new Insets(10, 20, 20, 20)); // Padding per gli elementi
+
+                // Aggiungi gli elementi del carrello
                 for (BeanItemCarrello item : carrelloBean.getListaItems()) {
-
                     HBox popupOrdineContent = createContentOrdine(item);
-                    popupContent.getChildren().add(popupOrdineContent);
-
+                    // Aggiungi un bordo e un padding a ciascun elemento
+                    popupOrdineContent.setStyle("-fx-border-color: #CCCCCC; -fx-border-width: 1; -fx-border-radius: 5; -fx-padding: 10;");
+                    itemsBox.getChildren().add(popupOrdineContent);
                 }
+
+                // Inserisci il contenuto nel ScrollPane
+                ScrollPane localScrollPane = new ScrollPane(itemsBox);
+                localScrollPane.setFitToWidth(true);
+
+                // Imposta la visualizzazione all'inizio
+                localScrollPane.setVvalue(0);
+
+                // Aggiungi il ScrollPane al centro del BorderPane
+                popupContent.setCenter(localScrollPane);
 
                 // Pulsante per confermare l'ordine
                 Button confirmButton = new Button("Conferma ordine");
+                confirmButton.setStyle("-fx-border-radius: 10; -fx-background-radius: 15; -fx-border-color: gray; -fx-background-insets: 0;");
 
-
-                EventHandler<ActionEvent> confirmHandler = (confirmEvent) ->{
+                EventHandler<ActionEvent> confirmHandler = (confirmEvent) -> {
                     try {
                         metodoPagamentoView();
                         popupStage.close();
@@ -803,30 +830,36 @@ public class ClienteControllerGrafico {
                 HBox buttonBox = new HBox(10);
                 buttonBox.setAlignment(Pos.CENTER);
                 buttonBox.getChildren().add(confirmButton);
+                buttonBox.setPadding(new Insets(10)); // Aggiungi un po' di padding
 
-                popupContent.getChildren().add(confirmButton);
+                // Crea un VBox per il prezzo totale
+                Label totalPriceLabel = new Label("Totale: " + carrelloBean.getTotalPrice() + "€");
+                totalPriceLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #333333;fx-font-family: 'Calibri'");
 
-                // Inserisci il contenuto nel ScrollPane
-                ScrollPane localScrollPane = new ScrollPane(popupContent);
-                localScrollPane.setFitToWidth(true);
+                VBox totalPriceBox = new VBox(totalPriceLabel);
+                totalPriceBox.setAlignment(Pos.CENTER); // Centra il prezzo totale
+                totalPriceBox.setPadding(new Insets(10, 0, 10, 0)); // Aggiungi padding sopra e sotto
 
-                // Imposta la visualizzazione all'inizio
-                localScrollPane.setVvalue(0);
+                // Aggiungi il prezzo totale e il bottone in un VBox separato
+                VBox bottomBox = new VBox(totalPriceBox, buttonBox);
+                bottomBox.setSpacing(10); // Spaziatura tra prezzo totale e bottone
+                bottomBox.setAlignment(Pos.CENTER); // Centra tutto il contenuto
+
+                // Aggiungi il bottomBox nella parte inferiore del BorderPane
+                popupContent.setBottom(bottomBox);
 
                 // Imposta il layout come scena del popup
-                Scene popupScene = new Scene(localScrollPane, 310, 550);
+                Scene popupScene = new Scene(popupContent, 310, 550);
                 popupStage.setScene(popupScene);
+
                 // Esecuzione codice passato per forzare lo scroll all'inizio dopo il rendering della GUI
                 popupStage.show();
                 Platform.runLater(() -> localScrollPane.setVvalue(0));
-                // Mostra il popup
-                popupStage.show();
 
             } catch (SQLException e) {
                 Popup.mostraPopup(ERROR_MESSAGE_TITLE, "Errore nel caricamento dei dettagli dell'ordine.", ERROR_POPUP_TYPE);
             }
         }
-
     }
 
     public void metodoPagamentoView() throws IOException {
@@ -870,6 +903,7 @@ public class ClienteControllerGrafico {
         this.carrelloBean = carrelloBean;
     }
 
+
     @FXML
     private void paga() throws IOException {
         String cardNumber = cardNumberField.getText();
@@ -890,55 +924,77 @@ public class ClienteControllerGrafico {
         }
 
     }
+    @FXML
     private void terminaOrdine() throws IOException {
-        Popup.mostraPopup("Successo", "ordine inviato", "success");
-        tornaIndietro();
+        try {
+            ordine.salvaOrdine();
+            Popup.mostraPopup("Successo", "ordine inviato", "success");
+            tornaIndietro();
+        }catch (DAOException | SQLException e) {
+            Popup.mostraPopup( ERROR_MESSAGE_TITLE, "Si è verificato un errore durante il salvataggio dell'ordine.", ERROR_POPUP_TYPE);
+        }
+
+
     }
 
     public HBox createContentOrdine(BeanItemCarrello item) throws SQLException {
-        // Crea VBox per il titolo e dettagli
+        // Crea HBox per contenere l'immagine e il testo
         HBox popupInitialContent = new HBox();
         popupInitialContent.setAlignment(Pos.CENTER_LEFT);
-        popupInitialContent.setSpacing(5);
-
-        // Titolo del piatto
-        Label titolo = new Label(item.getNome());
-        titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 22px;");
-        titolo.setAlignment(Pos.CENTER_LEFT);
-
-        // Dettaglio quantità
-        Label quantita = new Label("x"+item.getQuantita());
-        quantita.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
-        quantita.setAlignment(Pos.CENTER_LEFT);
-
-        Label prezzo = new Label(item.getPrezzo()*item.getQuantita()+"€");
-        prezzo.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
-        prezzo.setAlignment(Pos.CENTER_LEFT);
+        popupInitialContent.setSpacing(10); // Spaziatura tra immagine e testo
 
         // Gestione grafica dell'immagine del piatto
         ImageView immagineItem;
         if (item.getImmagine() != null && item.getImmagine().getBinaryStream() != null) {
             immagineItem = new ImageView(new Image(item.getImmagine().getBinaryStream()));
-            immagineItem.setFitWidth(70);
-            immagineItem.setFitHeight(65);
         } else {
             immagineItem = new ImageView(DEFAULT_IMAGE);
-            immagineItem.setFitWidth(70);
-            immagineItem.setFitHeight(65);
         }
+        immagineItem.setFitWidth(70); // Larghezza fissa per l'immagine
+        immagineItem.setFitHeight(65); // Altezza fissa per l'immagine
         immagineItem.setPreserveRatio(true);
+
+        // Applica un ritaglio arrotondato all'immagine
         Rectangle clip = new Rectangle(immagineItem.getFitWidth(), immagineItem.getFitHeight());
         clip.setArcWidth(30);
         clip.setArcHeight(30);
         immagineItem.setClip(clip);
 
+        // Crea un VBox per organizzare il testo (nome, quantità e prezzo)
+        VBox textBox = new VBox();
+        textBox.setAlignment(Pos.CENTER_LEFT);
+        textBox.setSpacing(5); // Spaziatura tra nome e dettagli
 
+        // Titolo del piatto (nome)
+        Label titolo = new Label(item.getNome());
+        titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
 
+        // Crea un HBox per quantità e prezzo
+        HBox detailsBox = new HBox();
+        detailsBox.setAlignment(Pos.CENTER_LEFT);
+        detailsBox.setSpacing(20); // Aumenta la spaziatura tra quantità e prezzo
 
-        // Aggiungi gli elementi iniziali al VBox
-        popupInitialContent.getChildren().addAll(immagineItem, titolo, quantita, prezzo);
+        // Dettaglio quantità
+        Label quantita = new Label("x" + item.getQuantita());
+        quantita.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
 
-        // Restituisci il contenuto delle informazioni iniziali
+        // Prezzo
+        Label prezzo = new Label(String.format("%.2f€", item.getPrezzo() * item.getQuantita()));
+        prezzo.setStyle("-fx-font-size: 15px; -fx-text-fill: #666666;");
+
+        // Aumenta il margine sinistro per spostare ulteriormente il prezzo a destra
+        HBox.setMargin(prezzo, new Insets(0, 0, 0, 40)); // Margine sinistro di 40px
+
+        // Aggiungi quantità e prezzo al detailsBox
+        detailsBox.getChildren().addAll(quantita, prezzo);
+
+        // Aggiungi titolo e detailsBox al textBox
+        textBox.getChildren().addAll(titolo, detailsBox);
+
+        // Aggiungi immagine e textBox all'HBox principale
+        popupInitialContent.getChildren().addAll(immagineItem, textBox);
+
+        // Restituisci il contenuto
         return popupInitialContent;
     }
     public void onClickedCucinaCasalinga() throws IOException {

@@ -9,18 +9,23 @@
 <?import javafx.collections.FXCollections?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.tapngo.view.ClienteControllerGrafico" style="-fx-background-color: white;"
+            fx:controller="com.tapngo.view.ClienteControllerGrafico" style="-fx-background-color: #AB00FB;"
             prefHeight="400.0" prefWidth="600.0">
 
     <!-- Freccia indietro -->
-    <Button text="◀" layoutX="20.0" layoutY="20.0" onAction="#tornaIndietro" style="-fx-border-radius: 10;-fx-background-radius: 10; -fx-font-size: 14px;-fx-border-color: transparent; -fx-background-insets: 0;" />
-    <Label text="Filtri di ricerca" layoutX="65.0" layoutY="95.0" textFill="black" style="-fx-font-size: 30px; -fx-font-weight: bold;" />
+
+    <Button text="◀" onAction="#tornaIndietro"
+            style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 12px; -fx-border-color: transparent; -fx-background-insets: 0; -fx-pref-width: 30px; -fx-pref-height: 30px;"
+            AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+
+    <Label text="Filtri di ricerca" layoutX="65.0" layoutY="95.0" textFill="white" style="-fx-font-size: 30px; -fx-font-weight: bold;" />
     <!-- Barra di ricerca -->
     <TextField fx:id="nomeRistorante" layoutX="55.0" layoutY="190.0" prefWidth="220.0" prefHeight="30.0" promptText="Cerca per nome..."
                style="-fx-background-radius: 15; -fx-padding: 5px;" />
 
     <!-- ComboBox 1 -->
-    <ComboBox fx:id="cittaComboBox" promptText="Scegli la città da cui vuoi ordinare" layoutX="40.0" layoutY="250.0" prefWidth="250.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
+    <ComboBox fx:id="cittaComboBox" promptText="Scegli la città da cui vuoi ordinare" layoutX="40.0" layoutY="250.0" prefWidth="250.0" prefHeight="30.0"
+              style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="Qualsiasi"/>
@@ -38,7 +43,8 @@
         </items>
     </ComboBox>
     <!-- ComboBox 2 -->
-    <ComboBox fx:id="tipologiaComboBox" promptText="Scegli la cucina che ti piace di più" layoutX="40.0" layoutY="300.0" prefWidth="250.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
+    <ComboBox fx:id="tipologiaComboBox" promptText="Scegli la cucina che ti piace di più" layoutX="40.0" layoutY="300.0" prefWidth="250.0" prefHeight="30.0"
+              style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="Qualsiasi"/>
@@ -55,7 +61,8 @@
     </ComboBox>
 
     <!-- ComboBox 3 -->
-    <ComboBox fx:id="prezzoComboBox" promptText="Quanto sei disposto a spendere?" layoutX="40.0" layoutY="350.0" prefWidth="250.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
+    <ComboBox fx:id="prezzoComboBox" promptText="Quanto sei disposto a spendere?" layoutX="40.0" layoutY="350.0" prefWidth="250.0" prefHeight="30.0"
+              style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: gray; -fx-background-insets: 0;-fx-font-family: 'Calibri'">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="Tanto (più di 40€)"/>
@@ -79,5 +86,5 @@
         </items>
     </ComboBox>
     <!-- Bottone "Cerca" -->
-    <Button text="Cerca 🔍" onAction="#mostraRistoranti" layoutX="120.0" layoutY="500.0" prefWidth="100.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: black; -fx-background-insets: 0;"/>
+    <Button text="Cerca 🔍" onAction="#mostraRistoranti" layoutX="120.0" layoutY="500.0" prefWidth="100.0" prefHeight="30.0" style="-fx-border-radius: 10;-fx-background-radius: 15;-fx-border-color: white; -fx-background-insets: 0;"/>
 </AnchorPane>

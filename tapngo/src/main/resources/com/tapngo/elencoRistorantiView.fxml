@@ -12,16 +12,31 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 
+<?import javafx.scene.layout.Region?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.tapngo.view.ClienteControllerGrafico">
+            fx:controller="com.tapngo.view.ClienteControllerGrafico"
+            style="-fx-background-color: #AB00FB;">
 
     <!-- Barra di navigazione superiore -->
     <top>
-        <Button text="◀" layoutX="20.0" layoutY="20.0"  onAction="#tornaIndietro" style="-fx-border-radius: 10;-fx-background-radius: 10; -fx-font-size: 14px;-fx-border-color: transparent; -fx-background-insets: 0;" />
+        <HBox alignment="CENTER_LEFT" style="-fx-padding: 5;">
+            <!-- Pulsante Indietro -->
+            <Button text="◀" onAction="#tornaIndietro"
+                    style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 12px; -fx-border-color: transparent; -fx-background-insets: 0; -fx-pref-width: 30px; -fx-pref-height: 30px;" />
+
+            <!-- Spaziatura flessibile per spostare il titolo a sinistra -->
+            <Region minWidth="63"/>
+
+            <!-- Titolo leggermente spostato a sinistra -->
+            <Label text="Risultati trovati" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" />
+
+            <!-- Spaziatura flessibile per bilanciare il layout -->
+            <Region HBox.hgrow="ALWAYS" />
+        </HBox>
     </top>
 
-    <!-- Lista delle ricette caricate dinamicamente -->
+    <!-- Lista dei ristoranti caricati dinamicamente -->
     <center>
         <VBox spacing="10.0">
             <padding>

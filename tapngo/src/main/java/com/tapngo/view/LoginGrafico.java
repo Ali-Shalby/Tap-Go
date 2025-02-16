@@ -85,17 +85,17 @@ public class LoginGrafico {
         Object controller = fxmlLoader.getController();
 
 
-        if (controller instanceof ClienteControllerGrafico) { // Se il controller è per il cliente
-            ((ClienteControllerGrafico) controller).setLabelTitle("                 Ciao " + Credentials.getNome() + ",\n    cosa vuoi mangiare oggi?");
-        } else if (controller instanceof RistoratoreControllerGrafico) { // Se il controller è per il ristoratore
-            ((RistoratoreControllerGrafico) controller).setLabelTitle("                  Ciao " + Credentials.getNome() + ",\n    cosa vuoi gestire oggi?");
+        if (controller instanceof ClienteControllerGrafico clienteControllerGrafico) { // Se il controller è per il cliente
+            clienteControllerGrafico.setLabelTitle("                Ciao " + Credentials.getNome() + ",\n   cosa vuoi mangiare oggi?");
+        } else if (controller instanceof RistoratoreControllerGrafico ristoratoreControllerGrafico) { // Se il controller è per il ristoratore
+            ristoratoreControllerGrafico.setLabelTitle("                  Ciao " + Credentials.getNome() + ",\n    cosa vuoi gestire oggi?");
         }
 
         // Imposta la scena
         Scene scene = new Scene(rootNode, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
         stageChangeView.setTitle("Tap&go");
-        if (controller instanceof ClienteControllerGrafico) { // Se il controller è per il cliente
-            ((ClienteControllerGrafico) controller).setUsername(Credentials.getUsername());}
+        if (controller instanceof ClienteControllerGrafico clienteControllerGrafico) { // Se il controller è per il cliente
+            clienteControllerGrafico.setUsername(Credentials.getUsername());}
         stageChangeView.setScene(scene);
         stageChangeView.centerOnScreen();
         stageChangeView.show();

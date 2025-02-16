@@ -5,9 +5,8 @@ import com.tapngo.model.bean.BeanCreditCard;
 public class BancaControllerGrafico {
 
     public String mandaPagamento(BeanCreditCard datiBanca, double importo) {
-        if(importo>0){
+        if(importo>0 && datiBanca.getCardNumber()!=null){
             return "accettato";
-        }
-        return "rifiutato";
+        }else{return "rifiutato";}
     }
 }

@@ -10,7 +10,8 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.tapngo.view.ClienteControllerGrafico"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-color: #AB00FB;">
 
     <!-- Logout in alto a sinistra -->
     <top>
@@ -27,14 +28,14 @@
     <!-- Contenitore principale -->
     <center>
         <StackPane>
-            <VBox spacing="20" alignment="CENTER">
+            <VBox spacing="40" alignment="CENTER">
                 <padding>
                     <!-- Ridotto il margine superiore per alzare il contenuto -->
-                    <Insets top="-60.0" left="25.0" right="25.0" bottom="0.0"/>
+                    <Insets top="-60.0" left="25.0" right="25.0"/>
                 </padding>
 
                 <!-- Testo sopra le immagini -->
-                <Label fx:id="labelTitle" style="-fx-text-fill: black;">
+                <Label fx:id="labelTitle" style="-fx-text-fill: white;">
                     <font>
                         <Font name="System Bold" size="20.0"/>
                     </font>
@@ -47,7 +48,7 @@
                         <ImageView fitWidth="100" fitHeight="100" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#onClickedRistorante">
                             <Image url="@/ristorante.png" />
                         </ImageView>
-                        <Text text="Ristorante" style="-fx-font-size: 12px; -fx-font-weight: bold;" />
+                        <Label text="Ristorante" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: white;" />
                     </VBox>
 
                     <!-- Contenitore per 'Cucina Casalinga' -->
@@ -55,7 +56,7 @@
                         <ImageView fitWidth="100" fitHeight="100" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#onClickedCucinaCasalinga">
                             <Image url="@/cucina.png" />
                         </ImageView>
-                        <Text text="Cucina Casalinga" style="-fx-font-size: 12px; -fx-font-weight: bold;" />
+                        <Label text="Cucina Casalinga" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: white;" />
                     </VBox>
                 </HBox>
             </VBox>
@@ -65,9 +66,9 @@
     <!-- Barra di navigazione inferiore -->
     <bottom>
         <HBox style="-fx-background-color: #E5E5E5;" alignment="CENTER" spacing="40.0" prefHeight="50.0">
-            <Button text="👤" onAction="#profiloView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: black; -fx-background-insets: 0;"/>
-            <Button text="⭐" onAction="#preferitiView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: black; -fx-background-insets: 0;"/>
-            <Button text="🧾" onAction="#storicoOrdiniView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: black; -fx-background-insets: 0;"/>
+            <Button text="👤" onAction="#profiloView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: gray; -fx-background-insets: 0;"/>
+            <Button text="⭐" onAction="#preferitiView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: gray; -fx-background-insets: 0;"/>
+            <Button text="🧾" onAction="#storicoOrdiniView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: gray; -fx-background-insets: 0;"/>
         </HBox>
     </bottom>
 
