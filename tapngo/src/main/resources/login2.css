@@ -1,0 +1,42 @@
+/* Stili Globali */
+.root {
+    -fx-background-color: black;
+}
+
+/* Etichetta di Login */
+#loginLabel {
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+/* Stili TextField */
+#textFieldUsername, #textFieldPassword {
+    -fx-pref-width: 250px;
+    -fx-pref-height: 60px;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 0 0 0 40px;
+}
+
+#buttonEntra {
+    -fx-pref-width: 150px;
+    -fx-pref-height: 50px;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+}
+
+/* Stili per tutti i bottoni */
+Button {
+    -fx-pref-width: 150px;
+    -fx-pref-height: 30px;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-border-width: 2px;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}

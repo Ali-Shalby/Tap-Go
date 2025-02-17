@@ -24,34 +24,39 @@
     <!-- Contenitore principale -->
     <center>
         <StackPane>
-            <VBox spacing="20" alignment="CENTER">
-                <!-- Label "Seleziona il metodo di pagamento" spostata più in basso -->
-                <Label text="Seleziona il metodo di pagamento" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" />
+            <VBox spacing="40" alignment="CENTER">
+                <!-- Padding per spostare il contenuto più in alto -->
+                <padding>
+                    <Insets top="-40" /> <!-- Aggiunto padding superiore -->
+                </padding>
+
+                <!-- Label "Seleziona il metodo di pagamento" -->
+                <Label text="Seleziona il metodo di pagamento" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: 'Calibri' " />
 
                 <!-- Contenitore per le immagini e le descrizioni -->
-                <VBox spacing="20" alignment="CENTER">
-                    <!-- Immagine centrale leggermente spostata verso l'alto -->
+                <VBox spacing="10" alignment="CENTER">
+                    <!-- Immagine centrale -->
                     <ImageView fitWidth="100" fitHeight="100" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#cartaDiCreditoView">
-                        <Image url="@/cucina.png" />
+                        <Image url="@/online.png" />
                     </ImageView>
-                    <Text text="Pagamento online" style="-fx-font-size: 12px; -fx-font-weight: bold;" />
+                    <Text text="Pagamento online" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-fill: white;" /> <!-- Testo bianco -->
 
                     <!-- Contenitore per le due immagini sotto -->
                     <HBox spacing="40" alignment="CENTER">
                         <!-- Contenitore per 'Pagamento in contante' -->
                         <VBox spacing="10" alignment="CENTER">
                             <ImageView fitWidth="100" fitHeight="100" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#terminaOrdine">
-                                <Image url="@/ristorante.png" />
+                                <Image url="@/contante.png" />
                             </ImageView>
-                            <Text text="Pagamento in contante" style="-fx-font-size: 12px; -fx-font-weight: bold;" />
+                            <Text text="Pagamento in contante" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-fill: white;" /> <!-- Testo bianco -->
                         </VBox>
 
                         <!-- Contenitore per 'Pagamento da asporto' -->
                         <VBox spacing="10" alignment="CENTER">
                             <ImageView fitWidth="100" fitHeight="100" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#terminaOrdine">
-                                <Image url="@/cucina.png" />
+                                <Image url="@/asporto.png" />
                             </ImageView>
-                            <Text text="Pagamento da asporto" style="-fx-font-size: 12px; -fx-font-weight: bold;" />
+                            <Text text="Pagamento da asporto" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-fill: white;" /> <!-- Testo bianco -->
                         </VBox>
                     </HBox>
                 </VBox>

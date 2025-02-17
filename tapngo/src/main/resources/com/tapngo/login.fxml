@@ -14,7 +14,7 @@
             fx:controller="com.tapngo.view.LoginGrafico">
 
     <!-- ImageView per background -->
-    <ImageView fx:id="backgroundImage" fitWidth="330.0" fitHeight="600.0">
+    <ImageView fx:id="backgroundImage" fitWidth="331.0" fitHeight="600.0">
         <Image url="@/login_background.png" />
     </ImageView>
 
@@ -39,14 +39,18 @@
             </StackPane>
         </VBox>
         <Button text="Login" onAction="#onLoginButtonClick" styleClass="login-button" style="-fx-translate-y: -15px;"/>
+
+        <!-- VBox per centrare la switchIcon tra il bottone di login e la scritta di registrazione -->
+        <VBox alignment="CENTER" spacing="10.0">
+            <ImageView fx:id="switchIcon" fitWidth="50.0" fitHeight="53.0" onMouseClicked="#cambiaGrafica">
+                <Image url="@/changeGUI_icon.png" />
+            </ImageView>
+        </VBox>
     </VBox>
-
-
 
     <!-- HBox per il bottone della registrazione -->
     <HBox fx:id="registerContainer" alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <Button fx:id="registerButton" text="Non hai un account? Registrati" onAction="#registratiView" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" />
     </HBox>
-
 
 </AnchorPane>

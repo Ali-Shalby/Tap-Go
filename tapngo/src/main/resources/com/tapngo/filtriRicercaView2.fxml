@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.tapngo.view.ClienteControllerGrafico2"
+            style="-fx-background-color: black;"
+            prefHeight="400.0" prefWidth="800.0">
+
+
+    <!-- GridPane per centrare gli elementi -->
+    <GridPane alignment="CENTER" layoutX="0" layoutY="0"
+              AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints valignment="CENTER" />
+        </rowConstraints>
+
+
+        <!-- Titolo (più separato dagli altri elementi) -->
+        <Label text="Filtri di ricerca" textFill="white"
+               style="-fx-font-size: 45px; -fx-font-weight: bold;"
+               GridPane.rowIndex="0" GridPane.columnIndex="0">
+            <GridPane.margin>
+                <Insets top="30" bottom="50"/>
+            </GridPane.margin>
+        </Label>
+
+        <!-- Barra di ricerca -->
+        <TextField fx:id="nomeRistorante" prefWidth="400.0" prefHeight="40.0"
+                   promptText="Cerca per nome..."
+                   style="-fx-background-radius: 20; -fx-padding: 10px;"
+                   GridPane.rowIndex="1" GridPane.columnIndex="0">
+            <GridPane.margin>
+                <Insets bottom="40"/>
+            </GridPane.margin>
+        </TextField>
+
+        <!-- Prima riga di ComboBox -->
+        <HBox spacing="100" alignment="CENTER" GridPane.rowIndex="2" GridPane.columnIndex="0">
+            <GridPane.margin>
+                <Insets bottom="50"/>
+            </GridPane.margin>
+
+            <ComboBox fx:id="cittaComboBox" promptText="Scegli la città da cui vuoi ordinare" prefWidth="450.0" prefHeight="50.0"
+                      style="-fx-border-radius: 15; -fx-background-radius: 20; -fx-border-color: gray; -fx-font-family: 'Calibri'; -fx-font-size: 18px;">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Qualsiasi"/>
+                        <String fx:value="Bari"/>
+                        <String fx:value="Bologna"/>
+                        <String fx:value="Cagliari"/>
+                        <String fx:value="Firenze"/>
+                        <String fx:value="Genova"/>
+                        <String fx:value="Milano"/>
+                        <String fx:value="Napoli"/>
+                        <String fx:value="Palermo"/>
+                        <String fx:value="Roma"/>
+                        <String fx:value="Torino"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <ComboBox fx:id="tipologiaComboBox" promptText="Scegli la cucina che ti piace di più" prefWidth="450.0" prefHeight="50.0"
+                      style="-fx-border-radius: 15; -fx-background-radius: 20; -fx-border-color: gray; -fx-font-family: 'Calibri'; -fx-font-size: 18px;">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Qualsiasi"/>
+                        <String fx:value="Americana"/>
+                        <String fx:value="Araba"/>
+                        <String fx:value="Cinese"/>
+                        <String fx:value="Giapponese"/>
+                        <String fx:value="Indiana"/>
+                        <String fx:value="Italiana"/>
+                        <String fx:value="Messicana"/>
+                        <String fx:value="Sudamericana"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
+
+        <!-- Seconda riga di ComboBox -->
+        <HBox spacing="100" alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="0">
+            <GridPane.margin>
+                <Insets bottom="50"/>
+            </GridPane.margin>
+
+            <ComboBox fx:id="prezzoComboBox" promptText="Quanto sei disposto a spendere?" prefWidth="450.0" prefHeight="50.0"
+                      style="-fx-border-radius: 15; -fx-background-radius: 20; -fx-border-color: gray; -fx-font-family: 'Calibri'; -fx-font-size: 18px;">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Tanto (più di 40€)"/>
+                        <String fx:value="Medio (tra 20€ e 40€)"/>
+                        <String fx:value="Poco (meno di 20€)"/>
+                        <String fx:value="Qualsiasi"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <ComboBox fx:id="valutazioneComboBox" promptText="Quanta qualità vuoi?" prefWidth="450.0" prefHeight="50.0"
+                      style="-fx-border-radius: 15; -fx-background-radius: 20; -fx-border-color: gray; -fx-font-family: 'Calibri'; -fx-font-size: 18px;">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="⭐"/>
+                        <String fx:value="⭐⭐"/>
+                        <String fx:value="⭐⭐⭐"/>
+                        <String fx:value="⭐⭐⭐⭐"/>
+                        <String fx:value="⭐⭐⭐⭐⭐"/>
+                        <String fx:value="Indifferente"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
+
+        <!-- Bottone "Cerca" ancora più in basso -->
+        <Button text="Cerca 🔍" onAction="#mostraRistoranti" prefWidth="200.0" prefHeight="50.0"
+                style="-fx-border-radius: 15; -fx-background-radius: 20; -fx-border-color: white; -fx-font-size: 18px;"
+                GridPane.rowIndex="4" GridPane.columnIndex="0">
+            <GridPane.margin>
+                <Insets top="100"/>
+            </GridPane.margin>
+        </Button>
+    </GridPane>
+    <!-- Freccia indietro -->
+    <Button text="◀" onAction="#tornaIndietro"
+            style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-font-size: 18px; -fx-border-color: transparent; -fx-background-insets: 0; -fx-pref-width: 50px; -fx-pref-height: 50px;"
+            AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+</AnchorPane>

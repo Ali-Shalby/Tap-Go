@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.tapngo.view.ClienteControllerGrafico2"
+            prefHeight="400.0" prefWidth="800.0"
+            style="-fx-background-color: black;">
+
+    <!-- Titolo in alto -->
+    <top>
+        <HBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets top="20.0"/>
+            </padding>
+            <Label fx:id="labelTitle" style="-fx-text-fill: white;">
+                <font>
+                    <Font name="System Bold" size="50.0"/>
+                </font>
+            </Label>
+        </HBox>
+    </top>
+
+    <!-- Contenitore principale con immagini e testi -->
+    <center>
+        <HBox spacing="150" alignment="CENTER">
+            <!-- Contenitore per 'Ristorante' -->
+            <VBox spacing="10" alignment="CENTER">
+                <ImageView fitWidth="300" fitHeight="300" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#onClickedRistorante">
+                    <Image url="@/ristorante.png" />
+                </ImageView>
+                <Label text="Ristorante" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+
+            <!-- Contenitore per 'Cucina Casalinga' -->
+            <VBox spacing="10" alignment="CENTER">
+                <ImageView fitWidth="300" fitHeight="300" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#onClickedCucinaCasalinga">
+                    <Image url="@/cucina.png" />
+                </ImageView>
+                <Label text="Cucina Casalinga" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- Barra di navigazione inferiore con 4 bottoni -->
+    <bottom>
+        <HBox style="-fx-background-color: #E5E5E5;" alignment="CENTER" spacing="40.0" prefHeight="50.0">
+            <Button text="LOGOUT" onAction="#logout" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: gray; -fx-background-insets: 0;"/>
+            <Button text="PROFILO" onAction="#profiloView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: gray; -fx-background-insets: 0;"/>
+            <Button text="PREFERITI" onAction="#preferitiView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: gray; -fx-background-insets: 0;"/>
+            <Button text="STORICO ORDINI" onAction="#storicoOrdiniView" style="-fx-border-radius: 3;-fx-background-radius: 10;-fx-border-color: gray; -fx-background-insets: 0;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

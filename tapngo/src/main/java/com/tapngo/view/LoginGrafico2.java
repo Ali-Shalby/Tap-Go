@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class LoginGrafico {
+public class LoginGrafico2 {
 
     @FXML
     private TextField textFieldUsername;
@@ -51,7 +51,7 @@ public class LoginGrafico {
 
 
                 // Controlla il ruolo dell'utente e carica la view appropriata
-               if (Credentials.getRole() != null) {
+                if (Credentials.getRole() != null) {
                     cambiaViewDopoLogin();
                 }
             } catch (LoadException e) {
@@ -72,9 +72,9 @@ public class LoginGrafico {
         FXMLLoader fxmlLoader = new FXMLLoader();
 
         if (Credentials.getRole().getId() == 1) {
-            fxmlFile = "/com/tapngo/clienteView.fxml"; // View per cliente
+            fxmlFile = "/com/tapngo/clienteView2.fxml"; // View per cliente
         } else {
-            fxmlFile = "/com/tapngo/ristoratoreView.fxml"; // View per ristoratore
+            fxmlFile = "/com/tapngo/ristoratoreView2.fxml"; // View per ristoratore
         }
 
         // Carica l'FXML
@@ -85,7 +85,7 @@ public class LoginGrafico {
         Object controller = fxmlLoader.getController();
 
 
-        if (controller instanceof ClienteControllerGrafico clienteControllerGrafico) { // Se il controller è per il cliente
+        if (controller instanceof ClienteControllerGrafico2 clienteControllerGrafico) { // Se il controller è per il cliente
             clienteControllerGrafico.setLabelTitle("                Ciao " + Credentials.getNome() + ",\n   cosa vuoi mangiare oggi?");
         } else if (controller instanceof RistoratoreControllerGrafico ristoratoreControllerGrafico) { // Se il controller è per il ristoratore
             ristoratoreControllerGrafico.setLabelTitle("                  Ciao " + Credentials.getNome() + ",\n    cosa vuoi gestire oggi?");
@@ -106,7 +106,7 @@ public class LoginGrafico {
 
         // Carica il file FXML per la vista del login
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResourceAsStream("/com/tapngo/login.fxml"));
+        Parent root = fxmlLoader.load(getClass().getResourceAsStream("/com/tapngo/login2.fxml"));
 
         // Ottieni lo stage attuale dalla classe ApplicazioneStage
         Stage stage = ApplicazioneStage.getStage();
@@ -127,7 +127,7 @@ public class LoginGrafico {
 
         // Carica il file FXML per la vista del login
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResourceAsStream("/com/tapngo/registratiView.fxml"));
+        Parent root = fxmlLoader.load(getClass().getResourceAsStream("/com/tapngo/registratiView2.fxml"));
 
         // Imposta la nuova scena con il layout caricato
         Scene scene = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
