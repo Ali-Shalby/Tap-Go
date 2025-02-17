@@ -46,16 +46,17 @@ public class ClienteControllerGrafico {
     @FXML
     private TextField cvcField; // Riferimento al campo "CVC"
 
+
+    @FXML
+    private ComboBox tipologiaComboBox;
+    @FXML
+    private ComboBox prezzoComboBox;
     @FXML
     private Label totalLabel;
     @FXML
     private TextField nomeRistorante;
     @FXML
     private ComboBox cittaComboBox;
-    @FXML
-    private ComboBox tipologiaComboBox;
-    @FXML
-    private ComboBox prezzoComboBox;
     @FXML
     private ComboBox valutazioneComboBox;
     @FXML
