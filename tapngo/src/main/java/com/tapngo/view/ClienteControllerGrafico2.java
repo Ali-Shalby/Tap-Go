@@ -73,7 +73,7 @@ public class ClienteControllerGrafico2 {
     private static final String SUB_LABEL_STYLE ="-fx-font-size: 15px; -fx-text-fill: #666666;";
     private static final String DEFAULT_IMAGE = "C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/default_image.png";
     private static final String TITLE_TEXT_STYLE = "-fx-font-size: 20px; -fx-font-weight: bold;";
-    private static final String LABEL_TEXT_STYLE = "-fx-font-size: 14px;";
+    private static final String LABEL_TEXT_STYLE = "-fx-font-size: 16px;";
     private static final String CARD_STYLE = "-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;";
 
     public void setLabelTitle(String title) {
@@ -614,7 +614,7 @@ public class ClienteControllerGrafico2 {
         aumentaIcon.setFitHeight(20); // Icona più grande
         aumentaIcon.setFitWidth(20);
         Label quantitaLabel = new Label(piattoBean.getQuantita().toString());
-        quantitaLabel.setStyle("-fx-font-size: 16px;"); // Testo più grande
+        quantitaLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
 
         // Aggiungi azioni alle icone
         aumentaIcon.setOnMouseClicked(event -> aggiungiAlCarrello(piattoBean, quantitaLabel));
@@ -622,7 +622,7 @@ public class ClienteControllerGrafico2 {
 
         // Prezzo
         Label prezzoLabel = new Label(piattoBean.getPrezzo() + "€");
-        prezzoLabel.setStyle("-fx-font-size: 16px;"); // Testo più grande
+        prezzoLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
 
         // Spaziatore per spingere infoBox a destra
         Region spacer = new Region();
@@ -855,7 +855,7 @@ public class ClienteControllerGrafico2 {
         aumentaIcon.setFitHeight(20); // Icona più grande
         aumentaIcon.setFitWidth(20);
         Label quantitaLabel = new Label(bevandaBean.getQuantita().toString());
-        quantitaLabel.setStyle("-fx-font-size: 16px;"); // Testo più grande
+        quantitaLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
 
         // Aggiungi azioni alle icone
         aumentaIcon.setOnMouseClicked(event -> aggiungiAlCarrello(bevandaBean, quantitaLabel));
@@ -863,7 +863,7 @@ public class ClienteControllerGrafico2 {
 
         // Prezzo
         Label prezzoLabel = new Label(bevandaBean.getPrezzo() + "€");
-        prezzoLabel.setStyle("-fx-font-size: 16px;"); // Testo più grande
+        prezzoLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
 
         // Spaziatore per spingere infoBox a destra
         Region spacer = new Region();
