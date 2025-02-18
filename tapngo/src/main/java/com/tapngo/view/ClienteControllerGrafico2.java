@@ -661,8 +661,8 @@ public class ClienteControllerGrafico2 {
 
         // Icona delle info
         ImageView infoIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/info_icon.png");
-        infoIcon.setFitWidth(30);
         infoIcon.setFitHeight(30); // Icona più grande
+        infoIcon.setFitWidth(30);
         StackPane infoPane = new StackPane(infoIcon);
         StackPane.setAlignment(infoIcon, Pos.TOP_RIGHT);
 
@@ -964,32 +964,30 @@ public class ClienteControllerGrafico2 {
         popupInitialContentBevanda.setAlignment(Pos.CENTER);
         popupInitialContentBevanda.setSpacing(5);
 
-        // Titolo del piatto
+        // Titolo della bevanda
         Label titolo = new Label(bevandaBean.getNome());
-        titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 22px;");
-        titolo.setAlignment(Pos.CENTER);
-
-        // Dettaglio prezzo e alcolico sopra l'immagine
         Label prezzo = new Label(bevandaBean.getPrezzo() + "€"+ " • " + bevandaBean.getAlcolico());
         prezzo.setStyle(SUB_LABEL_STYLE);
         prezzo.setAlignment(Pos.CENTER);
+        titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 22px;");
+        titolo.setAlignment(Pos.CENTER);
 
         // Gestione grafica dell'immagine del piatto
-        ImageView immaginePiatto;
+        ImageView immagineBevanda;
         if (bevandaBean.getImmagine() != null && bevandaBean.getImmagine().getBinaryStream() != null) {
-            immaginePiatto = new ImageView(new Image(bevandaBean.getImmagine().getBinaryStream()));
-            immaginePiatto.setFitWidth(250);
-            immaginePiatto.setFitHeight(150);
+            immagineBevanda = new ImageView(new Image(bevandaBean.getImmagine().getBinaryStream()));
+            immagineBevanda.setFitWidth(250);
+            immagineBevanda.setFitHeight(150);
         } else {
-            immaginePiatto = new ImageView(DEFAULT_IMAGE);
-            immaginePiatto.setFitWidth(140);
-            immaginePiatto.setFitHeight(140);
+            immagineBevanda = new ImageView(DEFAULT_IMAGE);
+            immagineBevanda.setFitWidth(140);
+            immagineBevanda.setFitHeight(140);
         }
-        immaginePiatto.setPreserveRatio(true);
-        Rectangle clip = new Rectangle(immaginePiatto.getFitWidth(), immaginePiatto.getFitHeight());
+        immagineBevanda.setPreserveRatio(true);
+        Rectangle clip = new Rectangle(immagineBevanda.getFitWidth(), immagineBevanda.getFitHeight());
         clip.setArcWidth(30);
         clip.setArcHeight(30);
-        immaginePiatto.setClip(clip);
+        immagineBevanda.setClip(clip);
 
         // Descrizione della bevanda
         Label descrizione = new Label(bevandaBean.getDescrizione());
@@ -999,7 +997,7 @@ public class ClienteControllerGrafico2 {
 
 
         // Aggiungi gli elementi iniziali al VBox
-        popupInitialContentBevanda.getChildren().addAll(titolo, prezzo, immaginePiatto, descrizione);
+        popupInitialContentBevanda.getChildren().addAll(titolo, prezzo, immagineBevanda, descrizione);
 
         // Restituisci il contenuto delle informazioni iniziali
         return popupInitialContentBevanda;
