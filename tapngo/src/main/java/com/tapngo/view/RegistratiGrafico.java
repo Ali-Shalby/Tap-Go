@@ -23,6 +23,11 @@ import java.sql.SQLException;
 public class RegistratiGrafico {
 
     @FXML
+    private PasswordField textFieldPassword;
+
+    @FXML
+    private PasswordField textFieldRipetiPassword;
+    @FXML
     private TextField textFieldNome;
 
     @FXML
@@ -34,11 +39,7 @@ public class RegistratiGrafico {
     @FXML
     private TextField textFieldUsername;
 
-    @FXML
-    private PasswordField textFieldPassword;
 
-    @FXML
-    private PasswordField textFieldRipetiPassword;
 
     public void initialize() {
         // Configura la ComboBox con i valori dell'enum Role
@@ -66,12 +67,13 @@ public class RegistratiGrafico {
     public void confermaRegistrazione() {
 
         // Prendo i dati dai campi di testo della view registrazione
-        String nome = textFieldNome.getText();
-        String cognome = textFieldCognome.getText();
-        Role ruolo = comboBoxRuolo.getValue();
         String username = textFieldUsername.getText();
         String password = textFieldPassword.getText();
         String ripetiPassword = textFieldRipetiPassword.getText();
+        String nome = textFieldNome.getText();
+        String cognome = textFieldCognome.getText();
+        Role ruolo = comboBoxRuolo.getValue();
+
 
         // Mostra un avviso se anche uno dei campi non è stato selezionato
         if (nome.isEmpty() || cognome.isEmpty() || ruolo == null || username.isEmpty() || password.isEmpty() || ripetiPassword.isEmpty()) {
@@ -83,9 +85,10 @@ public class RegistratiGrafico {
         CredentialsBean beanRegistrazione = new CredentialsBean();
         beanRegistrazione.setNome(nome);
         beanRegistrazione.setCognome(cognome);
+        beanRegistrazione.setRipetiPassword(ripetiPassword);
         beanRegistrazione.setRole(ruolo);
         beanRegistrazione.setPassword(password);
-        beanRegistrazione.setRipetiPassword(ripetiPassword);
+
 
         // Variabile che indica se l'email è valida
         boolean emailValida = true;

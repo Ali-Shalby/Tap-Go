@@ -21,10 +21,12 @@ import java.sql.SQLException;
 
 public class LoginGrafico {
 
-    @FXML
-    private TextField textFieldUsername;
+
     @FXML
     private PasswordField textFieldPassword;
+    @FXML
+    private TextField textFieldUsername;
+
 
 
     private static final String ERROR_POPUP_TYPE = "error";
