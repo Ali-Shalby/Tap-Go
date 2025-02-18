@@ -744,8 +744,9 @@ public class ClienteControllerGrafico {
 
         // Crea il contenuto del popup
         VBox popupContent = new VBox();
-        popupContent.setSpacing(10);
+
         popupContent.setPadding(new Insets(20));
+        popupContent.setSpacing(10);
         popupContent.setStyle(BACKGROUND_COLOR);
         popupContent.setAlignment(Pos.CENTER);
 
@@ -796,9 +797,10 @@ public class ClienteControllerGrafico {
 
                 // Aggiungi un titolo sopra la lista degli elementi
                 Label titoloLista = new Label("Elementi nel Carrello");
-                titoloLista.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;");
                 titoloLista.setAlignment(Pos.CENTER); // Centra il testo nel Label
                 titoloLista.setMaxWidth(Double.MAX_VALUE); // Occupa tutta la larghezza disponibile
+                titoloLista.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+
                 titoloBox.getChildren().add(titoloLista);
 
                 // Aggiungi il titoloBox nella parte superiore del BorderPane
@@ -806,8 +808,8 @@ public class ClienteControllerGrafico {
 
                 // Crea un VBox per gli elementi del carrello
                 VBox itemsBox = new VBox();
-                itemsBox.setSpacing(20); // Aumenta la spaziatura tra gli elementi
                 itemsBox.setPadding(new Insets(10, 20, 20, 20)); // Padding per gli elementi
+                itemsBox.setSpacing(20); // Aumenta la spaziatura tra gli elementi
 
                 // Aggiungi gli elementi del carrello
                 for (BeanItemCarrello item : carrelloBean.getListaItems()) {
@@ -843,22 +845,23 @@ public class ClienteControllerGrafico {
 
                 // Allineamento bottone "Conferma ordine"
                 HBox buttonBox = new HBox(10);
+                buttonBox.setPadding(new Insets(10)); // Aggiungi un po' di padding
                 buttonBox.setAlignment(Pos.CENTER);
                 buttonBox.getChildren().add(confirmButton);
-                buttonBox.setPadding(new Insets(10)); // Aggiungi un po' di padding
 
                 // Crea un VBox per il prezzo totale
                 Label totalPriceLabel = new Label("Totale: " + carrelloBean.getTotalPrice() + "€");
                 totalPriceLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #333333;fx-font-family: 'Calibri'");
 
                 VBox totalPriceBox = new VBox(totalPriceLabel);
-                totalPriceBox.setAlignment(Pos.CENTER); // Centra il prezzo totale
                 totalPriceBox.setPadding(new Insets(10, 0, 10, 0)); // Aggiungi padding sopra e sotto
+                totalPriceBox.setAlignment(Pos.CENTER); // Centra il prezzo totale
+
 
                 // Aggiungi il prezzo totale e il bottone in un VBox separato
                 VBox bottomBox = new VBox(totalPriceBox, buttonBox);
-                bottomBox.setSpacing(10); // Spaziatura tra prezzo totale e bottone
                 bottomBox.setAlignment(Pos.CENTER); // Centra tutto il contenuto
+                bottomBox.setSpacing(10); // Spaziatura tra prezzo totale e bottone
 
                 // Aggiungi il bottomBox nella parte inferiore del BorderPane
                 popupContent.setBottom(bottomBox);
@@ -922,8 +925,9 @@ public class ClienteControllerGrafico {
     @FXML
     private void paga() throws IOException {
         String cardNumber = cardNumberField.getText();
-        String scadenza = expiryDateField.getText();
         String cvc = cvcField.getText();
+        String scadenza = expiryDateField.getText();
+
         if(cardNumber.isEmpty() || scadenza.isEmpty() || cvc.isEmpty()){
             Popup.mostraPopup(WARNING_MESSAGE_TITLE, "Si prega di selezionare tutte le opzioni prima di procedere!", WARNING_POPUP_TYPE);
             return;
@@ -955,8 +959,9 @@ public class ClienteControllerGrafico {
     public HBox createContentOrdine(BeanItemCarrello item) throws SQLException {
         // Crea HBox per contenere l'immagine e il testo
         HBox popupInitialContent = new HBox();
-        popupInitialContent.setAlignment(Pos.CENTER_LEFT);
+
         popupInitialContent.setSpacing(10); // Spaziatura tra immagine e testo
+        popupInitialContent.setAlignment(Pos.CENTER_LEFT);
 
         // Gestione grafica dell'immagine del piatto
         ImageView immagineItem;
@@ -971,19 +976,20 @@ public class ClienteControllerGrafico {
 
         // Applica un ritaglio arrotondato all'immagine
         Rectangle clip = new Rectangle(immagineItem.getFitWidth(), immagineItem.getFitHeight());
-        clip.setArcWidth(30);
+
         clip.setArcHeight(30);
+        clip.setArcWidth(30);
         immagineItem.setClip(clip);
 
         // Crea un VBox per organizzare il testo (nome, quantità e prezzo)
         VBox textBox = new VBox();
-        textBox.setAlignment(Pos.CENTER_LEFT);
+
         textBox.setSpacing(5); // Spaziatura tra nome e dettagli
 
         // Titolo del piatto (nome)
         Label titolo = new Label(item.getNome());
         titolo.setStyle(TITLE_TEXT_STYLE);
-
+        textBox.setAlignment(Pos.CENTER_LEFT);
         // Crea un HBox per quantità e prezzo
         HBox detailsBox = new HBox();
         detailsBox.setAlignment(Pos.CENTER_LEFT);
@@ -991,11 +997,12 @@ public class ClienteControllerGrafico {
 
         // Dettaglio quantità
         Label quantita = new Label("x" + item.getQuantita());
-        quantita.setStyle(SUB_LABEL_STYLE);
+
 
         // Prezzo
         Label prezzo = new Label(String.format("%.2f€", item.getPrezzo() * item.getQuantita()));
         prezzo.setStyle(SUB_LABEL_STYLE);
+        quantita.setStyle(SUB_LABEL_STYLE);
 
         // Aumenta il margine sinistro per spostare ulteriormente il prezzo a destra
         HBox.setMargin(prezzo, new Insets(0, 0, 0, 40)); // Margine sinistro di 40px
