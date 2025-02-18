@@ -21,12 +21,12 @@ public class BeanPiatto implements BeanItemCarrello{
         this.nome = nome;
     }
 
-    public BeanPiatto(String nome) {
-        this.nome = nome;
+    public String getNome() {
+        return nome;
     }
 
-    public Integer getQuantita() {
-        return quantita;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public void setQuantita(Integer quantita) {
@@ -35,6 +35,13 @@ public class BeanPiatto implements BeanItemCarrello{
 
     public double getPrezzo() {
         return prezzo;
+    }
+    public BeanPiatto(String nome) {
+        this.nome = nome;
+    }
+
+    public Integer getQuantita() {
+        return quantita;
     }
 
     public void setPrezzo(double prezzo) {
@@ -45,13 +52,6 @@ public class BeanPiatto implements BeanItemCarrello{
         return ingredienti;
     }
 
-    public void setIngredienti(String ingredienti) {
-        this.ingredienti = ingredienti;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
@@ -60,6 +60,14 @@ public class BeanPiatto implements BeanItemCarrello{
     public String getUrlVideo() {
         return urlVideo;
     }
+    public void setIngredienti(String ingredienti) {
+        this.ingredienti = ingredienti;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
 
     public void setUrlVideo(String urlVideo) {
         this.urlVideo = urlVideo;
@@ -73,11 +81,5 @@ public class BeanPiatto implements BeanItemCarrello{
         this.immagine = immagine;
     }
 
-    public String getNome() {
-        return nome;
-    }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 }
