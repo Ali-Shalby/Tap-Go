@@ -196,7 +196,6 @@ public class EffettuaOrdineControllerApplicativo {
 
 
         String data = carta.getScadenza();
-        double importo = carrelloBean.getTotalPrice();
         DateTimeFormatter formatter= DateTimeFormatter.ofPattern("MM/yy");
         YearMonth scadenzaCarta = YearMonth.parse(data, formatter);
         YearMonth dataCorrente = YearMonth.now();
@@ -205,7 +204,7 @@ public class EffettuaOrdineControllerApplicativo {
         }else{
             BeanCreditCard datiBanca = new BeanCreditCard(carta.getCardNumber(), carta.getScadenza(), carta.getCvc());
             BancaControllerGrafico banca = new BancaControllerGrafico();
-            String stato = banca.mandaPagamento(datiBanca, importo);
+            String stato = banca.mandaPagamento(datiBanca, carrelloBean);
             if(!Objects.equals(stato, "accettato")){
                 throw new IOException("ci sono stati errori di comunicazione con la banca");
             }
