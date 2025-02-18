@@ -171,21 +171,21 @@ public class ClienteControllerGrafico {
     public void mostraRistoranti() throws IOException {
 
 
-        if (cittaComboBox.getValue() == null || tipologiaComboBox.getValue() == null || prezzoComboBox.getValue() == null || valutazioneComboBox.getValue() == null){
+        if (cittaComboBox.getValue() == null || prezzoComboBox.getValue() == null || tipologiaComboBox.getValue() == null ||  valutazioneComboBox.getValue() == null){
             Popup.mostraPopup(WARNING_MESSAGE_TITLE, "Si prega di selezionare tutte le opzioni prima di procedere!", WARNING_POPUP_TYPE);
         }
         else {
             try {
-                BeanRistoranti filtri = new BeanRistoranti(nomeRistorante.getText(), cittaComboBox.getValue().toString(), tipologiaComboBox.getValue().toString(), prezzoComboBox.getValue().toString(), valutazioneComboBox.getValue().toString(), cucina);
                 ordine = new EffettuaOrdineControllerApplicativo();
+                BeanRistoranti filtri = new BeanRistoranti(nomeRistorante.getText(), cittaComboBox.getValue().toString(), tipologiaComboBox.getValue().toString(), prezzoComboBox.getValue().toString(), valutazioneComboBox.getValue().toString(), cucina);
                 BeanRistoranti listaRistoranti = ordine.mostraRistoranti(filtri);
                 if (listaRistoranti.getListRistoranti().isEmpty()){
                     Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non ci sono attività ristorative che rispecchiano i filtri scelti",WARNING_POPUP_TYPE);
                 }else{
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     Stage stage = ApplicazioneStage.getStage();
-                    Scene scene;
                     String fxmlFile = "/com/tapngo/elencoRistorantiView.fxml";
+                    Scene scene;
                     Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
                     ClienteControllerGrafico controller = fxmlLoader.getController();
 
@@ -202,7 +202,7 @@ public class ClienteControllerGrafico {
 
                     stage.show();
                 }
-            }catch (DAOException | SQLException e) {
+            }catch (SQLException  | DAOException e ) {
                 Popup.mostraPopup( ERROR_MESSAGE_TITLE, "Si è verificato un errore durante durante il caricamento dei ristoranti.", ERROR_POPUP_TYPE);
             }
         }
@@ -211,12 +211,12 @@ public class ClienteControllerGrafico {
     private BorderPane cardRistorante(BeanRistorante ristoranteBean){
         BorderPane card = new BorderPane();
 
-
+        Image image;
         HBox imgBox;
         ImageView imageView;
-        Image image;
+
         try {
-            if (ristoranteBean.getImmagine() != null && ristoranteBean.getImmagine().getBinaryStream() != null) {
+            if (ristoranteBean.getImmagine().getBinaryStream() != null && ristoranteBean.getImmagine() != null) {
                 InputStream inputStream = ristoranteBean.getImmagine().getBinaryStream();
                 image = new Image(inputStream, 100, 100, true, true); // Imposta dimensioni fisse e preserva il rapporto
             } else {
@@ -228,10 +228,11 @@ public class ClienteControllerGrafico {
 
         imageView = new ImageView(image);
         imageView.setFitHeight(70);
-        imageView.setFitWidth(65);
         Rectangle clip = new Rectangle(65, 70);
-        clip.setArcWidth(15);
+        imageView.setFitWidth(65);
         clip.setArcHeight(15);
+        clip.setArcWidth(15);
+
         imageView.setClip(clip);
         imgBox = new HBox(imageView);
         card.setLeft(imgBox);
@@ -242,28 +243,31 @@ public class ClienteControllerGrafico {
 
         // Creazione della locazione del ristorante
         ImageView indicazioneIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/indicazione_icon.png");
-        indicazioneIcon.setFitHeight(14);
-        indicazioneIcon.setFitWidth(14);
         Label locazioneLabel = new Label(ristoranteBean.getIndirizzo() + ", " + ristoranteBean.getCitta());
+
+        indicazioneIcon.setFitWidth(14);
+        indicazioneIcon.setFitHeight(14);
         locazioneLabel.setStyle("-fx-font-size: 10px;");
         HBox indicazioniBox = new HBox(indicazioneIcon, locazioneLabel);
         indicazioniBox.setSpacing(5);
 
         // Creazione della tipologia di cucina
         ImageView cucinaIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/cucina_icon.png");
+        Label cucinaLabel = new Label(ristoranteBean.getTipologia());
         cucinaIcon.setFitHeight(14);
         cucinaIcon.setFitWidth(14);
-        Label cucinaLabel = new Label(ristoranteBean.getTipologia());
+
         cucinaLabel.setStyle("-fx-font-size: 10px;");
         HBox cucinaBox = new HBox(cucinaIcon, cucinaLabel);
         cucinaBox.setSpacing(5);
 
         // Creazione dell'icona per la valutazione
         ImageView valutazioneIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/valutazione_icon.png");
-        valutazioneIcon.setFitHeight(14);
+
         valutazioneIcon.setFitWidth(14);
         Label valutazioneLabel;
         valutazioneLabel = new Label(ristoranteBean.getValutazione() + "/5");
+        valutazioneIcon.setFitHeight(14);
         valutazioneLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
@@ -273,9 +277,10 @@ public class ClienteControllerGrafico {
         // Creazione dell'icona per durata della preparazione
         ImageView prezzoIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/prezzo_icon.png");
         prezzoIcon.setFitHeight(14);
-        prezzoIcon.setFitWidth(14);
+
         Label prezzoLabel = new Label(ristoranteBean.getPrezzo() + "€");
         prezzoLabel.setStyle(LABEL_TEXT_STYLE);
+        prezzoIcon.setFitWidth(14);
 
         // Parte bottom per info valutazione e prezzo
         HBox infoBox = new HBox(valutazioneIcon, valutazioneLabel, spacer, prezzoIcon, prezzoLabel);
@@ -287,18 +292,21 @@ public class ClienteControllerGrafico {
 
         // Creazione della struttura principale
         VBox titleAndDetailsBox = new VBox(titleLabel, detailsBox);
-        titleAndDetailsBox.setSpacing(5);
         titleAndDetailsBox.setAlignment(Pos.CENTER_LEFT);
+        titleAndDetailsBox.setSpacing(5);
+
 
         // Creazione della struttura principale
         HBox mainContent = new HBox(imgBox, titleAndDetailsBox);
-        mainContent.setSpacing(10);
         mainContent.setAlignment(Pos.CENTER_LEFT);
+        mainContent.setSpacing(10);
+
 
         // Impostazione dell'elemento grafico
         card.setCenter(mainContent);
-        card.setPadding(new Insets(10));
         card.setStyle(CARD_STYLE);
+        card.setPadding(new Insets(10));
+
 
         card.setOnMouseClicked(event -> {
             try {
@@ -401,9 +409,9 @@ public class ClienteControllerGrafico {
     private BorderPane cardBevanda(BeanBevanda bevandaBean){
         BorderPane card = new BorderPane();
 
-
-        HBox imgBox;
         ImageView imageView;
+        HBox imgBox;
+
         Image image;
         try {
             if (bevandaBean.getImmagine() != null && bevandaBean.getImmagine().getBinaryStream() != null) {
@@ -420,8 +428,9 @@ public class ClienteControllerGrafico {
         imageView.setFitHeight(70);
         imageView.setFitWidth(65);
         Rectangle clip = new Rectangle(65, 70);
-        clip.setArcWidth(15);
         clip.setArcHeight(15);
+        clip.setArcWidth(15);
+
         imageView.setClip(clip);
         imgBox = new HBox(imageView);
         card.setLeft(imgBox);
