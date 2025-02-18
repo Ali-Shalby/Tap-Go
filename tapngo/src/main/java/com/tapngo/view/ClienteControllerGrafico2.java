@@ -120,9 +120,10 @@ public class ClienteControllerGrafico2 {
         if (confermato) {
 
             // Azzera le credenziali dell'utente
+            Credentials.setRole(null);
             Credentials.setUsername(null);
             Credentials.setPassword(null);
-            Credentials.setRole(null);
+
 
             // Chiude la connessione
             ConnectionFactory.closeConnection();
@@ -237,9 +238,7 @@ public class ClienteControllerGrafico2 {
                 stage.show();
             }
 
-        }catch (DAOException | SQLException e) {
-            Popup.mostraPopup( ERROR_MESSAGE_TITLE, "Si è verificato un errore durante il caricamento del menù.", ERROR_POPUP_TYPE);
-        }
+        }catch (DAOException | SQLException e) {Popup.mostraPopup( ERROR_MESSAGE_TITLE, "Si è verificato un errore durante il caricamento del menù.", ERROR_POPUP_TYPE);}
 
     }
     public void anteprimaOrdine() {
@@ -252,8 +251,8 @@ public class ClienteControllerGrafico2 {
             popupStage.setTitle("Dettagli ordine");
 
             // Crea il contenuto del popup
-            BorderPane popupContent = new BorderPane();
-            popupContent.setStyle(BACKGROUND_COLOR);
+            BorderPane popupContent1 = new BorderPane();
+            popupContent1.setStyle(BACKGROUND_COLOR);
 
             try {
                 // Crea un VBox per il titolo
@@ -268,7 +267,7 @@ public class ClienteControllerGrafico2 {
                 titoloBox.getChildren().add(titoloLista);
 
                 // Aggiungi il titoloBox nella parte superiore del BorderPane
-                popupContent.setTop(titoloBox);
+                popupContent1.setTop(titoloBox);
 
                 // Crea un VBox per gli elementi del carrello
                 VBox itemsBox = new VBox();
@@ -291,19 +290,14 @@ public class ClienteControllerGrafico2 {
                 localScrollPane.setVvalue(0);
 
                 // Aggiungi il ScrollPane al centro del BorderPane
-                popupContent.setCenter(localScrollPane);
+                popupContent1.setCenter(localScrollPane);
 
                 // Pulsante per confermare l'ordine
                 Button confirmButton = new Button("Conferma ordine");
                 confirmButton.setStyle("-fx-border-radius: 10; -fx-background-radius: 15; -fx-border-color: gray; -fx-background-insets: 0;");
 
-                EventHandler<ActionEvent> confirmHandler = (confirmEvent) -> {
-                    try {
-                        metodoPagamentoView();
-                        popupStage.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                EventHandler<ActionEvent> confirmHandler = (confirmEvent) -> {try {metodoPagamentoView();popupStage.close();
+                    } catch (IOException e) {throw new RuntimeException(e);}
                 };
                 confirmButton.setOnAction(confirmHandler);
 
@@ -327,10 +321,10 @@ public class ClienteControllerGrafico2 {
                 bottomBox.setAlignment(Pos.CENTER); // Centra tutto il contenuto
 
                 // Aggiungi il bottomBox nella parte inferiore del BorderPane
-                popupContent.setBottom(bottomBox);
+                popupContent1.setBottom(bottomBox);
 
                 // Imposta il layout come scena del popup
-                Scene popupScene = new Scene(popupContent, 600, 600);
+                Scene popupScene = new Scene(popupContent1, 600, 600);
                 popupStage.setScene(popupScene);
 
                 // Esecuzione codice passato per forzare lo scroll all'inizio dopo il rendering della GUI
@@ -444,13 +438,13 @@ public class ClienteControllerGrafico2 {
         String cardNumber = cardNumberField.getText();
         String scadenza = expiryDateField.getText();
         String cvc = cvcField.getText();
-        if(cardNumber.isEmpty() || scadenza.isEmpty() || cvc.isEmpty()){
+        if(scadenza.isEmpty() || cardNumber.isEmpty() ||  cvc.isEmpty()){
             Popup.mostraPopup(WARNING_MESSAGE_TITLE, "Si prega di selezionare tutte le opzioni prima di procedere!", WARNING_POPUP_TYPE);
             return;
         }
         try {
-            BeanCreditCard creditCard = new BeanCreditCard(cardNumber, scadenza, cvc);
-            ordine.effettuaOrdine(creditCard,carrelloBean);
+            BeanCreditCard creditCard1 = new BeanCreditCard(cardNumber, scadenza, cvc);
+            ordine.effettuaOrdine(creditCard1,carrelloBean);
             Popup.mostraPopup("Successo", "ordine inviato", "success");
             tornaIndietro();
         }catch (Exception e ) {
@@ -478,7 +472,7 @@ public class ClienteControllerGrafico2 {
 
         // Immagine del ristorante
         HBox imgBox;
-        ImageView imageView;
+        ImageView imageView1;
         Image image;
         try {
             if (ristoranteBean.getImmagine() != null && ristoranteBean.getImmagine().getBinaryStream() != null) {
@@ -491,14 +485,14 @@ public class ClienteControllerGrafico2 {
             image = new Image(DEFAULT_IMAGE);
         }
 
-        imageView = new ImageView(image);
-        imageView.setFitHeight(120); // Immagine più grande
-        imageView.setFitWidth(110);
+        imageView1 = new ImageView(image);
+        imageView1.setFitHeight(120); // Immagine più grande
+        imageView1.setFitWidth(110);
         Rectangle clip = new Rectangle(110, 120); // Clipping più grande
         clip.setArcWidth(20);
         clip.setArcHeight(20);
-        imageView.setClip(clip);
-        imgBox = new HBox(imageView);
+        imageView1.setClip(clip);
+        imgBox = new HBox(imageView1);
         card.setLeft(imgBox);
 
         // Nome del ristorante
@@ -580,19 +574,19 @@ public class ClienteControllerGrafico2 {
         // Immagine del piatto
         HBox imgBox;
         ImageView imageView;
-        Image image;
+        Image image2;
         try {
             if (piattoBean.getImmagine() != null && piattoBean.getImmagine().getBinaryStream() != null) {
                 InputStream inputStream = piattoBean.getImmagine().getBinaryStream();
-                image = new Image(inputStream, 120, 120, true, true); // Immagine più grande
+                image2 = new Image(inputStream, 120, 120, true, true); // Immagine più grande
             } else {
-                image = new Image(DEFAULT_IMAGE);
+                image2 = new Image(DEFAULT_IMAGE);
             }
         } catch (SQLException e) {
-            image = new Image(DEFAULT_IMAGE);
+            image2 = new Image(DEFAULT_IMAGE);
         }
 
-        imageView = new ImageView(image);
+        imageView = new ImageView(image2);
         imageView.setFitHeight(100); // Immagine più grande
         imageView.setFitWidth(90);
         Rectangle clip = new Rectangle(90, 100); // Clipping più grande
@@ -626,12 +620,13 @@ public class ClienteControllerGrafico2 {
 
         // Spaziatore per spingere infoBox a destra
         Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS); // Lo spaziatore occupa tutto lo spazio disponibile
 
 
 
         HBox infoBox = new HBox(diminuisciIcon, quantitaLabel, aumentaIcon);
         infoBox.setAlignment(Pos.CENTER);
+        HBox.setHgrow(spacer, Priority.ALWAYS); // Lo spaziatore occupa tutto lo spazio disponibile
+
         infoBox.setSpacing(10);
         // Creazione di un GridPane per titleAndInfoBox
         GridPane titleAndInfoBox = new GridPane();
@@ -644,18 +639,20 @@ public class ClienteControllerGrafico2 {
         col1.setPercentWidth(30); // 40% della larghezza per il titolo e il prezzo
         ColumnConstraints col2 = new ColumnConstraints();
         col2.setHgrow(Priority.ALWAYS); // Lo spaziatore occupa lo spazio rimanente
-        ColumnConstraints col3 = new ColumnConstraints();
-        col3.setPercentWidth(20);
         ColumnConstraints col4 = new ColumnConstraints();
         col2.setHgrow(Priority.ALWAYS); // Lo spaziatore occupa lo spazio rimanente
         ColumnConstraints col5 = new ColumnConstraints();
         col5.setPercentWidth(30); // 30% della larghezza per le icone di quantità
+        ColumnConstraints col3 = new ColumnConstraints();
         titleAndInfoBox.getColumnConstraints().addAll(col1, col2, col3, col4, col5);
+        col3.setPercentWidth(20);
+
 
 // Aggiungi gli elementi al GridPane
         titleAndInfoBox.add(titleLabel, 0, 0); // Titolo e prezzo nella prima colonna
-        titleAndInfoBox.add(prezzoLabel, 2, 0);  // Icone di quantità nella terza colonna
         titleAndInfoBox.add(infoBox,4,0);
+        titleAndInfoBox.add(prezzoLabel, 2, 0);  // Icone di quantità nella terza colonna
+
 
         // Contenuto principale
         HBox mainContent = new HBox(imgBox, titleAndInfoBox);
@@ -664,8 +661,8 @@ public class ClienteControllerGrafico2 {
 
         // Icona delle info
         ImageView infoIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/info_icon.png");
-        infoIcon.setFitHeight(30); // Icona più grande
         infoIcon.setFitWidth(30);
+        infoIcon.setFitHeight(30); // Icona più grande
         StackPane infoPane = new StackPane(infoIcon);
         StackPane.setAlignment(infoIcon, Pos.TOP_RIGHT);
 
@@ -742,21 +739,21 @@ public class ClienteControllerGrafico2 {
         prezzo.setAlignment(Pos.CENTER);
 
         // Gestione grafica dell'immagine del piatto
-        ImageView immaginePiatto;
+        ImageView immaginePiatto2;
         if (piattoBean.getImmagine() != null && piattoBean.getImmagine().getBinaryStream() != null) {
-            immaginePiatto = new ImageView(new Image(piattoBean.getImmagine().getBinaryStream()));
-            immaginePiatto.setFitWidth(250);
-            immaginePiatto.setFitHeight(150);
+            immaginePiatto2 = new ImageView(new Image(piattoBean.getImmagine().getBinaryStream()));
+            immaginePiatto2.setFitWidth(250);
+            immaginePiatto2.setFitHeight(150);
         } else {
-            immaginePiatto = new ImageView(DEFAULT_IMAGE);
-            immaginePiatto.setFitWidth(140);
-            immaginePiatto.setFitHeight(140);
+            immaginePiatto2 = new ImageView(DEFAULT_IMAGE);
+            immaginePiatto2.setFitWidth(140);
+            immaginePiatto2.setFitHeight(140);
         }
-        immaginePiatto.setPreserveRatio(true);
-        Rectangle clip = new Rectangle(immaginePiatto.getFitWidth(), immaginePiatto.getFitHeight());
+        immaginePiatto2.setPreserveRatio(true);
+        Rectangle clip = new Rectangle(immaginePiatto2.getFitWidth(), immaginePiatto2.getFitHeight());
         clip.setArcWidth(30);
         clip.setArcHeight(30);
-        immaginePiatto.setClip(clip);
+        immaginePiatto2.setClip(clip);
 
         // Descrizione del piatto
         Label descrizione = new Label(piattoBean.getDescrizione());
@@ -764,7 +761,7 @@ public class ClienteControllerGrafico2 {
         descrizione.setWrapText(true);
 
         // Aggiungi gli elementi iniziali al VBox
-        popupInitialContent.getChildren().addAll(titolo, prezzo, immaginePiatto, descrizione);
+        popupInitialContent.getChildren().addAll(titolo, prezzo, immaginePiatto2, descrizione);
 
         // Restituisci il contenuto delle informazioni iniziali
         return popupInitialContent;
@@ -821,25 +818,25 @@ public class ClienteControllerGrafico2 {
         // Immagine della bevanda
         HBox imgBox;
         ImageView imageView;
-        Image image;
+        Image imageB;
         try {
             if (bevandaBean.getImmagine() != null && bevandaBean.getImmagine().getBinaryStream() != null) {
                 InputStream inputStream = bevandaBean.getImmagine().getBinaryStream();
-                image = new Image(inputStream, 120, 120, true, true); // Immagine più grande
+                imageB = new Image(inputStream, 120, 120, true, true); // Immagine più grande
             } else {
-                image = new Image(DEFAULT_IMAGE);
+                imageB = new Image(DEFAULT_IMAGE);
             }
         } catch (SQLException e) {
-            image = new Image(DEFAULT_IMAGE);
+            imageB = new Image(DEFAULT_IMAGE);
         }
 
-        imageView = new ImageView(image);
+        imageView = new ImageView(imageB);
         imageView.setFitHeight(100); // Immagine più grande
         imageView.setFitWidth(90);
-        Rectangle clip = new Rectangle(90, 100); // Clipping più grande
-        clip.setArcWidth(20);
-        clip.setArcHeight(20);
-        imageView.setClip(clip);
+        Rectangle clip1 = new Rectangle(90, 100); // Clipping più grande
+        clip1.setArcWidth(20);
+        clip1.setArcHeight(20);
+        imageView.setClip(clip1);
         imgBox = new HBox(imageView);
         card.setLeft(imgBox);
 
@@ -935,25 +932,25 @@ public class ClienteControllerGrafico2 {
 
         try{
             // Creazione grafica di titolo, prezzo, immagine piatto e descrizione
-            VBox popupInitialContent = createInitialContent1(bevandaBean);
+            VBox popupInitialContentB = createInitialContent1(bevandaBean);
 
 
             // Aggiungi tutti i contenuti creati al layout principale
-            popupContent.getChildren().addAll(popupInitialContent);
+            popupContent.getChildren().addAll(popupInitialContentB);
 
             // Inserisci il contenuto nel ScrollPane
-            ScrollPane localScrollPane = new ScrollPane(popupContent);
-            localScrollPane.setFitToWidth(true);
+            ScrollPane localScrollPaneB = new ScrollPane(popupContent);
+            localScrollPaneB.setFitToWidth(true);
 
             // Imposta la visualizzazione all'inizio
-            localScrollPane.setVvalue(0);
+            localScrollPaneB.setVvalue(0);
 
             // Imposta il layout come scena del popup
-            Scene popupScene = new Scene(localScrollPane, 600, 600);
+            Scene popupScene = new Scene(localScrollPaneB, 600, 600);
             popupStage.setScene(popupScene);
             // Esecuzione codice passato per forzare lo scroll all'inizio dopo il rendering della GUI
             popupStage.show();
-            Platform.runLater(() -> localScrollPane.setVvalue(0));
+            Platform.runLater(() -> localScrollPaneB.setVvalue(0));
             // Mostra il popup
             popupStage.show();
         } catch (SQLException e) {
