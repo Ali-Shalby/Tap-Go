@@ -136,10 +136,10 @@ public class ClienteControllerGrafico2 {
             Stage stage = ApplicazioneStage.getStage();
 
             // Imposta la nuova scena con il layout caricato
-            Scene scene = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
+            Scene scene1 = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
 
             // Cambia la scena dello stage
-            stage.setScene(scene);
+            stage.setScene(scene1);
             stage.show();
         }
 
@@ -296,10 +296,10 @@ public class ClienteControllerGrafico2 {
                 Button confirmButton = new Button("Conferma ordine");
                 confirmButton.setStyle("-fx-border-radius: 10; -fx-background-radius: 15; -fx-border-color: gray; -fx-background-insets: 0;");
 
-                EventHandler<ActionEvent> confirmHandler = (confirmEvent) -> {try {metodoPagamentoView();popupStage.close();
+                EventHandler<ActionEvent> confirmHandler1 = (confirmEvent) -> {try {metodoPagamentoView();popupStage.close();
                     } catch (IOException e) {throw new RuntimeException(e);}
                 };
-                confirmButton.setOnAction(confirmHandler);
+                confirmButton.setOnAction(confirmHandler1);
 
                 // Allineamento bottone "Conferma ordine"
                 HBox buttonBox = new HBox(10);
@@ -456,7 +456,7 @@ public class ClienteControllerGrafico2 {
 
 
     @FXML
-    private void terminaOrdine() throws IOException {
+    private void terminaOrdine1() throws IOException {
         try {
             ordine.salvaOrdine();
             Popup.mostraPopup("Successo", "ordine inviato", "success");
@@ -468,7 +468,7 @@ public class ClienteControllerGrafico2 {
 
     }
     private BorderPane cardRistorante(BeanRistorante ristoranteBean) {
-        BorderPane card = new BorderPane();
+        BorderPane cardRist = new BorderPane();
 
         // Immagine del ristorante
         HBox imgBox;
@@ -493,7 +493,7 @@ public class ClienteControllerGrafico2 {
         clip.setArcHeight(20);
         imageView1.setClip(clip);
         imgBox = new HBox(imageView1);
-        card.setLeft(imgBox);
+        cardRist.setLeft(imgBox);
 
         // Nome del ristorante
         Label titleLabel = new Label(ristoranteBean.getNome());
@@ -554,11 +554,11 @@ public class ClienteControllerGrafico2 {
         mainContent.setAlignment(Pos.CENTER_LEFT);
 
         // Imposta il contenuto della card
-        card.setCenter(mainContent);
-        card.setPadding(new Insets(20)); // Più spazio interno
-        card.setStyle(CARD_STYLE);
+        cardRist.setCenter(mainContent);
+        cardRist.setPadding(new Insets(20)); // Più spazio interno
+        cardRist.setStyle(CARD_STYLE);
 
-        card.setOnMouseClicked(event -> {
+        cardRist.setOnMouseClicked(event -> {
             try {
                 mostraMenu(ristoranteBean);
             } catch (IOException e) {
@@ -566,10 +566,10 @@ public class ClienteControllerGrafico2 {
             }
         });
 
-        return card;
+        return cardRist;
     }
     private BorderPane cardPiatto(BeanPiatto piattoBean) {
-        BorderPane card = new BorderPane();
+        BorderPane cardPiatto = new BorderPane();
 
         // Immagine del piatto
         HBox imgBox;
@@ -594,7 +594,7 @@ public class ClienteControllerGrafico2 {
         clip.setArcHeight(20);
         imageView.setClip(clip);
         imgBox = new HBox(imageView);
-        card.setLeft(imgBox);
+        cardPiatto.setLeft(imgBox);
 
         // Nome del piatto
         Label titleLabel = new Label(piattoBean.getNome());
@@ -669,12 +669,12 @@ public class ClienteControllerGrafico2 {
         infoIcon.setOnMouseClicked(event -> {mostraDettagliPiatto(piattoBean);});
 
         // Imposta il contenuto della card
-        card.setCenter(mainContent);
-        card.setRight(infoPane);
-        card.setPadding(new Insets(15)); // Più spazio interno
-        card.setStyle(CARD_STYLE);
+        cardPiatto.setCenter(mainContent);
+        cardPiatto.setRight(infoPane);
+        cardPiatto.setPadding(new Insets(15)); // Più spazio interno
+        cardPiatto.setStyle(CARD_STYLE);
 
-        return card;
+        return cardPiatto;
     }
     private void mostraDettagliPiatto(BeanPiatto piattoBean) {
 
@@ -683,11 +683,11 @@ public class ClienteControllerGrafico2 {
         popupStage.setTitle("Dettagli piatto");
 
         // Crea il contenuto del popup
-        VBox popupContent = new VBox();
-        popupContent.setSpacing(10);
-        popupContent.setPadding(new Insets(20));
-        popupContent.setStyle(BACKGROUND_COLOR);
-        popupContent.setAlignment(Pos.CENTER);
+        VBox popupContentPiatto = new VBox();
+        popupContentPiatto.setSpacing(10);
+        popupContentPiatto.setPadding(new Insets(20));
+        popupContentPiatto.setStyle(BACKGROUND_COLOR);
+        popupContentPiatto.setAlignment(Pos.CENTER);
 
         try{
             // Creazione grafica di titolo, prezzo, immagine piatto e descrizione
@@ -698,18 +698,18 @@ public class ClienteControllerGrafico2 {
             VBox popupOtherContent = createFinalContent(piattoBean);
 
             // Aggiungi tutti i contenuti creati al layout principale
-            popupContent.getChildren().addAll(popupInitialContent, popupOtherContent);
+            popupContentPiatto.getChildren().addAll(popupInitialContent, popupOtherContent);
 
             // Inserisci il contenuto nel ScrollPane
-            ScrollPane localScrollPane = new ScrollPane(popupContent);
+            ScrollPane localScrollPane = new ScrollPane(popupContentPiatto);
             localScrollPane.setFitToWidth(true);
 
             // Imposta la visualizzazione all'inizio
             localScrollPane.setVvalue(0);
 
             // Imposta il layout come scena del popup
-            Scene popupScene = new Scene(localScrollPane, 600, 600);
-            popupStage.setScene(popupScene);
+            Scene popupScenePiatto = new Scene(localScrollPane, 600, 600);
+            popupStage.setScene(popupScenePiatto);
             // Esecuzione codice passato per forzare lo scroll all'inizio dopo il rendering della GUI
             popupStage.show();
             Platform.runLater(() -> localScrollPane.setVvalue(0));
@@ -724,9 +724,9 @@ public class ClienteControllerGrafico2 {
     private VBox createInitialContent(BeanPiatto piattoBean) throws SQLException {
 
         // Crea VBox per il titolo e dettagli
-        VBox popupInitialContent = new VBox();
-        popupInitialContent.setAlignment(Pos.CENTER);
-        popupInitialContent.setSpacing(5);
+        VBox popupInitialContentPiatto = new VBox();
+        popupInitialContentPiatto.setAlignment(Pos.CENTER);
+        popupInitialContentPiatto.setSpacing(5);
 
         // Titolo del piatto
         Label titolo = new Label(piattoBean.getNome());
@@ -761,10 +761,10 @@ public class ClienteControllerGrafico2 {
         descrizione.setWrapText(true);
 
         // Aggiungi gli elementi iniziali al VBox
-        popupInitialContent.getChildren().addAll(titolo, prezzo, immaginePiatto2, descrizione);
+        popupInitialContentPiatto.getChildren().addAll(titolo, prezzo, immaginePiatto2, descrizione);
 
         // Restituisci il contenuto delle informazioni iniziali
-        return popupInitialContent;
+        return popupInitialContentPiatto;
     }
 
     // Creazione grafica delle sezioni dedicate a ingredienti e link del video per il popup "mostraDettagliPiatto"
@@ -960,9 +960,9 @@ public class ClienteControllerGrafico2 {
     private VBox createInitialContent1(BeanBevanda bevandaBean) throws SQLException {
 
         // Crea VBox per il titolo e dettagli
-        VBox popupInitialContent = new VBox();
-        popupInitialContent.setAlignment(Pos.CENTER);
-        popupInitialContent.setSpacing(5);
+        VBox popupInitialContentBevanda = new VBox();
+        popupInitialContentBevanda.setAlignment(Pos.CENTER);
+        popupInitialContentBevanda.setSpacing(5);
 
         // Titolo del piatto
         Label titolo = new Label(bevandaBean.getNome());
@@ -999,10 +999,10 @@ public class ClienteControllerGrafico2 {
 
 
         // Aggiungi gli elementi iniziali al VBox
-        popupInitialContent.getChildren().addAll(titolo, prezzo, immaginePiatto, descrizione);
+        popupInitialContentBevanda.getChildren().addAll(titolo, prezzo, immaginePiatto, descrizione);
 
         // Restituisci il contenuto delle informazioni iniziali
-        return popupInitialContent;
+        return popupInitialContentBevanda;
     }
     private void aggiungiAlCarrello(BeanItemCarrello item, Label quantitaLabel ){
         ordine.aggiungiAlCarrello(item);

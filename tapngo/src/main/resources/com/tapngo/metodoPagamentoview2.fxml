@@ -43,7 +43,7 @@
 
                 <!-- Pagamento in contante -->
                 <VBox alignment="CENTER" spacing="10">
-                    <ImageView fitWidth="240" fitHeight="240" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#terminaOrdine">
+                    <ImageView fitWidth="240" fitHeight="240" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#terminaOrdine1">
                         <Image url="@/contante.png" />
                     </ImageView>
                     <Text text="Pagamento in contante" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: white;" />
@@ -51,7 +51,7 @@
 
                 <!-- Pagamento da asporto -->
                 <VBox alignment="CENTER" spacing="10">
-                    <ImageView fitWidth="240" fitHeight="240" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#terminaOrdine">
+                    <ImageView fitWidth="240" fitHeight="240" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#terminaOrdine1">
                         <Image url="@/asporto.png" />
                     </ImageView>
                     <Text text="Pagamento da asporto" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-fill: white;" />
