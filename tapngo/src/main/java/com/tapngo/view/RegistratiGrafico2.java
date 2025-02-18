@@ -48,17 +48,17 @@ public class RegistratiGrafico2 {
     // Chiamata al controller del login
     public void loginView() throws IOException {
         // Carica il file FXML per la vista del login
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResourceAsStream("/com/tapngo/login.fxml"));
+        FXMLLoader fxmlLoader1 = new FXMLLoader();
+        Parent root = fxmlLoader1.load(getClass().getResourceAsStream("/com/tapngo/login.fxml"));
 
         // Ottieni lo stage attuale dalla classe ApplicazioneStage
         Stage stage = ApplicazioneStage.getStage();
 
         // Imposta la nuova scena con il layout caricato
-        Scene scene = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
+        Scene scene1 = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
 
         // Cambia la scena dello stage
-        stage.setScene(scene);
+        stage.setScene(scene1);
         stage.show();
     }
 
@@ -88,18 +88,18 @@ public class RegistratiGrafico2 {
         beanRegistrazione.setRipetiPassword(ripetiPassword);
 
         // Variabile che indica se l'email è valida
-        boolean emailValida = true;
+        boolean emailValida1 = true;
 
         // Gestione eccezione per validità email
         try {
             beanRegistrazione.setUsername(username);
         } catch (IllegalArgumentException e) {
             Popup.mostraPopup("Errore email", "L'email fornita non è valida!", "error");
-            emailValida = false;  // L'email non è valida, quindi si ferma il flusso
+            emailValida1 = false;  // L'email non è valida, quindi si ferma il flusso
         }
 
         // Continua solo se l'email è valida
-        if (emailValida) {
+        if (emailValida1) {
 
             // Chiama il controller applicativo per effettuare la registrazione
             RegistratiController controllerRegistrati = new RegistratiController();
@@ -109,17 +109,17 @@ public class RegistratiGrafico2 {
                 controllerRegistrati.effettuaRegistrazione(beanRegistrazione);
 
                 // Carica il file FXML per la vista del login
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                Parent root = fxmlLoader.load(getClass().getResourceAsStream("/com/tapngo/login2.fxml"));
+                FXMLLoader fxmlLoader2 = new FXMLLoader();
+                Parent root = fxmlLoader2.load(getClass().getResourceAsStream("/com/tapngo/login2.fxml"));
 
                 // Ottieni lo stage attuale dalla classe ApplicazioneStage
                 Stage stage = ApplicazioneStage.getStage();
 
                 // Imposta la nuova scena con il layout caricato
-                Scene scene = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
+                Scene scene2 = new Scene(root, ScreenSize.getSceneWidth(), ScreenSize.getSceneHeight());
 
                 // Cambia la scena dello stage
-                stage.setScene(scene);
+                stage.setScene(scene2);
                 stage.show();
 
                 Popup.mostraPopup("Successo", "Ti sei registrato con successo!", "success");
