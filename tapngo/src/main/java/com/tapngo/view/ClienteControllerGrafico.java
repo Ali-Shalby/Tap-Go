@@ -309,11 +309,7 @@ public class ClienteControllerGrafico {
 
 
         card.setOnMouseClicked(event -> {
-            try {
-                mostraMenu(ristoranteBean);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            try {mostraMenu(ristoranteBean);} catch (IOException e) {throw new RuntimeException(e);}
         });
 
         return card;
@@ -324,8 +320,9 @@ public class ClienteControllerGrafico {
 
 
         HBox imgBox;
-        ImageView imageView;
         Image image;
+        ImageView imageView;
+
         try {
             if (piattoBean.getImmagine() != null && piattoBean.getImmagine().getBinaryStream() != null) {
                 InputStream inputStream = piattoBean.getImmagine().getBinaryStream();
@@ -341,8 +338,9 @@ public class ClienteControllerGrafico {
         imageView.setFitHeight(70);
         imageView.setFitWidth(65);
         Rectangle clip = new Rectangle(65, 70);
-        clip.setArcWidth(15);
         clip.setArcHeight(15);
+        clip.setArcWidth(15);
+
         imageView.setClip(clip);
         imgBox = new HBox(imageView);
         card.setLeft(imgBox);
@@ -353,18 +351,18 @@ public class ClienteControllerGrafico {
 
         // Creazione dell'icona per la valutazione
         ImageView diminuisciIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/meno_icon.png");
-        diminuisciIcon.setFitHeight(14);
-        diminuisciIcon.setFitWidth(14);
+
+
         ImageView aumentaIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/piu_icon.png");
         aumentaIcon.setFitHeight(14);
         aumentaIcon.setFitWidth(14);
+        diminuisciIcon.setFitHeight(14);
+        diminuisciIcon.setFitWidth(14);
         Label quantitaLabel;
         quantitaLabel = new Label(piattoBean.getQuantita().toString());
         quantitaLabel.setStyle(LABEL_TEXT_STYLE);
 
-        // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
-        Region spacer = new Region();
-        spacer.setMinWidth(50);
+
 
         aumentaIcon.setOnMouseClicked(event -> {aggiungiAlCarrello(piattoBean, quantitaLabel);});
         diminuisciIcon.setOnMouseClicked(event -> {rimuoviDalCarrello(piattoBean, quantitaLabel);});
@@ -372,15 +370,18 @@ public class ClienteControllerGrafico {
         // Creazione della label oer il prezzo
         Label prezzoLabel = new Label(piattoBean.getPrezzo() + "€");
         prezzoLabel.setStyle(LABEL_TEXT_STYLE);
-
+        // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
+        Region spacer = new Region();
+        spacer.setMinWidth(50);
         // Parte bottom per info valutazione e prezzo
         HBox infoBox = new HBox(prezzoLabel, spacer, diminuisciIcon, quantitaLabel, aumentaIcon);
         infoBox.setSpacing(5);
 
         // Creazione della struttura principale
         VBox titleAndDetailsBox = new VBox(titleLabel, infoBox);
-        titleAndDetailsBox.setSpacing(10);
         titleAndDetailsBox.setAlignment(Pos.CENTER_LEFT);
+        titleAndDetailsBox.setSpacing(10);
+
 
         // Creazione della struttura principale
         HBox mainContent = new HBox(imgBox, titleAndDetailsBox);
@@ -389,8 +390,9 @@ public class ClienteControllerGrafico {
 
         // Creazione dell'icona delle info
         ImageView infoIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/info_icon.png");
-        infoIcon.setFitHeight(24);
         infoIcon.setFitWidth(24);
+        infoIcon.setFitHeight(24);
+
         StackPane infoPane = new StackPane(infoIcon);
         StackPane.setAlignment(infoIcon,Pos.TOP_RIGHT);
 
@@ -399,8 +401,9 @@ public class ClienteControllerGrafico {
         // Impostazione dell'elemento grafico
         card.setCenter(mainContent);
         card.setRight(infoPane);
-        card.setPadding(new Insets(10));
         card.setStyle(CARD_STYLE);
+        card.setPadding(new Insets(10));
+
 
 
         return card;
@@ -514,18 +517,16 @@ public class ClienteControllerGrafico {
 
         // Crea il contenuto del popup
         VBox popupContent = new VBox();
-        popupContent.setSpacing(10);
         popupContent.setPadding(new Insets(20));
         popupContent.setStyle(BACKGROUND_COLOR);
         popupContent.setAlignment(Pos.CENTER);
+        popupContent.setSpacing(10);
 
         try{
-            // Creazione grafica di titolo, prezzo, immagine piatto e descrizione
-            VBox popupInitialContent = createInitialContent(piattoBean);
-
-
             // Creazione grafica delle sezioni dedicate a ingredienti e link del video
             VBox popupOtherContent = createFinalContent(piattoBean);
+            // Creazione grafica di titolo, prezzo, immagine piatto e descrizione
+            VBox popupInitialContent = createInitialContent(piattoBean);
 
             // Aggiungi tutti i contenuti creati al layout principale
             popupContent.getChildren().addAll(popupInitialContent, popupOtherContent);
@@ -545,9 +546,7 @@ public class ClienteControllerGrafico {
             Platform.runLater(() -> localScrollPane.setVvalue(0));
             // Mostra il popup
             popupStage.show();
-        } catch (DAOException | SQLException e) {
-            Popup.mostraPopup(ERROR_MESSAGE_TITLE, "Errore nel caricamento dei dettagli del piatto.", ERROR_POPUP_TYPE);
-        }
+        } catch (DAOException | SQLException e) {Popup.mostraPopup(ERROR_MESSAGE_TITLE, "Errore nel caricamento dei dettagli del piatto.", ERROR_POPUP_TYPE);}
     }
 
     // Creazione grafica di titolo, dettagli, immagine e descrizione per il popup "mostraDettagliPiatto"
@@ -560,35 +559,38 @@ public class ClienteControllerGrafico {
 
         // Titolo del piatto
         Label titolo = new Label(piattoBean.getNome());
-        titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 22px;");
         titolo.setAlignment(Pos.CENTER);
+        titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 22px;");
 
         // Dettaglio prezzo sopra l'immagine
         Label prezzo = new Label(piattoBean.getPrezzo() + "€");
-        prezzo.setStyle(SUB_LABEL_STYLE);
         prezzo.setAlignment(Pos.CENTER);
+        prezzo.setStyle(SUB_LABEL_STYLE);
 
         // Gestione grafica dell'immagine del piatto
         ImageView immaginePiatto;
         if (piattoBean.getImmagine() != null && piattoBean.getImmagine().getBinaryStream() != null) {
             immaginePiatto = new ImageView(new Image(piattoBean.getImmagine().getBinaryStream()));
-            immaginePiatto.setFitWidth(250);
             immaginePiatto.setFitHeight(150);
+            immaginePiatto.setFitWidth(250);
+
         } else {
             immaginePiatto = new ImageView(DEFAULT_IMAGE);
-            immaginePiatto.setFitWidth(140);
             immaginePiatto.setFitHeight(140);
+            immaginePiatto.setFitWidth(140);
+
         }
         immaginePiatto.setPreserveRatio(true);
         Rectangle clip = new Rectangle(immaginePiatto.getFitWidth(), immaginePiatto.getFitHeight());
-        clip.setArcWidth(30);
         clip.setArcHeight(30);
+        clip.setArcWidth(30);
         immaginePiatto.setClip(clip);
 
         // Descrizione del piatto
         Label descrizione = new Label(piattoBean.getDescrizione());
-        descrizione.setStyle("-fx-font-size: 13px; -fx-text-fill: #666666; -fx-text-alignment: justify;");
         descrizione.setWrapText(true);
+        descrizione.setStyle("-fx-font-size: 13px; -fx-text-fill: #666666; -fx-text-alignment: justify;");
+
 
         // Aggiungi gli elementi iniziali al VBox
         popupInitialContent.getChildren().addAll(titolo, prezzo, immaginePiatto, descrizione);
@@ -607,8 +609,8 @@ public class ClienteControllerGrafico {
 
         // Ingredienti del piatto
         Label ingredientiLabel = new Label("Ingredienti");
-        ingredientiLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13.9px;");
         VBox.setMargin(ingredientiLabel, new Insets(10, 0, 0, 0));
+        ingredientiLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13.9px;");
         VBox ingredientiBox = new VBox(10);
         String ingredienti = beanPiatto.getIngredienti();
         if (ingredienti == null || ingredienti.isEmpty()) {
@@ -621,9 +623,9 @@ public class ClienteControllerGrafico {
 
         // Video URL
         Label videoLabel = new Label("Video Preparazione");
+        VBox linkVideoBox = new VBox(10);
         videoLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 13.8px;");
         VBox.setMargin(videoLabel, new Insets(10, 0, 0, 0));
-        VBox linkVideoBox = new VBox(10);
         String linkVideo = beanPiatto.getUrlVideo();
         if (linkVideo == null || linkVideo.isEmpty()) {
             Label linkVideoMessage = new Label("Non è presente il link per il video");
@@ -698,9 +700,10 @@ public class ClienteControllerGrafico {
     private void mostraMenu(BeanRistorante ristoranteBean) throws IOException{
         try {
             BeanPiatti piatti = ordine.mostraPiatti(ristoranteBean);
-            BeanBevande bevande = ordine.mostraBevande(ristoranteBean);
             carrelloBean = ordine.creaCarrello(ristoranteBean, username);
-            if (piatti.getPiatti().isEmpty() && bevande.getBevande().isEmpty()){
+            BeanBevande bevande = ordine.mostraBevande(ristoranteBean);
+
+            if (bevande.getBevande().isEmpty() && piatti.getPiatti().isEmpty() ){
                 Popup.mostraPopup(WARNING_MESSAGE_TITLE,"non è stato possibile leggere il menù della ristorazione scelta",WARNING_POPUP_TYPE);
             }else{
 
