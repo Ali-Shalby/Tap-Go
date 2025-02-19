@@ -3,9 +3,9 @@ package com.tapngo.model.domain;
 import java.sql.Blob;
 
 public interface ItemCarrello {
-    public double getPrezzo();
-    public String getNome();
+    double getPrezzo();
+    String getNome();
 
-    public Blob getImmagine();
+    Blob getImmagine();
 
 }
