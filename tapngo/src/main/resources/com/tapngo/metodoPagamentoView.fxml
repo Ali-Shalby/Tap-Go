@@ -48,7 +48,7 @@
                             <ImageView fitWidth="100" fitHeight="100" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#terminaOrdine">
                                 <Image url="@/contante.png" />
                             </ImageView>
-                            <Text text="Pagamento in contante" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-fill: white;" /> <!-- Testo bianco -->
+                            <Text text="A domicilio" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-fill: white;" /> <!-- Testo bianco -->
                         </VBox>
 
                         <!-- Contenitore per 'Pagamento da asporto' -->
@@ -56,7 +56,7 @@
                             <ImageView fitWidth="100" fitHeight="100" style="-fx-effect: dropshadow(gaussian, gray, 10, 0.5, 0, 0);" onMouseClicked="#terminaOrdine">
                                 <Image url="@/asporto.png" />
                             </ImageView>
-                            <Text text="Pagamento da asporto" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-fill: white;" /> <!-- Testo bianco -->
+                            <Text text="Da asporto" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-fill: white;" /> <!-- Testo bianco -->
                         </VBox>
                     </HBox>
                 </VBox>
