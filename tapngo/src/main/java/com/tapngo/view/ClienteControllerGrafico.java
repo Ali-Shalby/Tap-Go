@@ -956,7 +956,7 @@ public class ClienteControllerGrafico {
 
     }
 
-    public HBox createContentOrdine(BeanItemCarrello item) throws SQLException {
+    private HBox createContentOrdine(BeanItemCarrello item) throws SQLException {
         // Crea HBox per contenere l'immagine e il testo
         HBox popupInitialContent = new HBox();
 
