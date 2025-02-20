@@ -49,7 +49,7 @@ public class RegistratiGrafico2 {
     public void loginView() throws IOException {
         // Carica il file FXML per la vista del login
         FXMLLoader fxmlLoader1 = new FXMLLoader();
-        Parent root = fxmlLoader1.load(getClass().getResourceAsStream("/com/tapngo/login.fxml"));
+        Parent root = fxmlLoader1.load(getClass().getResourceAsStream("/com/tapngo/login2.fxml"));
 
         // Ottieni lo stage attuale dalla classe ApplicazioneStage
         Stage stage = ApplicazioneStage.getStage();
