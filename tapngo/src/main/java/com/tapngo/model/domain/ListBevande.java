@@ -6,10 +6,10 @@ import java.util.List;
 public class ListBevande {
     private List<Bevanda> listaBevande = new ArrayList<>();
 
-    // Metodo per aggiungere un ristorante alla lista
+    // Metodo per aggiungere una bevanda alla lista
     public void addBevanda(Bevanda bevanda) {this.listaBevande.add(bevanda);}
 
-    // Metodo per ottenere la lista dei ristoranti
+    // Metodo per ottenere la lista delle bevande
     public List<Bevanda> getListaBevande(){
         return listaBevande;
     }

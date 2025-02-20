@@ -477,7 +477,7 @@ public class ClienteControllerGrafico2 {
         try {
             if (ristoranteBean.getImmagine() != null && ristoranteBean.getImmagine().getBinaryStream() != null) {
                 InputStream inputStream = ristoranteBean.getImmagine().getBinaryStream();
-                image = new Image(inputStream, 120, 120, true, true); // Immagine più grande
+                image = new Image(inputStream, 120, 120, true, true);
             } else {
                 image = new Image(DEFAULT_IMAGE);
             }
@@ -486,9 +486,9 @@ public class ClienteControllerGrafico2 {
         }
 
         imageView1 = new ImageView(image);
-        imageView1.setFitHeight(120); // Immagine più grande
+        imageView1.setFitHeight(120);
         imageView1.setFitWidth(110);
-        Rectangle clip = new Rectangle(110, 120); // Clipping più grande
+        Rectangle clip = new Rectangle(110, 120);
         clip.setArcWidth(20);
         clip.setArcHeight(20);
         imageView1.setClip(clip);
@@ -497,65 +497,65 @@ public class ClienteControllerGrafico2 {
 
         // Nome del ristorante
         Label titleLabel = new Label(ristoranteBean.getNome());
-        titleLabel.setStyle(TITLE_TEXT_STYLE); // Titolo più grande
+        titleLabel.setStyle(TITLE_TEXT_STYLE);
 
         // Locazione del ristorante
         ImageView indicazioneIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/indicazione_icon.png");
-        indicazioneIcon.setFitHeight(20); // Icona più grande
+        indicazioneIcon.setFitHeight(20);
         indicazioneIcon.setFitWidth(20);
         Label locazioneLabel = new Label(ristoranteBean.getIndirizzo() + ", " + ristoranteBean.getCitta());
-        locazioneLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
+        locazioneLabel.setStyle(LABEL_TEXT_STYLE);
         HBox indicazioniBox = new HBox(indicazioneIcon, locazioneLabel);
-        indicazioniBox.setSpacing(10); // Più spazio tra icona e testo
+        indicazioniBox.setSpacing(10);
 
         // Tipologia di cucina
         ImageView cucinaIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/cucina_icon.png");
-        cucinaIcon.setFitHeight(20); // Icona più grande
+        cucinaIcon.setFitHeight(20);
         cucinaIcon.setFitWidth(20);
         Label cucinaLabel = new Label(ristoranteBean.getTipologia());
-        cucinaLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
+        cucinaLabel.setStyle(LABEL_TEXT_STYLE);
         HBox cucinaBox = new HBox(cucinaIcon, cucinaLabel);
-        cucinaBox.setSpacing(10); // Più spazio tra icona e testo
+        cucinaBox.setSpacing(10);
 
         // Valutazione
         ImageView valutazioneIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/valutazione_icon.png");
-        valutazioneIcon.setFitHeight(20); // Icona più grande
+        valutazioneIcon.setFitHeight(20);
         valutazioneIcon.setFitWidth(20);
         Label valutazioneLabel = new Label(ristoranteBean.getValutazione() + "/5");
-        valutazioneLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
+        valutazioneLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Spazio vuoto
         Region spacer = new Region();
-        spacer.setMinWidth(20); // Più spazio
+        spacer.setMinWidth(20);
 
         // Prezzo
         ImageView prezzoIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/prezzo_icon.png");
-        prezzoIcon.setFitHeight(20); // Icona più grande
+        prezzoIcon.setFitHeight(20);
         prezzoIcon.setFitWidth(20);
         Label prezzoLabel = new Label(ristoranteBean.getPrezzo() + "€");
-        prezzoLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
+        prezzoLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Box per valutazione e prezzo
         HBox infoBox = new HBox(valutazioneIcon, valutazioneLabel, spacer, prezzoIcon, prezzoLabel);
-        infoBox.setSpacing(10); // Più spazio tra elementi
+        infoBox.setSpacing(10);
 
         // Box per dettagli
         VBox detailsBox = new VBox(cucinaBox, indicazioniBox, infoBox);
-        detailsBox.setSpacing(10); // Più spazio tra righe
+        detailsBox.setSpacing(10);
 
         // Box principale per titolo e dettagli
         VBox titleAndDetailsBox = new VBox(titleLabel, detailsBox);
-        titleAndDetailsBox.setSpacing(10); // Più spazio tra titolo e dettagli
+        titleAndDetailsBox.setSpacing(10); //
         titleAndDetailsBox.setAlignment(Pos.CENTER_LEFT);
 
         // Contenuto principale
         HBox mainContent = new HBox(imgBox, titleAndDetailsBox);
-        mainContent.setSpacing(20); // Più spazio tra immagine e contenuto
+        mainContent.setSpacing(20);
         mainContent.setAlignment(Pos.CENTER_LEFT);
 
         // Imposta il contenuto della card
         cardRist.setCenter(mainContent);
-        cardRist.setPadding(new Insets(20)); // Più spazio interno
+        cardRist.setPadding(new Insets(20));
         cardRist.setStyle(CARD_STYLE);
 
         cardRist.setOnMouseClicked(event -> {
@@ -578,7 +578,7 @@ public class ClienteControllerGrafico2 {
         try {
             if (piattoBean.getImmagine() != null && piattoBean.getImmagine().getBinaryStream() != null) {
                 InputStream inputStream = piattoBean.getImmagine().getBinaryStream();
-                image2 = new Image(inputStream, 120, 120, true, true); // Immagine più grande
+                image2 = new Image(inputStream, 120, 120, true, true);
             } else {
                 image2 = new Image(DEFAULT_IMAGE);
             }
@@ -587,9 +587,9 @@ public class ClienteControllerGrafico2 {
         }
 
         imageView = new ImageView(image2);
-        imageView.setFitHeight(100); // Immagine più grande
+        imageView.setFitHeight(100);
         imageView.setFitWidth(90);
-        Rectangle clip = new Rectangle(90, 100); // Clipping più grande
+        Rectangle clip = new Rectangle(90, 100);
         clip.setArcWidth(20);
         clip.setArcHeight(20);
         imageView.setClip(clip);
@@ -598,17 +598,17 @@ public class ClienteControllerGrafico2 {
 
         // Nome del piatto
         Label titleLabel = new Label(piattoBean.getNome());
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;"); // Testo più grande
+        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         // Icone per aumentare/diminuire la quantità
         ImageView diminuisciIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/meno_icon.png");
-        diminuisciIcon.setFitHeight(20); // Icona più grande
+        diminuisciIcon.setFitHeight(20);
         diminuisciIcon.setFitWidth(20);
         ImageView aumentaIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/piu_icon.png");
-        aumentaIcon.setFitHeight(20); // Icona più grande
+        aumentaIcon.setFitHeight(20);
         aumentaIcon.setFitWidth(20);
         Label quantitaLabel = new Label(piattoBean.getQuantita().toString());
-        quantitaLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
+        quantitaLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Aggiungi azioni alle icone
         aumentaIcon.setOnMouseClicked(event -> aggiungiAlCarrello(piattoBean, quantitaLabel));
@@ -616,7 +616,7 @@ public class ClienteControllerGrafico2 {
 
         // Prezzo
         Label prezzoLabel = new Label(piattoBean.getPrezzo() + "€");
-        prezzoLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
+        prezzoLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Spaziatore per spingere infoBox a destra
         Region spacer = new Region();
@@ -656,12 +656,12 @@ public class ClienteControllerGrafico2 {
 
         // Contenuto principale
         HBox mainContent = new HBox(imgBox, titleAndInfoBox);
-        mainContent.setSpacing(20); // Più spazio tra immagine e contenuto
+        mainContent.setSpacing(20); //
         mainContent.setAlignment(Pos.CENTER_LEFT);
 
         // Icona delle info
         ImageView infoIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/info_icon.png");
-        infoIcon.setFitHeight(30); // Icona più grande
+        infoIcon.setFitHeight(30);
         infoIcon.setFitWidth(30);
         StackPane infoPane = new StackPane(infoIcon);
         StackPane.setAlignment(infoIcon, Pos.TOP_RIGHT);
@@ -671,7 +671,7 @@ public class ClienteControllerGrafico2 {
         // Imposta il contenuto della card
         cardPiatto.setCenter(mainContent);
         cardPiatto.setRight(infoPane);
-        cardPiatto.setPadding(new Insets(15)); // Più spazio interno
+        cardPiatto.setPadding(new Insets(15));
         cardPiatto.setStyle(CARD_STYLE);
 
         return cardPiatto;
@@ -822,7 +822,7 @@ public class ClienteControllerGrafico2 {
         try {
             if (bevandaBean.getImmagine() != null && bevandaBean.getImmagine().getBinaryStream() != null) {
                 InputStream inputStream = bevandaBean.getImmagine().getBinaryStream();
-                imageB = new Image(inputStream, 120, 120, true, true); // Immagine più grande
+                imageB = new Image(inputStream, 120, 120, true, true);
             } else {
                 imageB = new Image(DEFAULT_IMAGE);
             }
@@ -831,9 +831,9 @@ public class ClienteControllerGrafico2 {
         }
 
         imageView = new ImageView(imageB);
-        imageView.setFitHeight(100); // Immagine più grande
+        imageView.setFitHeight(100);
         imageView.setFitWidth(90);
-        Rectangle clip1 = new Rectangle(90, 100); // Clipping più grande
+        Rectangle clip1 = new Rectangle(90, 100);
         clip1.setArcWidth(20);
         clip1.setArcHeight(20);
         imageView.setClip(clip1);
@@ -842,17 +842,17 @@ public class ClienteControllerGrafico2 {
 
         // Nome della bevanda
         Label titleLabel = new Label(bevandaBean.getNome());
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;"); // Testo più grande
+        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         // Icone per aumentare/diminuire la quantità
         ImageView diminuisciIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/meno_icon.png");
-        diminuisciIcon.setFitHeight(20); // Icona più grande
+        diminuisciIcon.setFitHeight(20);
         diminuisciIcon.setFitWidth(20);
         ImageView aumentaIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/piu_icon.png");
-        aumentaIcon.setFitHeight(20); // Icona più grande
+        aumentaIcon.setFitHeight(20);
         aumentaIcon.setFitWidth(20);
         Label quantitaLabel = new Label(bevandaBean.getQuantita().toString());
-        quantitaLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
+        quantitaLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Aggiungi azioni alle icone
         aumentaIcon.setOnMouseClicked(event -> aggiungiAlCarrello(bevandaBean, quantitaLabel));
@@ -860,7 +860,7 @@ public class ClienteControllerGrafico2 {
 
         // Prezzo
         Label prezzoLabel = new Label(bevandaBean.getPrezzo() + "€");
-        prezzoLabel.setStyle(LABEL_TEXT_STYLE); // Testo più grande
+        prezzoLabel.setStyle(LABEL_TEXT_STYLE);
 
         // Spaziatore per spingere infoBox a destra
         Region spacer = new Region();
@@ -897,12 +897,12 @@ public class ClienteControllerGrafico2 {
 
         // Contenuto principale
         HBox mainContent = new HBox(imgBox, titleAndInfoBox);
-        mainContent.setSpacing(20); // Più spazio tra immagine e contenuto
+        mainContent.setSpacing(20);
         mainContent.setAlignment(Pos.CENTER_LEFT);
 
         // Icona delle info
         ImageView infoIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/info_icon.png");
-        infoIcon.setFitHeight(30); // Icona più grande
+        infoIcon.setFitHeight(30);
         infoIcon.setFitWidth(30);
         StackPane infoPane = new StackPane(infoIcon);
         StackPane.setAlignment(infoIcon, Pos.TOP_RIGHT);
@@ -912,7 +912,7 @@ public class ClienteControllerGrafico2 {
         // Imposta il contenuto della card
         card.setCenter(mainContent);
         card.setRight(infoPane);
-        card.setPadding(new Insets(15)); // Più spazio interno
+        card.setPadding(new Insets(15));
         card.setStyle(CARD_STYLE);
 
         return card;
@@ -931,7 +931,7 @@ public class ClienteControllerGrafico2 {
         popupContent.setAlignment(Pos.CENTER);
 
         try{
-            // Creazione grafica di titolo, prezzo, immagine piatto e descrizione
+
             VBox popupInitialContentB = createInitialContent1(bevandaBean);
 
 
@@ -972,7 +972,7 @@ public class ClienteControllerGrafico2 {
         titolo.setStyle("-fx-font-weight: bold; -fx-font-size: 22px;");
         titolo.setAlignment(Pos.CENTER);
 
-        // Gestione grafica dell'immagine del piatto
+
         ImageView immagineBevanda;
         if (bevandaBean.getImmagine() != null && bevandaBean.getImmagine().getBinaryStream() != null) {
             immagineBevanda = new ImageView(new Image(bevandaBean.getImmagine().getBinaryStream()));

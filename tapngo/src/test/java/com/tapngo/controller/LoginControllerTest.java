@@ -18,7 +18,7 @@ class LoginControllerTest {
     @Test
     void loginSuccessfulCliente() {
 
-        // Inizializzo un bean con le credenziali di un utente domestico che so che esiste
+        // Inizializzo un bean con le credenziali di un cliente che so che esiste
         CredentialsBean credentialsBean = new CredentialsBean();
         credentialsBean.setUsername("ali.shalby03@gmail.com");
         credentialsBean.setPassword("a");
@@ -37,7 +37,7 @@ class LoginControllerTest {
     @Test
     void loginUnsuccessfulCliente() {
 
-        // Inizializzo un bean con le credenziali di un utente domestico che so che non esiste
+        // Inizializzo un bean con le credenziali di un cliente che so che non esiste
         CredentialsBean credentialsBean = new CredentialsBean();
         credentialsBean.setUsername("utente.inesistente@nonesiste.com");
         credentialsBean.setPassword("nonesisto");

@@ -82,7 +82,7 @@ public class ClienteControllerGrafico {
     private static final String LABEL_TEXT_STYLE = "-fx-font-size: 12px;";
     private static final String CARD_STYLE = "-fx-border-color: gray; -fx-border-width: 1; -fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;";
 
-    // Setta il titolo della categoria della barra di navigazione superiore
+    // Setta il titolo della homepage
     public void setLabelTitle(String title) {
         labelTitle.setText(title);
     }
@@ -286,7 +286,7 @@ public class ClienteControllerGrafico {
         HBox infoBox = new HBox(valutazioneIcon, valutazioneLabel, spacer, prezzoIcon, prezzoLabel);
         infoBox.setSpacing(5);
 
-        // VBox che contiene le informazioni del cuoco e calorie-durata
+        // VBox che contiene le sul ristorante
         VBox detailsBox = new VBox(cucinaBox,indicazioniBox, infoBox);
         detailsBox.setSpacing(5);
 
@@ -349,7 +349,7 @@ public class ClienteControllerGrafico {
         Label titleLabel = new Label(piattoBean.getNome());
         titleLabel.setStyle(TITLE_TEXT_STYLE);
 
-        // Creazione dell'icona per la valutazione
+        // Creazione delle icone per aggiungere e rimuovere un piatto dal carrello
         ImageView diminuisciIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/meno_icon.png");
 
 
@@ -370,10 +370,10 @@ public class ClienteControllerGrafico {
         // Creazione della label oer il prezzo
         Label prezzoLabel = new Label(piattoBean.getPrezzo() + "€");
         prezzoLabel.setStyle(LABEL_TEXT_STYLE);
-        // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
+        // Creazione di uno spazio vuoto (Region) tra la quantità e il prezzo
         Region spacer = new Region();
         spacer.setMinWidth(50);
-        // Parte bottom per info valutazione e prezzo
+        // Parte bottom per info piatto
         HBox infoBox = new HBox(prezzoLabel, spacer, diminuisciIcon, quantitaLabel, aumentaIcon);
         infoBox.setSpacing(5);
 
@@ -438,11 +438,11 @@ public class ClienteControllerGrafico {
         imgBox = new HBox(imageView);
         card.setLeft(imgBox);
 
-        // Creazione del nome del piatto
+        // Creazione del nome dela bevanda
         Label titleLabel = new Label(bevandaBean.getNome());
         titleLabel.setStyle(TITLE_TEXT_STYLE);
 
-        // Creazione dell'icona per la valutazione
+        // Creazione delle icone per aggiungere e rimuovere una bevanda dal carrello
         ImageView diminuisciIcon = new ImageView("C:/Users/marco/OneDrive/Desktop/project ISPW/Tap-Go/tapngo/src/main/images/meno_icon.png");
         diminuisciIcon.setFitHeight(14);
         diminuisciIcon.setFitWidth(14);
@@ -456,7 +456,7 @@ public class ClienteControllerGrafico {
         aumentaIcon.setOnMouseClicked(event -> {aggiungiAlCarrello(bevandaBean, quantitaLabel);});
         diminuisciIcon.setOnMouseClicked(event -> {rimuoviDalCarrello(bevandaBean, quantitaLabel);});
 
-        // Creazione di uno spazio vuoto (Region) tra la valutzione e il prezzo
+        // Creazione di uno spazio vuoto (Region) tra la quantità e il prezzo
         Region spacer = new Region();
         spacer.setMinWidth(50);
 
@@ -464,7 +464,7 @@ public class ClienteControllerGrafico {
         Label prezzoLabel = new Label("   "+bevandaBean.getPrezzo() + "€");
         prezzoLabel.setStyle(LABEL_TEXT_STYLE);
 
-        // Parte bottom per info quantita e prezzo
+        // Parte bottom per info bevanda
         HBox infoBox = new HBox(prezzoLabel, spacer, diminuisciIcon, quantitaLabel, aumentaIcon);
         infoBox.setSpacing(5);
 
@@ -665,7 +665,7 @@ public class ClienteControllerGrafico {
         prezzo.setStyle(SUB_LABEL_STYLE);
         prezzo.setAlignment(Pos.CENTER);
 
-        // Gestione grafica dell'immagine del piatto
+        // Gestione grafica dell'immagine della bevanda
         ImageView immaginePiatto;
         if (bevandaBean.getImmagine() != null && bevandaBean.getImmagine().getBinaryStream() != null) {
             immaginePiatto = new ImageView(new Image(bevandaBean.getImmagine().getBinaryStream()));
@@ -751,7 +751,7 @@ public class ClienteControllerGrafico {
         popupContent.setAlignment(Pos.CENTER);
 
         try{
-            // Creazione grafica di titolo, prezzo, immagine piatto e descrizione
+            // Creazione grafica delle info della bevanda
             VBox popupInitialContent = createInitialContent1(bevandaBean);
 
 
@@ -963,7 +963,7 @@ public class ClienteControllerGrafico {
         popupInitialContent.setSpacing(10); // Spaziatura tra immagine e testo
         popupInitialContent.setAlignment(Pos.CENTER_LEFT);
 
-        // Gestione grafica dell'immagine del piatto
+        // Gestione grafica dell'immagine dell'elemento del carrello
         ImageView immagineItem;
         if (item.getImmagine() != null && item.getImmagine().getBinaryStream() != null) {
             immagineItem = new ImageView(new Image(item.getImmagine().getBinaryStream()));

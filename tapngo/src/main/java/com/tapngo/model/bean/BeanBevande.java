@@ -16,10 +16,10 @@ public class BeanBevande {
         this.listBevande = new ArrayList<>();
         this.bevanda = bevanda;
     }
-    // Metodo per la restituzione della lista di piatti
+    // Metodo per la restituzione della lista di bevande
     public List<BeanBevanda> getBevande() {
         return listBevande;
     }
-    // Metodo per l'aggiunta di un piatto alla lista di piatti
+    // Metodo per l'aggiunta di una bevanda alla lista di bevande
     public void addBevanda(BeanBevanda beanBevanda){listBevande.add(beanBevanda);}
 }

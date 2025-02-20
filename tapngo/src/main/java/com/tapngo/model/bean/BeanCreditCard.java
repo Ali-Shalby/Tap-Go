@@ -22,7 +22,7 @@ public class BeanCreditCard {
         this.cvc = cvc;
     }
 
-    // Metodo per validare il numero della carta (12 cifre)
+    // Metodo per validare il numero della carta (16 cifre)
     private boolean isValidCardNumber(String cardNumber) {
         return cardNumber != null && cardNumber.matches("\\d{16}");
     }

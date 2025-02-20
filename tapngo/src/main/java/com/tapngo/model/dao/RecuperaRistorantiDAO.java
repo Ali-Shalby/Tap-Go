@@ -33,7 +33,7 @@ public class RecuperaRistorantiDAO {
             if(status) {
                 ResultSet rs = cs.getResultSet();
 
-                // Itera attraverso il ResultSet e popola la lista di ricette
+                // Itera attraverso il ResultSet e popola la lista di ristoranti
                 while (rs.next()) {
                     Ristorante restaurant = new Ristorante(rs.getString("nomeRistorante"));
                     restaurant.setCitta(rs.getString("città"));
@@ -45,7 +45,7 @@ public class RecuperaRistorantiDAO {
                     restaurant.setNumTelefono(rs.getString("numTelefono"));
                     restaurant.setTipo(rs.getString("tipo"));
 
-                    // Aggiungi ricetta alla lista ricette
+                    // Aggiungi ristorante alla lista ristoranti
                     listRistoranti.addRistorante(restaurant);
                 }
             }

@@ -29,7 +29,7 @@ public class RecuperaPiattiDAO {
             if(status) {
                 ResultSet rs = cs.getResultSet();
                 FactoryPiatto factoryPiatto = new FactoryPiatto();
-                // Itera attraverso il ResultSet e popola la lista di ricette
+                // Itera attraverso il ResultSet e popola la lista di piatti
                 while (rs.next()) {
                     Piatto piatto = factoryPiatto.createPiatto(rs.getString("tipo"));
                     piatto.setNome(rs.getString("nomeAlimento"));
@@ -40,7 +40,7 @@ public class RecuperaPiattiDAO {
                     piatto.setImmagine(rs.getBlob("immagine"));
 
 
-                    // Aggiungi ricetta alla lista ricette
+                    // Aggiungi piatto alla lista piatti
                     listPiatti.addPiatto(piatto);
                 }
             }

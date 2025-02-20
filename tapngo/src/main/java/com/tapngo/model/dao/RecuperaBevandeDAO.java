@@ -27,7 +27,7 @@ public class RecuperaBevandeDAO {
             if(status) {
                 ResultSet rs = cs.getResultSet();
 
-                // Itera attraverso il ResultSet e popola la lista di ricette
+                // Itera attraverso il ResultSet e popola la lista di bevande
                 while (rs.next()) {
                     Bevanda bevanda = new Bevanda(rs.getBoolean("alcolico"));
                     bevanda.setNome(rs.getString("nomeAlimento"));
@@ -36,7 +36,7 @@ public class RecuperaBevandeDAO {
                     bevanda.setImmagine(rs.getBlob("immagine"));
 
 
-                    // Aggiungi ricetta alla lista ricette
+                    // Aggiungi bevanda alla lista bevande
                     listBevande.addBevanda(bevanda);
                 }
             }
